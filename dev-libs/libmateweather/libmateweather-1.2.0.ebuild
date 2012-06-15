@@ -31,6 +31,7 @@ RDEPEND=">=x11-libs/gtk+-2.11:2
 DEPEND="${RDEPEND}
 	sys-devel/gettext
 	>=dev-util/intltool-0.40.3
+	>=mate-base/mate-common-1.2.2
 	virtual/pkgconfig
 	>=dev-util/gtk-doc-am-1.9"
 
@@ -43,6 +44,11 @@ pkg_setup() {
 		$(use_enable python)"
 	use python && python_set_active_version 2
 	python_pkg_setup
+}
+
+src_prepare() {
+	mate_src_prepare
+	mate-doc-common --copy || die
 }
 
 src_install() {
