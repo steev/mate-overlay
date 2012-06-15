@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layman>
+  <overlay contact="https://github.com/Sabayon/mate-overlay" name="mate-overlay" src="https://github.com/Sabayon/mate-overlay" status="unofficial" type="git">
+    <link>http://github.com/Sabayon/mate-overlay</link>
+    <description>Sabayon Linux MATE Overlay</description>
+  </overlay>
+</layman>
