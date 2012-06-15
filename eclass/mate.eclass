@@ -10,7 +10,7 @@
 # Exports portage base functions used by ebuilds written for packages using the
 # MATE framework. For additional functions, see mate-utils.eclass.
 
-inherit fdo-mime libtool mate-desktop.org mate-utils
+inherit autotools fdo-mime libtool mate-desktop.org mate-utils
 
 case "${EAPI:-0}" in
 	0|1)
@@ -109,7 +109,7 @@ mate_src_prepare() {
 	fi
 
 	if grep -q "^AC_PROG_INTLTOOL" "${mate_conf_in}" || grep -q "^IT_PROG_INTLTOOL" "${mate_conf_in}"; then
-		mkdir -p "${S}"/m4
+		mkdir -p "${S}/m4"
 		autotools_run_tool intltoolize --automake --copy --force || die
 	fi
 
