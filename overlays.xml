@@ -4,7 +4,7 @@
                 type="git"
                 src="git://github.com/Sabayon/mate-overlay.git"
                 contact="https://github.com/Sabayon/mate-overlay"
-                name="mate-overlay"
+                name="mate"
                 status="unofficial">
 
         <link>http://github.com/Sabayon/mate-overlay</link>
