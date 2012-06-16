@@ -2,11 +2,12 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: Exp $
 
-EAPI="3"
-GCONF_DEBUG="no"
+EAPI="4"
+GCONF_DEBUG="yes"
+GNOME2_LA_PUNT="yes"
 PYTHON_DEPEND="python? 2:2.5"
 
-inherit autotools mate multilib python eutils mate-desktop.org
+inherit mate multilib python
 
 DESCRIPTION="Pluma text editor for the MATE desktop"
 HOMEPAGE="http://mate-desktop.org"
@@ -16,7 +17,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~arm ~x86"
 IUSE="doc python spell"
 
-RDEPEND="mate-base/mate-conf
+RDEPEND=">=mate-base/mate-conf-1.2.1
 	>=x11-libs/libSM-1.0
 	>=dev-libs/libxml2-2.5.0:2
 	>=dev-libs/glib-2.23.1:2
@@ -40,7 +41,7 @@ DEPEND="${RDEPEND}
 	app-text/mate-doc-utils
 	~app-text/docbook-xml-dtd-4.1.2
 	dev-util/gtk-doc
-	mate-base/mate-common
+	>=mate-base/mate-common-1.2.2
 	dev-util/gtk-doc-am"
 
 pkg_setup() {
@@ -50,29 +51,18 @@ pkg_setup() {
 		--disable-updater
 		$(use_enable python)
 		$(use_enable spell)"
-	use python && python_set_active_version 2
+	if use python; then
+		python_set_active_version 2
+		python_pkg_setup
+	fi
 }
 
 src_prepare() {
-	gtkdocize || die
-	mate-doc-prepare --force --copy || die
-	mate-doc-common --copy || die
-	eautoreconf
 	mate_src_prepare
 
-	# Do not fail if remote mounting is not supported.
-	# epatch "${FILESDIR}/${PN}-2.30.2-tests-skip.patch"
-
 	# disable pyc compiling
-	mv "${S}"/py-compile "${S}"/py-compile.orig
-	ln -s $(type -P true) "${S}"/py-compile
-}
-
-src_install() {
-	mate_src_install
-
-	# Installed for plugins, but they're dlopen()-ed
-	find "${D}" -name "*.la" -delete || die "remove of la files failed"
+	mv "${S}"/py-compile "${S}"/py-compile.orig || die
+	ln -s $(type -P true) "${S}"/py-compile || die
 }
 
 pkg_postinst() {
