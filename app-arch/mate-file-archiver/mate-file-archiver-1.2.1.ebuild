@@ -2,10 +2,11 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: Exp $
 
-EAPI="3"
-GCONF_DEBUG="no"
+EAPI="4"
+GCONF_DEBUG="yes"
+GNOME2_LA_PUNT="yes"
 
-inherit autotools eutils mate multilib mate-desktop.org
+inherit mate
 
 DESCRIPTION="Engrampa archive manager for MATE"
 HOMEPAGE="http://mate-desktop.org"
@@ -13,53 +14,36 @@ HOMEPAGE="http://mate-desktop.org"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~arm ~x86"
-IUSE="caja"
+IUSE="caja gtk3"
 
 RDEPEND=">=dev-libs/glib-2.25.5:2
 	>=x11-libs/gtk+-2.21.4:2
-	mate-base/mate-conf
-	caja? ( mate-base/mate-file-manager )"
+	>=mate-base/mate-conf-1.2.1
+	caja? ( >=mate-base/mate-file-manager-1.2.2 )"
 DEPEND="${RDEPEND}
 	sys-devel/gettext
 	>=dev-util/intltool-0.35
 	virtual/pkgconfig
-	app-text/mate-doc-utils
-	gnome-base/gnome-common"
+	>=app-text/mate-doc-utils-1.2.1
+	>=mate-base/mate-common-1.2.2"
 
 pkg_setup() {
 	G2CONF="${G2CONF}
 		--disable-dependency-tracking
 		--disable-scrollkeeper
 		--disable-run-in-place
-		--disable-static
 		--disable-packagekit
 		--disable-deprecations
-		--with-gtk=2.0
 		$(use_enable caja caja-actions)"
 	DOCS="AUTHORS HACKING MAINTAINERS NEWS README TODO"
 }
 
 src_prepare() {
- 	mate-doc-prepare --force --copy || die
- 	mate-doc-common --copy || die
-	eautoreconf
 	mate_src_prepare
-
-	# Use absolute path to GNU tar since star doesn't have the same
-	# options. On Gentoo, star is /usr/bin/tar, GNU tar is /bin/tar
-	# epatch "${FILESDIR}"/${PN}-2.10.3-use_bin_tar.patch
 
 	# Drop DEPRECATED flags as configure option doesn't do it, bug #385453
 	sed -i -e 's:-D[A-Z_]*DISABLE_DEPRECATED:$(NULL):g' \
 		copy-n-paste/Makefile.am copy-n-paste/Makefile.in || die
-}
-
-src_install() {
-	mate_src_install
-	if use caja; then
-		find "${ED}"usr/$(get_libdir)/caja -name "*.la" -delete \
-			|| die "la file removal failed"
-	fi
 }
 
 pkg_postinst() {
