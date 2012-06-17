@@ -2,10 +2,11 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: Exp $
 
-EAPI="3"
+EAPI="4"
 GCONF_DEBUG="yes"
+GNOME2_LA_PUNT="yes"
 
-inherit autotools mate eutils mate-desktop.org
+inherit mate
 
 DESCRIPTION="The MATE Desktop configuration tool"
 HOMEPAGE="http://mate-desktop.org"
@@ -13,7 +14,7 @@ HOMEPAGE="http://mate-desktop.org"
 LICENSE="GPL-2"
 SLOT="2"
 KEYWORDS="~amd64 ~arm ~x86"
-IUSE="eds"
+IUSE="eds gtk3"
 
 # TODO: appindicator
 # libgnomekbd-2.91 breaks API/ABI
@@ -49,6 +50,7 @@ RDEPEND="x11-libs/libXft
 	x11-libs/libXrandr
 	x11-libs/libXrender
 	x11-libs/libXcursor"
+
 DEPEND="${RDEPEND}
 	x11-proto/scrnsaverproto
 	x11-proto/xextproto
@@ -70,37 +72,7 @@ DEPEND="${RDEPEND}
 pkg_setup() {
 	G2CONF="${G2CONF}
 		--disable-update-mimedb
-		--disable-static
 		--disable-appindicator
 		$(use_enable eds aboutme)"
 	DOCS="AUTHORS ChangeLog NEWS README TODO"
-}
-
-src_prepare() {
-	mate-doc-prepare --force --copy || die
-	mate-doc-common --copy || die
-	eautoreconf
-	mate_src_prepare
-
-	# Use URL handlers for browser and mailer applications
-	# epatch "${FILESDIR}/${P}-mime-handler.patch"
-
-	# When starting up, read current web and mail values
-	# epatch "${FILESDIR}/${P}-mime-handler2.patch"
-
-	# Fix icons for new glib url handlers
-	# epatch "${FILESDIR}/${P}-mime-handler3.patch"
-
-	# Do not show twice the configured background if it is a symlink to a known background
-	# epatch "${FILESDIR}/${P}-duplicated-background.patch"
-
-	# Don't erase backgounds.xml, bug #344335
-	# epatch "${FILESDIR}/${P}-erase-background.patch"
-}
-
-src_install() {
-	mate_src_install
-	# gmodule is used to load plugins
-	# (on POSIX systems gmodule uses dlopen)
-	find "${ED}" -name "*.la" -delete || die "remove of la files failed"
 }
