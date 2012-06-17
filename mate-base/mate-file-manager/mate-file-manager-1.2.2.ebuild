@@ -16,7 +16,6 @@ KEYWORDS="~amd64 ~arm ~x86"
 IUSE="doc gnome +introspection xmp"
 
 RDEPEND=">=dev-libs/glib-2.28.0:2
-	>=gnome-base/gvfs-1.10.1
 	>=mate-base/mate-desktop-1.2.0
 	>=x11-libs/pango-1.1.2
 	>=x11-libs/gtk+-2.22:2[introspection?]
@@ -39,7 +38,7 @@ DEPEND="${RDEPEND}
 	dev-util/gtk-doc-am"
 
 PDEPEND="gnome? ( >=x11-themes/mate-icon-theme-1.2.0 )
-	mate-base/mate-vfs"
+	>=gnome-base/gvfs-1.10.1"
 
 pkg_setup() {
 	G2CONF="${G2CONF}
