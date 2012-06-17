@@ -3,6 +3,7 @@
 # $Header: Exp $
 
 EAPI="4"
+GCONF_DEBUG="yes"
 
 inherit mate
 
@@ -13,7 +14,7 @@ LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~arm ~x86"
 KERNEL_IUSE="kernel_linux"
-IUSE="debug doc libnotify opengl pam $KERNEL_IUSE"
+IUSE="doc libnotify opengl pam $KERNEL_IUSE"
 
 RDEPEND=">=mate-base/mate-conf-1.2.1
 	>=x11-libs/gtk+-2.14.0:2
