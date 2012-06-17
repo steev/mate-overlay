@@ -47,7 +47,6 @@ DEPEND="${RDEPEND}
 pkg_setup() {
 	DOCS="AUTHORS ChangeLog NEWS README"
 	G2CONF="${G2CONF}
-		--disable-scrollkeeper
 		--disable-updater
 		$(use_enable python)
 		$(use_enable spell)"
