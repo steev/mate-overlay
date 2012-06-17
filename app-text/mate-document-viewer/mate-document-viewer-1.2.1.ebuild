@@ -39,6 +39,7 @@ RDEPEND="
 	caja? ( >=mate-base/mate-file-manager-1.2.2[introspection?] )
 	ps? ( >=app-text/libspectre-0.2.0 )
 	tiff? ( >=media-libs/tiff-3.6:0 )"
+
 DEPEND="${RDEPEND}
 	app-text/scrollkeeper
 	>=app-text/mate-doc-utils-1.2.1
