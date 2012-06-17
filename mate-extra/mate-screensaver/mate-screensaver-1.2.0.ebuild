@@ -4,27 +4,25 @@
 
 EAPI="4"
 
-inherit eutils mate multilib autotools mate-desktop.org
+inherit mate
 
-DESCRIPTION="Replaces xscreensaver, integrating with the desktop."
+DESCRIPTION="Replaces xscreensaver, integrating with the MATE desktop."
 HOMEPAGE="http://mate-desktop.org"
-SRC_URI="${SRC_URI}
-	branding? ( http://www.gentoo.org/images/gentoo-logo.svg )"
 
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~arm ~x86"
 KERNEL_IUSE="kernel_linux"
-IUSE="branding debug doc libnotify opengl pam $KERNEL_IUSE"
+IUSE="debug doc libnotify opengl pam $KERNEL_IUSE"
 
-RDEPEND="mate-base/mate-conf
+RDEPEND=">=mate-base/mate-conf-1.2.1
 	>=x11-libs/gtk+-2.14.0:2
-	mate-base/mate-desktop
-	mate-base/mate-menus
+	>=mate-base/mate-desktop-1.2.0
+	>=mate-base/mate-menus-1.2.0
 	>=dev-libs/glib-2.15:2
-	mate-base/libmatekbd
+	>=mate-base/libmatekbd-1.2.0
 	>=dev-libs/dbus-glib-0.71
-	libnotify? ( x11-libs/libmatenotify )
+	libnotify? ( >=x11-libs/libmatenotify-1.2.0 )
 	opengl? ( virtual/opengl )
 	pam? ( virtual/pam )
 	!pam? ( kernel_linux? ( sys-apps/shadow ) )
@@ -45,9 +43,7 @@ DEPEND="${RDEPEND}
 	x11-proto/randrproto
 	x11-proto/scrnsaverproto
 	x11-proto/xf86miscproto
-	mate-base/mate-common"
-
-DOCS="AUTHORS ChangeLog NEWS README"
+	>=mate-base/mate-common-1.2.2"
 
 pkg_setup() {
 	G2CONF="${G2CONF}
@@ -61,34 +57,15 @@ pkg_setup() {
 		--with-kbd-layout-indicator
 		--with-xscreensaverdir=/usr/share/xscreensaver/config
 		--with-xscreensaverhackdir=/usr/$(get_libdir)/misc/xscreensaver"
+
+	DOCS="AUTHORS ChangeLog NEWS README"
 }
 
 src_prepare() {
-	# libnotify support was removed from trunk, so not needed for next release
-	# epatch "${FILESDIR}/${P}-libnotify-0.7.patch"
-
-	# The dialog uses libxklavier directly, so link against it, upstream bug #634949
-	# epatch "${FILESDIR}/${P}-libxklavier-configure.patch"
-
-	# Fix QA warning, upstream bug #637676
-	# epatch "${FILESDIR}/${P}-popsquares-header.patch"
-
-	# Fix fading on nvidia setups, upstream bugs #610294 and #618932
-	# epatch "${FILESDIR}/${P}-nvidia-fade.patch"
-	# epatch "${FILESDIR}/${P}-nvidia-fade2.patch"
-
-	# Don't run twice, upstream bug #642462
-	# epatch "${FILESDIR}/${P}-prevent-twice.patch"
-
-	# Don't user name owner proxies for SessionManager, upstream bug #611207
-	# epatch "${FILESDIR}/${P}-name-manager.patch"
-
 	# Fix intltoolize broken file, see upstream #577133
 	sed "s:'\^\$\$lang\$\$':\^\$\$lang\$\$:g" -i po/Makefile.in.in \
 		|| die "sed failed"
 
-	intltoolize --force --copy --automake || die "intltoolize failed"
-	eautoreconf
 	mate_src_prepare
 }
 
@@ -99,25 +76,12 @@ src_install() {
 	dodoc "${S}/data/migrate-xscreensaver-config.sh"
 	dodoc "${S}/data/xscreensaver-config.xsl"
 
-	# Conversion information (micia: no xss-conversion file in ${S}
-	# sed -e "s:\${PF}:${PF}:" < "${FILESDIR}/xss-conversion-2.txt" \
-	# 	> "${S}/xss-conversion.txt" || die "sed failed"
-
-	# dodoc "${S}/xss-conversion.txt"
-
 	# Non PAM users will need this suid to read the password hashes.
 	# OpenPAM users will probably need this too when
 	# http://bugzilla.gnome.org/show_bug.cgi?id=370847
 	# is fixed.
 	if ! use pam ; then
 		fperms u+s /usr/libexec/gnome-screensaver-dialog
-	fi
-
-	if use branding ; then
-		insinto /usr/share/pixmaps/
-		doins "${DISTDIR}/gentoo-logo.svg" || die "doins 1 failed"
-		insinto /usr/share/applications/screensavers/
-		doins "${FILESDIR}/gentoologo-floaters.desktop" || die "doins 2 failed"
 	fi
 }
 
