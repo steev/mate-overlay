@@ -5,7 +5,7 @@
 EAPI="4"
 GCONF_DEBUG="yes"
 
-inherit mate
+inherit mate multilib
 
 DESCRIPTION="Replaces xscreensaver, integrating with the MATE desktop."
 HOMEPAGE="http://mate-desktop.org"
@@ -50,7 +50,7 @@ pkg_setup() {
 	G2CONF="${G2CONF}
 		$(use_enable doc docbook-docs)
 		$(use_enable debug)
-		$(use_with libmatenotify)
+		$(use_with libnotify libmatenotify)
 		$(use_with opengl gl)
 		$(use_enable pam)
 		--enable-locking
