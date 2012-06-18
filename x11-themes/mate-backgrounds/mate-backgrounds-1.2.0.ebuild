@@ -2,10 +2,10 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="3"
+EAPI="4"
 GCONF_DEBUG="no"
 
-inherit autotools mate mate-desktop.org
+inherit mate
 
 DESCRIPTION="A set of backgrounds packaged with the MATE desktop"
 HOMEPAGE="http://mate-desktop.org"
@@ -16,12 +16,8 @@ KEYWORDS="~amd64 ~arm ~x86"
 IUSE=""
 
 RDEPEND=""
-DEPEND="sys-devel/gettext
+DEPEND="${RDEPEND}
+	sys-devel/gettext
 	>=dev-util/intltool-0.35"
 
 DOCS="AUTHORS ChangeLog NEWS README"
-
-src_prepare() {
-	eautoreconf
-	mate_src_prepare
-}
