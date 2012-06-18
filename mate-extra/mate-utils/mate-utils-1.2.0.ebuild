@@ -14,7 +14,7 @@ HOMEPAGE="http://mate-desktop.org"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~arm ~x86"
-IUSE="bonobo doc ipv6 test"
+IUSE="doc ipv6 mate-panel test"
 
 RDEPEND=">=dev-libs/glib-2.20:2
 	>=x11-libs/gtk+-2.20:2
@@ -23,7 +23,7 @@ RDEPEND=">=dev-libs/glib-2.20:2
 	>=media-libs/libcanberra-0.4[gtk]
 	x11-libs/libXext
 	x11-libs/libX11
-	bonobo? ( || ( mate-base/mate-panel[bonobo] <mate-base/mate-panel-2.32 ) )"
+	mate-panel? ( >=mate-base/mate-panel-1.2.1 )"
 
 DEPEND="${RDEPEND}
 	x11-proto/xextproto
@@ -42,26 +42,14 @@ pkg_setup() {
 
 	G2CONF="${G2CONF}
 		$(use_enable ipv6)
-		$(use_enable bonobo gdict-applet)
+		$(use_enable mate-panel gdict-applet)
 		--disable-maintainer-flags
-		--enable-zlib
-		--disable-static
-		--disable-schemas-install
-		--disable-scrollkeeper"
+		--enable-zlib"
 	DOCS="AUTHORS ChangeLog NEWS README THANKS"
 }
 
 src_prepare() {
-	gtkdocize || die
-	mate-doc-prepare --force --copy || die
-	mate-doc-common --copy || die
-	eautoreconf
-	# Fix uninitialized variable preventing crashes (already fixed in master)
-	# epatch "${FILESDIR}/${P}-fix-uninitialized.patch"
-
-	# Provide updated icons
-	# epatch "${FILESDIR}/${P}-new-icons.patch"
-	# epatch "${FILESDIR}/${P}-new-icons2.patch"
+	mate_src_prepare
 
 	# Remove idiotic -D.*DISABLE_DEPRECATED cflags
 	# This method is kinda prone to breakage. Recheck carefully with next bump.
@@ -72,16 +60,12 @@ src_prepare() {
 	LC_ALL=C find . -iname 'Makefile.in' -exec \
 		sed -e '/-D[A-Z_]*DISABLE_DEPRECATED/d' -i {} + || die "sed 2 failed"
 
-	if ! use test ; then
+	if ! use test; then
 		sed -e 's/ tests//' -i logview/Makefile.{am,in} || die "sed 3 failed"
 	fi
 
+	# Are we need this?
 	# Fix intltoolize broken file, see upstream #577133
-	sed "s:'\^\$\$lang\$\$':\^\$\$lang\$\$:g" -i po/Makefile.in.in \
-		|| die "sed failed"
-
-	intltoolize --force --copy --automake || die "intltoolize failed"
-	eautoreconf
-
-	mate_src_prepare
+	# sed "s:'\^\$\$lang\$\$':\^\$\$lang\$\$:g" -i po/Makefile.in.in \
+	#	|| die "sed failed"
 }
