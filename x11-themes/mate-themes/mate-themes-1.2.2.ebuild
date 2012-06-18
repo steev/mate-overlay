@@ -5,7 +5,7 @@
 EAPI="4"
 GCONF_DEBUG="no"
 
-inherit autotools eutils mate mate-desktop.org
+inherit mate
 
 DESCRIPTION="A set of MATE themes, with sets for users with limited or low vision"
 HOMEPAGE="http://mate-desktop.org"
@@ -17,6 +17,7 @@ IUSE=""
 
 RDEPEND=">=x11-libs/gtk+-2:2
 	>=x11-themes/gtk-engines-2.15.3:2"
+
 DEPEND="${RDEPEND}
 	>=app-text/mate-doc-utils-1.2.1
 	>=x11-misc/icon-naming-utils-0.8.7
@@ -36,20 +37,16 @@ pkg_setup() {
 }
 
 src_prepare() {
-	mate-doc-prepare --force --copy || die
-	mate-doc-common --copy || die
-	eautoreconf
 	mate_src_prepare
 
-	# Fix bashisms, bug #256337
-	# epatch "${FILESDIR}/${PN}-2.24.3-bashism.patch"
-
+	# Can't be builded with:
 	# Remove themes now provided by x11-themes/gnome-themes-standard
-	sed 's:HighContrast.*\\:\\:g' -i $(find . -name Makefile.am -o -name Makefile.in) || die
-	sed 's:LowContrast.*\\:\\:g' -i $(find . -name Makefile.am -o -name Makefile.in) || die
-	sed 's:Shiny.*\\:\\:g' -i $(find . -name Makefile.am -o -name Makefile.in) || die
+	# sed 's:HighContrast.*\\:\\:g' -i $(find . -name Makefile.am -o -name Makefile.in) || die
+	# sed 's:LowContrast.*\\:\\:g' -i $(find . -name Makefile.am -o -name Makefile.in) || die
+	# sed 's:Shiny.*\\:\\:g' -i $(find . -name Makefile.am -o -name Makefile.in) || die
 
+	# Are we need it?
 	# Fix intltoolize broken file, see upstream #577133
-	sed "s:'\^\$\$lang\$\$':\^\$\$lang\$\$:g" -i po/Makefile.in.in \
-		|| die "intltool rules fix failed"
+	# sed "s:'\^\$\$lang\$\$':\^\$\$lang\$\$:g" -i po/Makefile.in.in \
+	#	|| die "intltool rules fix failed"
 }
