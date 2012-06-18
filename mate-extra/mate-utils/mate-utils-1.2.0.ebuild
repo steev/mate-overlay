@@ -14,7 +14,7 @@ HOMEPAGE="http://mate-desktop.org"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~arm ~x86"
-IUSE="doc ipv6 mate-panel test"
+IUSE="applet doc ipv6 test"
 
 RDEPEND=">=dev-libs/glib-2.20:2
 	>=x11-libs/gtk+-2.20:2
@@ -23,7 +23,7 @@ RDEPEND=">=dev-libs/glib-2.20:2
 	>=media-libs/libcanberra-0.4[gtk]
 	x11-libs/libXext
 	x11-libs/libX11
-	mate-panel? ( >=mate-base/mate-panel-1.2.1 )"
+	applet? ( >=mate-base/mate-panel-1.2.1 )"
 
 DEPEND="${RDEPEND}
 	x11-proto/xextproto
@@ -42,7 +42,7 @@ pkg_setup() {
 
 	G2CONF="${G2CONF}
 		$(use_enable ipv6)
-		$(use_enable mate-panel gdict-applet)
+		$(use_enable applet gdict-applet)
 		--disable-maintainer-flags
 		--enable-zlib"
 	DOCS="AUTHORS ChangeLog NEWS README THANKS"

@@ -5,7 +5,7 @@
 EAPI="4"
 GCONF_DEBUG="no"
 
-inherit autotools eutils mate virtualx mate-desktop.org
+inherit mate
 
 DESCRIPTION="A session daemon for MATE that makes it easy to manage your laptop or desktop system"
 HOMEPAGE="http://mate-desktop.org"
@@ -34,8 +34,8 @@ COMMON_DEPEND=">=dev-libs/glib-2.13.0:2
 	>=x11-proto/xproto-7.0.15
 	x11-libs/libX11
 	x11-libs/libXext
-	applet? ( mate-base/mate-panel )
-"
+	applet? ( mate-base/mate-panel )"
+
 RDEPEND="${COMMON_DEPEND}
 	>=sys-auth/consolekit-0.4[policykit?]
 	policykit? ( mate-extra/mate-polkit )"
@@ -72,47 +72,6 @@ pkg_setup() {
 }
 
 src_prepare() {
-	mate-doc-prepare --force --copy || die
-	mate-doc-common --copy || die
-
-	# epatch "${FILESDIR}"/${P}-libnotify-0.7.patch
-
-	# Fix intltoolize broken file, see upstream #577133
-	# sed "s:'\^\$\$lang\$\$':\^\$\$lang\$\$:g" -i po/Makefile.in.in \
-	#	|| die "sed libtoolize failed"
-
-	# Drop debugger CFLAGS from configure
-	# sed -e 's:^CPPFLAGS="$CPPFLAGS -g"$::g' \
-	#	-i configure.ac configure || die "debugger sed failed"
-
-	# glibc splits this out, whereas other libc's do not tend to
-	# if use elibc_glibc; then
-	# 	sed -e 's/-lresolv//' \
-	# 		-i configure.ac configure || die "resolv sed failed"
-	# fi
-
-	# Fixed bgo#644143, how to convert from percentage to discrete and vice-versa.
-	# epatch "${FILESDIR}/${P}-convert-percentage.patch"
-
-	# Don't try to close a non-opened fd
-	# epatch "${FILESDIR}/${P}-close-fd.patch"
-
-	# Do not use g-p-m in XFCE
-	# epatch "${FILESDIR}/${PN}-2.32.0-no-xfce.patch"
-
-	# Don't crash on systems which don't have XBACKLIGHT
-	# epatch "${FILESDIR}/${PN}-2.32.0-xbacklight-crash.patch"
-
-	# Add keyboard backlight support including dimming on idle and keyboard control
-	# epatch "${WORKDIR}/${PN}-2.32.0-keyboard-backlight.patch"
-
-	# Fix duplicated battery, upstream bug #636915
-	# epatch "${FILESDIR}/${PN}-2.32.0-duplicated-battery.patch"
-
-	# FIXME: This is required to prevent maintainer mode after "debugger sed"
-	intltoolize --force --copy --automake || die "intltoolize failed"
-	eautoreconf
-
 	mate_src_prepare
 
 	# This needs to be after eautoreconf to prevent problems like bug #356277

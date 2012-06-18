@@ -5,7 +5,7 @@
 EAPI="4"
 GCONF_DEBUG="no"
 
-inherit autotools mate mate-desktop.org
+inherit mate
 
 DESCRIPTION="The MATE System Monitor"
 HOMEPAGE="http://mate-desktop.org"
@@ -34,15 +34,4 @@ DEPEND="${RDEPEND}
 	>=dev-util/intltool-0.35
 	dev-util/gtk-doc"
 
-pkg_setup() {
-	DOCS="AUTHORS ChangeLog NEWS README"
-	G2CONF="${G2CONF} --disable-scrollkeeper"
-}
-
-src_prepare() {
-	mate-doc-prepare --force --copy || die
-	mate-doc-common --copy || die
-	intltoolize --force --copy --automake || die "intltoolize failed"
-	eautoreconf
-	mate_src_prepare
-}
+DOCS="AUTHORS ChangeLog NEWS README"
