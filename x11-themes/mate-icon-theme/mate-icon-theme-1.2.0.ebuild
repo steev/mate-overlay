@@ -5,7 +5,7 @@
 EAPI="4"
 GCONF_DEBUG="no"
 
-inherit autotools mate mate-desktop.org
+inherit mate
 
 DESCRIPTION="MATE default icon themes"
 HOMEPAGE="http://mate-desktop.org"
@@ -28,12 +28,6 @@ DOCS="AUTHORS NEWS TODO"
 
 # This ebuild does not install any binaries
 RESTRICT="binchecks strip"
-
-# FIXME: double check potential LINGUAS problem
-src_prepare() {
-	eautoreconf
-	mate_src_prepare
-}
 
 pkg_setup() {
 	G2CONF="${G2CONF} --enable-icon-mapping"
