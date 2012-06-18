@@ -5,14 +5,14 @@
 EAPI="4"
 GCONF_DEBUG="no"
 
-inherit autotools eutils mate mate-desktop.org multilib
+inherit mate multilib
 
 DESCRIPTION="Fork of bluez-gnome focused on integration with MATE"
 HOMEPAGE="http://mate-desktop.org/"
 
 LICENSE="GPL-2 LGPL-2.1"
 SLOT="2"
-KEYWORDS="~x86 ~amd64 ~arm"
+KEYWORDS="~amd64 ~arm ~x86"
 IUSE="doc +introspection test"
 
 COMMON_DEPEND="dev-libs/glib:2
@@ -20,15 +20,13 @@ COMMON_DEPEND="dev-libs/glib:2
 	>=x11-libs/libmatenotify-1.2.0
 	>=mate-base/mate-conf-1.2.1
 	dev-libs/dbus-glib
-	dev-libs/libunique:1
-"
+	dev-libs/libunique:1"
 
 RDEPEND="${COMMON_DEPEND}
 	net-wireless/bluez
 	app-mobilephone/obexd
 	sys-fs/udev
-	introspection? ( dev-libs/gobject-introspection )
-"
+	introspection? ( dev-libs/gobject-introspection )"
 
 DEPEND="${COMMON_DEPEND}
 	!net-wireless/bluez-gnome
@@ -45,8 +43,7 @@ DEPEND="${COMMON_DEPEND}
 	x11-proto/xproto
 	doc? ( dev-util/gtk-doc )
 	>=mate-base/mate-common-1.2.2
-	dev-util/gtk-doc-am
-"
+	dev-util/gtk-doc-am"
 
 # Tests are not ready to pass with docs enabled, upstream bug #573392
 REQUIRED_USE="test? ( !doc )"
@@ -58,18 +55,10 @@ pkg_setup() {
 		--disable-desktop-update
 		--disable-icon-update
 		--disable-schemas-compile"
-	
+
 	DOCS="AUTHORS README NEWS ChangeLog"
 
 	enewgroup plugdev
-}
-
-src_prepare() {
-	gtkdocize || die
-	mate-doc-prepare --force --copy || die
-	mate-doc-common --copy || die
-	eautoreconf
-	mate_src_prepare
 }
 
 src_install() {
