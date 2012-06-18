@@ -2,11 +2,11 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="3"
+EAPI="4"
 GCONF_DEBUG="no"
 WANT_AUTOMAKE="1.9"
 
-inherit autotools eutils mate mate-desktop.org
+inherit mate
 
 DESCRIPTION="The MATE Terminal"
 HOMEPAGE="http://mate-desktop.org"
@@ -23,6 +23,7 @@ RDEPEND=">=dev-libs/glib-2.25.12:2
 	>=x11-libs/vte-0.26.0:0
 	x11-libs/libSM
 	mate-base/libmate"
+
 DEPEND="${RDEPEND}
 	|| ( dev-util/gtk-builder-convert <=x11-libs/gtk+-2.24.10:2 )
 	sys-devel/gettext
@@ -32,14 +33,3 @@ DEPEND="${RDEPEND}
 	>=app-text/scrollkeeper-0.3.11"
 
 DOCS="AUTHORS ChangeLog HACKING NEWS README"
-
-src_prepare() {
-	mate-doc-prepare --force --copy || die
-	mate-doc-common --copy || die
-	eautoreconf
-	intltoolize --force --copy --automake || die "intltoolize failed"
-	mate_src_prepare
-
-	# Use login shell by default (#12900)
-	# epatch "${FILESDIR}"/${PN}-2.22.0-default_shell.patch
-}
