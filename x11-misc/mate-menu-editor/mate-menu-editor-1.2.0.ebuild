@@ -9,7 +9,7 @@ PYTHON_USE_WITH="xml"
 SUPPORT_PYTHON_ABIS="1"
 RESTRICT_PYTHON_ABIS="3.*"
 
-inherit autotools eutils mate python mate-desktop.org
+inherit mate python
 
 DESCRIPTION="Mozo menu editor for MATE"
 HOMEPAGE="http://mate-desktop.org"
@@ -20,19 +20,18 @@ KEYWORDS="~amd64 ~arm ~x86"
 IUSE=""
 
 COMMON_DEPEND="dev-python/pygobject:2
-	mate-base/mate-menus[introspection]
-"
-# mate-panel needed for mate-desktop-item-edit
+	mate-base/mate-menus[introspection]"
+
+	# mate-panel needed for mate-desktop-item-edit
 RDEPEND="${COMMON_DEPEND}
 	mate-base/mate-panel
 	x11-libs/gdk-pixbuf:2[introspection]
-	x11-libs/gtk+:2[introspection]
-"
+	x11-libs/gtk+:2[introspection]"
+
 DEPEND="${COMMON_DEPEND}
 	>=dev-util/intltool-0.40.0
 	sys-devel/gettext
-	virtual/pkgconfig
-"
+	virtual/pkgconfig"
 
 pkg_setup() {
 	DOCS="AUTHORS NEWS README"
@@ -40,14 +39,6 @@ pkg_setup() {
 }
 
 src_prepare() {
-	# https://bugzilla.gnome.org/show_bug.cgi?id=676699
-	# epatch "${FILESDIR}/${P}-no-pygtk-checks.patch"
-	# https://bugzilla.gnome.org/show_bug.cgi?id=676700
-	# epatch "${FILESDIR}/${P}-icon-crash.patch"
-	# https://bugzilla.gnome.org/show_bug.cgi?id=676702
-	# epatch "${FILESDIR}/${P}-cursor-changed-selection-none.patch"
-	eautoreconf
-
 	mate_src_prepare
 
 	# disable pyc compiling
