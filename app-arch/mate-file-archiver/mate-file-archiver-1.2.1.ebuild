@@ -29,7 +29,6 @@ DEPEND="${RDEPEND}
 
 pkg_setup() {
 	G2CONF="${G2CONF}
-		--disable-dependency-tracking
 		--disable-run-in-place
 		--disable-packagekit
 		--disable-deprecations
