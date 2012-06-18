@@ -2,8 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
-inherit autotools mate mate-desktop.org
+EAPI="4"
+
+inherit mate
 
 DESCRIPTION="MATE Notification daemon"
 HOMEPAGE="http://mate-dekstop.org"
@@ -25,6 +26,7 @@ RDEPEND=">=dev-libs/glib-2.4:2
 	!x11-misc/notify-osd
 	!x11-misc/qtnotifydaemon
 	!x11-misc/notification-daemon"
+
 DEPEND="${RDEPEND}
 	app-arch/xz-utils
 	>=dev-util/intltool-0.40
@@ -32,11 +34,6 @@ DEPEND="${RDEPEND}
 	sys-devel/gettext"
 
 DOCS=( AUTHORS ChangeLog NEWS )
-
-src_prepare() {
-	eautoreconf
-	mate_src_prepare
-}
 
 src_install() {
 	mate_src_install
@@ -54,6 +51,4 @@ src_install() {
 
 	insinto /usr/share/dbus-1/services
 	doins "${T}/org.freedesktop.Notifications.service"
-
-	mate_src_install
 }
