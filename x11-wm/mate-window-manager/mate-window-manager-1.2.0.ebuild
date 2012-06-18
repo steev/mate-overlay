@@ -3,7 +3,7 @@
 # $Header: $
 
 EAPI="4"
-# debug only changes CFLAGS
+# Debug only changes CFLAGS
 GCONF_DEBUG="no"
 
 inherit autotools eutils mate mate-desktop.org
@@ -14,7 +14,7 @@ HOMEPAGE="http://mate-desktop.org"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~arm ~x86"
-IUSE="test xinerama"
+IUSE="gtk3 startup-notification test xinerama"
 
 # XXX: libgtop is automagic, hard-enabled instead
 RDEPEND=">=x11-libs/gtk+-2.24:2
@@ -37,6 +37,7 @@ RDEPEND=">=x11-libs/gtk+-2.24:2
 	>=mate-extra/mate-dialogs-1.2.0
 	xinerama? ( x11-libs/libXinerama )
 	!x11-misc/expocity"
+
 DEPEND="${RDEPEND}
 	>=app-text/mate-doc-utils-1.2.1
 	sys-devel/gettext
@@ -48,23 +49,14 @@ DEPEND="${RDEPEND}
 	x11-proto/xproto"
 
 pkg_setup() {
-	DOCS="AUTHORS ChangeLog HACKING NEWS README *.txt doc/*.txt"
 	G2CONF="${G2CONF}
-		--disable-static
 		--enable-canberra
 		--enable-compositor
 		--enable-render
 		--enable-shape
 		--enable-sm
-		--enable-startup-notification
 		--enable-xsync
+		$(use_enable startup-notification)
 		$(use_enable xinerama)"
-}
-
-src_prepare() {
-	mkdir -p "${S}/m4" || die
-	mate-doc-prepare --force --copy || die
-	mate-doc-common --copy || die
-	eautoreconf
-	mate_src_prepare
+	DOCS="AUTHORS ChangeLog HACKING NEWS README *.txt doc/*.txt"
 }
