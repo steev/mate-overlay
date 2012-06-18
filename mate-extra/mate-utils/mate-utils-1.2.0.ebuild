@@ -19,7 +19,7 @@ IUSE="doc ipv6 mate-panel test"
 RDEPEND=">=dev-libs/glib-2.20:2
 	>=x11-libs/gtk+-2.20:2
 	>=gnome-base/libgtop-2.12
-	mate-base/mate-conf
+	>=mate-base/mate-conf-1.2.1
 	>=media-libs/libcanberra-0.4[gtk]
 	x11-libs/libXext
 	x11-libs/libX11
@@ -27,13 +27,13 @@ RDEPEND=">=dev-libs/glib-2.20:2
 
 DEPEND="${RDEPEND}
 	x11-proto/xextproto
-	app-text/mate-doc-utils
+	>=app-text/mate-doc-utils-1.2.1
 	app-text/scrollkeeper
 	>=dev-util/intltool-0.40
 	virtual/pkgconfig
 	dev-util/gtk-doc
 	dev-util/gtk-doc-am
-	mate-base/mate-common"
+	>=mate-base/mate-common-1.2.2"
 
 pkg_setup() {
 	if ! use debug; then
