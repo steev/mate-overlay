@@ -30,13 +30,14 @@ DEPEND="${RDEPEND}
 	sys-devel/gettext
 	virtual/pkgconfig
 	>=dev-util/intltool-0.35
-	doc? ( >=dev-util/gtk-doc-1.9 )"
-	>=mate-base/mate-common-1.2.2
+	doc? ( >=dev-util/gtk-doc-1.9 )
+	>=mate-base/mate-common-1.2.2"
+	# Are we need that dependency here?
 #	dev-util/gtk-doc-am
 
 _use_plugin() {
 	if use ${1}; then
-		G2CONF="${G2CONF}${2:-"${1}"},"
+		G2CONF="${G2CONF}${2:-"${1}"}"
 	fi
 }
 
@@ -49,16 +50,4 @@ pkg_setup() {
 	_use_plugin pidgin
 	_use_plugin gajim
 	_use_plugin upnp
-}
-
-src_prepare() {
-	eautoreconf
-
-	mate_src_prepare
-}
-
-
-src_install() {
-	mate_src_install
-	find "${ED}" -name "*.la" -delete || die "failed to delete *.la files"
 }

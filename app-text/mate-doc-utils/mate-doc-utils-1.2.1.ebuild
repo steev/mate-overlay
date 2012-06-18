@@ -1,6 +1,6 @@
 # Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: Exp $
+# $Header: $
 
 EAPI="4"
 PYTHON_DEPEND="2:2.5"
@@ -17,7 +17,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~arm ~x86"
 IUSE=""
 
-RDEPEND="app-text/gnome-doc-utils
+RDEPEND=">=app-text/gnome-doc-utils-0.20.10
 	>=dev-libs/libxml2-2.6.12[python]
 	>=dev-libs/libxslt-1.1.8"
 

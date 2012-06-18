@@ -1,10 +1,10 @@
 # Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: Exp $
+# $Header: $
 
 EAPI="4"
 GCONF_DEBUG="yes"
-GNOME2_LA_PUNT="yes"
+MATE_LA_PUNT="yes"
 PYTHON_DEPEND="python? 2:2.5"
 
 inherit mate multilib python

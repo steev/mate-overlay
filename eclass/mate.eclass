@@ -28,11 +28,11 @@ esac
 # Extra configure opts passed to econf
 G2CONF=${G2CONF:-""}
 
-# @ECLASS-VARIABLE: GNOME2_LA_PUNT
+# @ECLASS-VARIABLE: MATE_LA_PUNT
 # @DESCRIPTION:
 # Should we delete all the .la files?
 # NOT to be used without due consideration.
-GNOME2_LA_PUNT=${GNOME2_LA_PUNT:-"no"}
+MATE_LA_PUNT=${MATE_LA_PUNT:-"no"}
 
 # @ECLASS-VARIABLE: ELTCONF
 # @DEFAULT-UNSET
@@ -233,7 +233,7 @@ mate_src_install() {
 	rm -fr "${ED}/usr/share/applications/mimeinfo.cache"
 
 	# Delete all .la files
-	if [[ "${GNOME2_LA_PUNT}" != "no" ]]; then
+	if [[ "${MATE_LA_PUNT}" != "no" ]]; then
 		ebegin "Removing .la files"
 		if ! { has static-libs ${IUSE//+} && use static-libs; }; then
 			find "${D}" -name '*.la' -exec rm -f {} + || die "la file removal failed"
