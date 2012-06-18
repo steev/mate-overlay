@@ -24,7 +24,8 @@ COMMON_DEPEND="dev-python/pygobject:2
 
 	# mate-panel needed for mate-desktop-item-edit
 RDEPEND="${COMMON_DEPEND}
-	mate-base/mate-panel
+	>=mate-base/mate-menus-1.2.0[python]
+	>=mate-base/mate-panel-1.2.1
 	x11-libs/gdk-pixbuf:2[introspection]
 	x11-libs/gtk+:2[introspection]"
 
