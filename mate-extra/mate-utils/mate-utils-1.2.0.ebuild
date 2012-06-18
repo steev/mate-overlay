@@ -6,7 +6,7 @@ EAPI="4"
 GCONF_DEBUG="yes"
 MATE_LA_PUNT="yes"
 
-inherit autotools mate eutils mate-desktop.org
+inherit mate
 
 DESCRIPTION="Utilities for the MATE desktop"
 HOMEPAGE="http://mate-desktop.org"
