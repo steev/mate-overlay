@@ -5,7 +5,7 @@
 EAPI="4"
 PYTHON_DEPEND="2"
 
-inherit eutils distutils gnome2-utils
+inherit distutils eutils gnome2-utils
 
 MINIMUM_COMPIZ_RELEASE=0.6.0
 
@@ -16,7 +16,7 @@ SRC_URI="mirror://gentoo/${P}.tar.gz"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="gtk qt4"
+IUSE="gtk mate qt4"
 
 REQUIRED_USE="|| ( gtk qt4 )"
 
@@ -26,6 +26,7 @@ RDEPEND="
 	x11-apps/xvinfo
 	gtk? ( >=dev-python/pygtk-2.10:2 )
 	qt4? ( dev-python/PyQt4[X] )"
+
 DEPEND="${RDEPEND}"
 
 S="${WORKDIR}/${PN}"
@@ -33,7 +34,7 @@ S="${WORKDIR}/${PN}"
 PYTHON_MODNAME="FusionIcon"
 
 src_prepare() {
-	epatch "${FILESDIR}"/fusion-icon-mate.patch
+	use mate && epatch "${FILESDIR}"/fusion-icon-mate.patch
 }
 
 pkg_setup() {
@@ -50,12 +51,10 @@ src_install() {
 
 pkg_postinst() {
 	distutils_pkg_postinst
-
 	use gtk && gnome2_icon_cache_update
 }
 
 pkg_postrm() {
 	distutils_pkg_postrm
-
 	use gtk && gnome2_icon_cache_update
 }
