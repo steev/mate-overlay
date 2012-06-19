@@ -60,8 +60,7 @@ src_prepare() {
 	mate_src_prepare
 
 	# disable pyc compiling
-	mv "${S}"/py-compile "${S}"/py-compile.orig || die
-	ln -s $(type -P true) "${S}"/py-compile || die
+	use python && python_clean_py-compile_files
 }
 
 pkg_postinst() {
