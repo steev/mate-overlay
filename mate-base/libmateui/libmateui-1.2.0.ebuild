@@ -21,6 +21,7 @@ RDEPEND=">=dev-libs/libxml2-2.4.20:2
 	>=mate-base/libmate-1.2.0
 	>=mate-base/libmatecanvas-1.2.0
 	>=mate-base/libmatecomponentui-1.2.0
+	>=mate-base/mate-conf-1.2.1
 	>=x11-libs/pango-1.1.2
 	>=dev-libs/glib-2.16:2
 	>=x11-libs/gtk+-2.14:2
@@ -32,7 +33,6 @@ DEPEND="${RDEPEND}
 	sys-devel/gettext
 	virtual/pkgconfig
 	>=dev-util/intltool-0.40
-	>=mate-base/mate-conf-1.2.1
 	doc? ( >=dev-util/gtk-doc-1 )"
 
 PDEPEND=">=x11-themes/mate-icon-theme-1.2.0"
