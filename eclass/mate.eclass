@@ -275,17 +275,11 @@ mate_pkg_postinst() {
 	mate_scrollkeeper_update
 }
 
-# @#FUNCTION: mate_pkg_prerm
-# @#DESCRIPTION:
-# # FIXME Handle GConf schemas removal
-#mate_pkg_prerm() {
-#	mate_gconf_uninstall
-#}
-
 # @FUNCTION: mate_pkg_postrm
 # @DESCRIPTION:
 # Handle scrollkeeper, GSettings, Icons, desktop and mime database updates.
 mate_pkg_postrm() {
+	mate_gconf_uninstall
 	fdo-mime_desktop_database_update
 	fdo-mime_mime_database_update
 	mate_icon_cache_update
