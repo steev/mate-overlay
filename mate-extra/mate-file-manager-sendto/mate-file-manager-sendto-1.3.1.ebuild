@@ -2,10 +2,10 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="3"
-GCONF_DEBUG="no"
+EAPI="4"
+GCONF_DEBUG="yes"
 
-inherit autotools eutils mate multilib
+inherit mate
 
 DESCRIPTION="Caja extension for sending files to locations"
 HOMEPAGE="http://www.mate-desktop.org"
@@ -23,8 +23,7 @@ RDEPEND=">=x11-libs/gtk+-2.18:2
 	gajim? (
 		net-im/gajim
 		>=dev-libs/dbus-glib-0.60 )
-	pidgin? (
-		>=dev-libs/dbus-glib-0.60 )
+	pidgin? ( >=dev-libs/dbus-glib-0.60 )
 	upnp? ( >=net-libs/gupnp-0.13.0 )"
 DEPEND="${RDEPEND}
 	sys-devel/gettext
@@ -32,8 +31,8 @@ DEPEND="${RDEPEND}
 	>=dev-util/intltool-0.35
 	doc? ( >=dev-util/gtk-doc-1.9 )
 	>=mate-base/mate-common-1.2.2"
-	# Are we need that dependency here?
-#	dev-util/gtk-doc-am
+	# Do we need this dependency here?
+	# dev-util/gtk-doc-am
 
 _use_plugin() {
 	if use ${1}; then
