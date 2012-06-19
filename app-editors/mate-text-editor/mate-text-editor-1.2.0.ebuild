@@ -58,8 +58,6 @@ pkg_setup() {
 
 src_prepare() {
 	mate_src_prepare
-
-	# disable pyc compiling
 	use python && python_clean_py-compile_files
 }
 
@@ -70,5 +68,5 @@ pkg_postinst() {
 
 pkg_postrm() {
 	mate_pkg_postrm
-	python_mod_cleanup /usr/$(get_libdir)/pluma/plugins
+	use python && python_mod_cleanup /usr/$(get_libdir)/pluma/plugins
 }
