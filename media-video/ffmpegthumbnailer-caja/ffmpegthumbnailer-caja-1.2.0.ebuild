@@ -14,11 +14,10 @@ SLOT="0"
 KEYWORDS="~amd64 ~arm ~x86"
 IUSE=""
 
-COMMON=">=mate-base/mate-conf-1.2.1"
-RDEPEND="${COMMON}
+DEPEND=">=mate-base/mate-conf-1.2.1"
+RDEPEND="${DEPEND}
 	media-video/ffmpegthumbnailer
 	>=mate-base/mate-file-manager-1.2.2"
-DEPEND="${COMMON}"
 
 GNOME2_ECLASS_SCHEMAS="/usr/share/mateconf/schemas/ffmpegthumbnailer-caja.schemas"
 DOCS="AUTHORS README"
