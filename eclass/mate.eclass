@@ -95,10 +95,14 @@ mate_src_prepare() {
 	mate_omf_fix
 
 	# Retrieve configure script
-	if [ -f "${S}/configure.in" ]; then
+	local mate_conf_in
+	if [[ -f "${S}/configure.in" ]]; then
 		mate_conf_in="${S}/configure.in"
-	elif [ -f "${S}/configure.ac" ]; then
+	elif [[ -f "${S}/configure.ac" ]]; then
 		mate_conf_in="${S}/configure.ac"
+	else
+		einfo "no configure.in or configure.ac file were found"
+		return 0
 	fi
 
 	# Mate preparation, doing similar to autotools eclass stuff. (Do we need die here?)
@@ -136,6 +140,12 @@ mate_src_prepare() {
 # @DESCRIPTION:
 # Gnome specific configure handling
 mate_src_configure() {
+	# Skip phase if configure file doesn't exist
+	if [[ ! -f "${S}/configure" ]]; then
+		einfo "no configure file was found"
+		return 0
+	fi
+
 	# Update the GNOME configuration options
 	if [[ ${GCONF_DEBUG} != 'no' ]] ; then
 		if use debug ; then
