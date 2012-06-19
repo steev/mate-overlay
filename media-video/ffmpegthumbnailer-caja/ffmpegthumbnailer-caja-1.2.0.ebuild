@@ -4,36 +4,21 @@
 
 EAPI="4"
 
-inherit versionator mate-utils
+inherit mate
 
 DESCRIPTION="Caja video thumbnailer for MATE"
 HOMEPAGE="http://mate-desktop.org"
-SRC_URI="http://pub.mate-desktop.org/releases/$(get_version_component_range 1-2)/${P}.tar.xz"
 
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~arm ~x86"
 IUSE=""
 
-RDEPEND="media-video/ffmpegthumbnailer
-	>=mate-base/mate-conf-1.2.1
+COMMON=">=mate-base/mate-conf-1.2.1"
+RDEPEND="${COMMON}
+	media-video/ffmpegthumbnailer
 	>=mate-base/mate-file-manager-1.2.2"
-
-DEPEND="app-arch/xz-utils"
-
-DOCS="AUTHORS README"
+DEPEND="${COMMON}"
 
 GNOME2_ECLASS_SCHEMAS="/usr/share/mateconf/schemas/ffmpegthumbnailer-caja.schemas"
-
-src_install() {
-	emake DESTDIR="${D}" install
-	dodoc AUTHORS README
-}
-
-pkg_postinst() {
-	mate_gconf_install
-}
-
-pkg_postrm() {
-	mate_gconf_uninstall
-}
+DOCS="AUTHORS README"
