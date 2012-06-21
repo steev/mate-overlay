@@ -2,24 +2,27 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="3"
+EAPI="4"
+WANT_AUTOMAKE="1.9"
 GCONF_DEBUG="yes"
 
-inherit autotools eutils mate mate-desktop.org
+inherit mate
 
-DESCRIPTION="Tool to display dialogs from the commandline and shell scripts"
+DESCRIPTION="Tool to display MATE dialogs from the commandline and shell scripts"
 HOMEPAGE="http://mate-desktop"
 
 LICENSE="LGPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~arm ~x86"
-IUSE="+compat libnotify"
+IUSE="+compat gtk3 libnotify"
 
-RDEPEND=">=x11-libs/gtk+-2.18:2
+# /usr/bin/gdialog could collide with older GNOME2 zenity[compat]
+RDEPEND="gtk3? ( x11-libs/gtk+:3 )
+	!gtk3? ( x11-libs/gtk+:2 )
 	>=dev-libs/glib-2.8:2
 	compat? ( >=dev-lang/perl-5 )
-	libnotify? ( >=x11-libs/libmatenotify-1.2.0 )"
-
+	libnotify? ( >=x11-libs/libmatenotify-1.2.0 )
+	compat? ( !<=gnome-extra/zenity-2.32.1[compat] )"
 DEPEND="${RDEPEND}
 	app-text/scrollkeeper
 	app-text/docbook-xml-dtd:4.1.2
@@ -31,18 +34,8 @@ DEPEND="${RDEPEND}
 
 pkg_setup() {
 	G2CONF="${G2CONF}
-		--disable-scrollkeeper
-		--with-gtk=2.0
-		$(use_enable libnotify)"
+		$(use_enable libnotify libmatenotify)"
 	DOCS="AUTHORS ChangeLog HACKING NEWS README THANKS TODO"
-}
-
-src_prepare() {
-	mate-doc-prepare --force --copy || die
-	mate-doc-common --copy || die
-	eautoreconf
-	# epatch "${FILESDIR}"/${P}-libnotify-0.7.patch
-	mate_src_prepare
 }
 
 src_install() {
