@@ -6,13 +6,13 @@ EAPI="4"
 GCONF_DEBUG="yes"
 MATE_DESKTOP_ORG_MODULE="mate-conf"
 
-inherit autotools eutils mate mate-desktop.org
+inherit mate
 
 DESCRIPTION="A configuration database system"
 HOMEPAGE="http://mate-desktop.org"
 
 LICENSE="LGPL-2"
-SLOT="2"
+SLOT="0"
 KEYWORDS="~amd64 ~arm ~x86"
 IUSE="debug doc +introspection ldap policykit"
 
@@ -48,10 +48,6 @@ pkg_setup() {
 }
 
 src_prepare() {
-	gtkdocize || die
-
-	eautoreconf
-
 	mate_src_prepare
 
 	# Do not start gconfd when installing schemas, fix bug #238276, upstream #631983
