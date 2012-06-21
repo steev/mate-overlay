@@ -3,11 +3,12 @@
 # $Header: $
 
 EAPI="4"
-GCONF_DEBUG="no"
+WANT_AUTOMAKE="1.9"
+GCONF_DEBUG="yes"
 MATE_LA_PUNT="yes"
 PYTHON_DEPEND="python? 2"
 
-inherit eutils mate python
+inherit mate python
 
 DESCRIPTION="MATE library to access weather information from online services"
 HOMEPAGE="http://mate-desktop.org"
@@ -19,7 +20,7 @@ IUSE="python doc"
 
 # libsoup-gnome is to be used because libsoup[gnome] might not
 # get libsoup-gnome installed by the time ${P} is built
-RDEPEND=">=x11-libs/gtk+-2.11:2
+RDEPEND="x11-libs/gtk+:2
 	>=dev-libs/glib-2.13:2
 	>=mate-base/mate-conf-1.2.1
 	>=net-libs/libsoup-gnome-2.25.1:2.4
@@ -42,16 +43,21 @@ pkg_setup() {
 		--enable-locations-compression
 		--disable-all-translations-in-one-xml
 		$(use_enable python)"
-	use python && python_set_active_version 2
-	python_pkg_setup
+	if use python; then
+		python_set_active_version 2
+		python_pkg_setup
+	fi
 }
 
 src_prepare() {
+	# fix python automagic in configure.in
+	epatch "${FILESDIR}/${P}-fix-automagic-python-support.patch"
+	# fix undefined use of MKDIR_P in python/Makefile.am
+	epatch "${FILESDIR}/${P}-fix-mkdirp.patch"
+
 	mate_src_prepare
-	mate-doc-common --copy || die
 }
 
 src_install() {
 	mate_src_install
-	python_clean_installation_image
 }
