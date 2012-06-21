@@ -6,7 +6,7 @@ EAPI="4"
 # Debug only changes CFLAGS
 GCONF_DEBUG="no"
 
-inherit autotools eutils mate mate-desktop.org
+inherit mate
 
 DESCRIPTION="MATE default window manager"
 HOMEPAGE="http://mate-desktop.org"
@@ -17,9 +17,11 @@ KEYWORDS="~amd64 ~arm ~x86"
 IUSE="gtk3 startup-notification test xinerama"
 
 # XXX: libgtop is automagic, hard-enabled instead
-RDEPEND=">=x11-libs/gtk+-2.24:2
-	>=x11-libs/pango-1.2[X]
+RDEPEND=" >=x11-libs/pango-1.2[X]
 	>=dev-libs/glib-2.25.10:2
+	gtk3? ( x11-libs/gtk+:2 )
+	!gtk3? ( x11-libs/gtk+:3 )
+	>=mate-base/mate-conf-1.2.1
 	>=gnome-base/gsettings-desktop-schemas-3.3
 	>=x11-libs/startup-notification-0.7
 	>=x11-libs/libXcomposite-0.2
@@ -37,7 +39,6 @@ RDEPEND=">=x11-libs/gtk+-2.24:2
 	>=mate-extra/mate-dialogs-1.2.0
 	xinerama? ( x11-libs/libXinerama )
 	!x11-misc/expocity"
-
 DEPEND="${RDEPEND}
 	>=app-text/mate-doc-utils-1.2.1
 	sys-devel/gettext
