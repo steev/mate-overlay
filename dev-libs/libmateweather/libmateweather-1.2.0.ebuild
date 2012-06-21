@@ -57,7 +57,3 @@ src_prepare() {
 
 	mate_src_prepare
 }
-
-src_install() {
-	mate_src_install
-}
