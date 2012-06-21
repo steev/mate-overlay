@@ -3,7 +3,7 @@
 # $Header: $
 
 EAPI="4"
-GCONF_DEBUG="no"
+GCONF_DEBUG="yes"
 
 inherit mate multilib
 
@@ -11,7 +11,7 @@ DESCRIPTION="Fork of bluez-gnome focused on integration with MATE"
 HOMEPAGE="http://mate-desktop.org/"
 
 LICENSE="GPL-2 LGPL-2.1"
-SLOT="2"
+SLOT="0"
 KEYWORDS="~amd64 ~arm ~x86"
 IUSE="doc +introspection test"
 
@@ -30,7 +30,6 @@ RDEPEND="${COMMON_DEPEND}
 
 DEPEND="${COMMON_DEPEND}
 	!net-wireless/bluez-gnome
-	!net-wireless/gnome-bluetooth
 	app-text/docbook-xml-dtd:4.1.2
 	>=app-text/mate-doc-utils-1.2.1
 	app-text/scrollkeeper
@@ -65,7 +64,7 @@ src_install() {
 	mate_src_install
 
 	insinto /$(get_libdir)/udev/rules.d
-	doins "${FILESDIR}"/80-rfkill.rules
+	doins "${FILESDIR}"/80-mate-rfkill.rules
 }
 
 pkg_postinst() {
