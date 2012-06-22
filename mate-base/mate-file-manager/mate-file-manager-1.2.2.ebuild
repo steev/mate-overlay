@@ -2,10 +2,11 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="3"
-GCONF_DEBUG="no"
+EAPI="4"
+GCONF_DEBUG="yes"
+MATE_LA_PUNT="yes"
 
-inherit autotools eutils mate
+inherit mate
 
 DESCRIPTION="Caja file manager for the MATE desktop"
 HOMEPAGE="http://mate-desktop.org"
@@ -13,12 +14,13 @@ HOMEPAGE="http://mate-desktop.org"
 LICENSE="GPL-2 LGPL-2 FDL-1.1"
 SLOT="0"
 KEYWORDS="~amd64 ~arm ~x86"
-IUSE="doc gnome +introspection xmp"
+IUSE="doc gtk3 mate +introspection xmp"
 
 RDEPEND=">=dev-libs/glib-2.28.0:2
 	>=mate-base/mate-desktop-1.2.0
 	>=x11-libs/pango-1.1.2
-	>=x11-libs/gtk+-2.22:2[introspection?]
+	gtk3? ( x11-libs/gtk+:3[introspection?] )
+	!gtk3? ( x11-libs/gtk+:2[introspection?] )
 	>=dev-libs/libxml2-2.4.7:2
 	>=media-libs/libexif-0.5.12
 	>=mate-base/mate-conf-1.2.1
@@ -27,7 +29,6 @@ RDEPEND=">=dev-libs/glib-2.28.0:2
 	x11-libs/libXrender
 	introspection? ( >=dev-libs/gobject-introspection-0.6.4 )
 	xmp? ( media-libs/exempi:2 )"
-
 DEPEND="${RDEPEND}
 	>=dev-lang/perl-5
 	sys-devel/gettext
@@ -36,8 +37,7 @@ DEPEND="${RDEPEND}
 	doc? ( >=dev-util/gtk-doc-1.4 )
 	>=mate-base/mate-common-1.2.2
 	dev-util/gtk-doc-am"
-
-PDEPEND="gnome? ( >=x11-themes/mate-icon-theme-1.2.0 )
+PDEPEND="mate? ( >=x11-themes/mate-icon-theme-1.2.0 )
 	>=gnome-base/gvfs-1.10.1"
 
 pkg_setup() {
@@ -50,8 +50,6 @@ pkg_setup() {
 }
 
 src_prepare() {
-	gtkdocize || die
-	eautoreconf
 	mate_src_prepare
 
 	# Remove crazy CFLAGS
@@ -66,11 +64,6 @@ src_test() {
 	unset ORBIT_SOCKETDIR
 	unset DBUS_SESSION_BUS_ADDRESS
 	Xemake check || die "Test phase failed"
-}
-
-src_install() {
-	mate_src_install
-	find "${ED}" -name "*.la" -delete || die "remove of la files failed"
 }
 
 pkg_postinst() {
