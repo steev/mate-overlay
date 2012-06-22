@@ -15,14 +15,15 @@ LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~arm ~x86"
 
-IUSE="dbus debug djvu dvi mate mate-keyring gtk3 +introspection caja +ps t1lib tiff"
+IUSE="caja dbus debug djvu dvi gtk3 +introspection mate mate-keyring +ps t1lib tiff"
 
 # Since 2.26.2, can handle poppler without cairo support. Make it optional ?
 # not mature enough
 RDEPEND="
 	>=dev-libs/glib-2.25.11:2
 	>=dev-libs/libxml2-2.5:2
-	>=x11-libs/gtk+-2.21.5:2[introspection?]
+	gtk3? ( x11-libs/gtk+:3[introspection?] )
+	!gtk3? ( x11-libs/gtk+:2[introspection?] )
 	>=x11-libs/libSM-1
 	|| (
 		>=x11-themes/mate-icon-theme-1.2.0
@@ -39,7 +40,6 @@ RDEPEND="
 	caja? ( >=mate-base/mate-file-manager-1.2.2[introspection?] )
 	ps? ( >=app-text/libspectre-0.2.0 )
 	tiff? ( >=media-libs/tiff-3.6:0 )"
-
 DEPEND="${RDEPEND}
 	app-text/scrollkeeper
 	>=app-text/mate-doc-utils-1.2.1
