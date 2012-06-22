@@ -20,9 +20,9 @@ IUSE="+compat gtk3 libnotify"
 RDEPEND="gtk3? ( x11-libs/gtk+:3 )
 	!gtk3? ( x11-libs/gtk+:2 )
 	>=dev-libs/glib-2.8:2
-	compat? ( >=dev-lang/perl-5 )
-	libnotify? ( >=x11-libs/libmatenotify-1.2.0 )
-	compat? ( !<=gnome-extra/zenity-2.32.1[compat] )"
+	compat? ( >=dev-lang/perl-5
+			!<=gnome-extra/zenity-2.32.1[compat] )
+	libnotify? ( >=x11-libs/libmatenotify-1.2.0 )"
 DEPEND="${RDEPEND}
 	app-text/scrollkeeper
 	app-text/docbook-xml-dtd:4.1.2
