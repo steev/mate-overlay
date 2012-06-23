@@ -30,6 +30,7 @@ mate-extra/mate-media
 mate-extra/mate-screensaver
 mate-extra/mate-power-manager
 app-editors/mate-text-editor
+mate-base/mate-applets
 mate-extra/mate-system-monitor
 media-gfx/mate-image-viewer
 app-text/mate-document-viewer
