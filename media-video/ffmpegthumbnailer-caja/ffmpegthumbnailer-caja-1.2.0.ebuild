@@ -19,5 +19,4 @@ RDEPEND="${DEPEND}
 	media-video/ffmpegthumbnailer
 	>=mate-base/mate-file-manager-1.2.2"
 
-GNOME2_ECLASS_SCHEMAS="/usr/share/mateconf/schemas/ffmpegthumbnailer-caja.schemas"
 DOCS="AUTHORS README"
