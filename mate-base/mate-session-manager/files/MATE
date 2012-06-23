@@ -7,8 +7,7 @@ if [ -f /etc/xdg/menus/mate-applications.menu ] ; then
 	export XDG_MENU_PREFIX=mate-
 fi
 
-for errfile in "$HOME/.materc-errors" "${TMPDIR-/tmp}/materc-$USER" 
-"/tmp/materc-$USER"
+for errfile in "$HOME/.materc-errors" "${TMPDIR-/tmp}/materc-$USER/tmp/materc-$USER"
 do
 	if ( cp /dev/null "$errfile" 2> /dev/null )
 	then
@@ -72,10 +71,8 @@ fi
 # Eeek, this seems like too much magic here
 #
 if [ -z "$XKB_IN_USE" ] && [ ! -L /etc/X11/X ]; then
-    if grep '^exec.*/Xsun' /etc/X11/X > /dev/null 2>&1 && [ -f 
-/etc/X11/XF86Config ]; then
-       xkbsymbols=`sed -n -e 's/^[     ]*XkbSymbols[   
-]*"\(.*\)".*$/\1/p' /etc/X11/XF86Config`
+    if grep '^exec.*/Xsun' /etc/X11/X > /dev/null 2>&1 && [ -f /etc/X11/XF86Config ]; then
+       xkbsymbols=`sed -n -e 's/^[     ]*XkbSymbols[   ]*"\(.*\)".*$/\1/p' /etc/X11/XF86Config`
        if [ -n "$xkbsymbols" ]; then
            setxkbmap -symbols "$xkbsymbols"
            XKB_IN_USE=yes
