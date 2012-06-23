@@ -144,7 +144,10 @@ mate_gconf_collect() {
 	# schemas located in /etc should be merged and placed over /usr/share
 	local schema_list=$(find 'etc/mateconf/schemas/' -name '*.schemas' 2> /dev/null)
 	if [[ ! -z "${schema_list}" ]]; then
-		mkdir -p usr/share/mateconf/schemas || die "schemas directory creation failed"
+		if [[ ! -d usr/share/mateconf/schemas ]]; then
+			mkdir -p usr/share/mateconf/schemas || die "schemas directory creation failed"
+		fi
+
 		mate_gconf_merge usr/share/mateconf/schemas/${PN}.schemas ${PN} ${schema_list}
 		rm -rf 'etc/mateconf/schemas' 2> /dev/null
 	fi
