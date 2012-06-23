@@ -1,19 +1,14 @@
 # Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: Exp $
+# $Header: $
 
 # @ECLASS: mate-utils.eclass
 # @MAINTAINER:
-# gnome@gentoo.org
-# @BLURB: Auxiliary functions commonly used by Gnome packages.
+# micia@sabayon.org
+# @BLURB: Auxiliary functions commonly used by MATE packages.
 # @DESCRIPTION:
-# This eclass provides a set of auxiliary functions needed by most Gnome
-# packages. It may be used by non-Gnome packages as needed for handling various
-# Gnome stack related functions such as:
-#  * Gtk+ icon cache management
-#  * GSettings schemas management
-#  * GConf schemas management
-#  * scrollkeeper (old Gnome help system) management
+# This eclass provides a set of auxiliary functions needed by most MATE
+# packages.
 
 case "${EAPI:-0}" in
 	0|1|2|3|4) ;;
@@ -50,11 +45,13 @@ esac
 # Path to glib-compile-schemas
 : ${GLIB_COMPILE_SCHEMAS:="/usr/bin/glib-compile-schemas"}
 
-# @ECLASS-VARIABLE: GNOME2_ECLASS_SCHEMAS
+# @ECLASS-VARIABLE: MATE_ECLASS_SCHEMAS
 # @INTERNAL
 # @DEFAULT_UNSET
 # @DESCRIPTION:
-# List of GConf schemas provided by the package
+# List of MateConf schemas provided by the package, for later
+# set during pre-install phase, for later handling in post-install
+# and post-remove
 
 # @ECLASS-VARIABLE: GNOME2_ECLASS_ICONS
 # @INTERNAL
@@ -101,22 +98,66 @@ mate_environment_reset() {
 	chmod 0700 "${XDG_RUNTIME_DIR}"
 }
 
+# @FUNCTION: mate_gconf_merge
+# @USAGE: <outschema> <domain> [schemas file list]
+# @DESCRIPTION:
+# Finds the MateConf schemas in the /etc directory
+# of the package that are about to be installed and merges them into a
+# unique schema file in the /usr/share directory, that is going to be
+# installed in the system.
+mate_gconf_merge() {
+	local out="${1}"
+	shift
+	local domain="${1}"
+	shift
+
+	echo '<?xml version="1.0"?>' > "${out}"
+	echo '<mateconfschemafile><schemalist>' >> "${out}"
+
+	while [[ "${1}" ]]; do
+		if [[ -f "${1}" ]]; then
+			sed -e '/<?xml/d' \
+				-e 's|<mateconfschemafile>||g' \
+				-e 's|</mateconfschemafile>||g' \
+				-e 's|<schemalist>||g' \
+				-e 's|</schemalist>||g' "${1}" >> "${out}"
+		fi
+
+		shift
+	done
+
+	echo '</schemalist></mateconfschemafile>' >> "${out}"
+	if [[ ! -z "${domain}" ]]; then
+		sed -ri "s/^([[:space:]]*)(<locale name=\"C\">)/\1<gettext_domain>$DOMAIN<\/gettext_domain>\n\1\2/; /^[[:space:]]*<locale name=\"[^C]/,/^[[:space:]]*<\/locale>[[:space:]]*\$/ d; /^$/d; s/<\/schema>$/&\n/" "${out}"
+	fi
+}
+
 # @FUNCTION: mate_gconf_savelist
 # @DESCRIPTION:
-# Find the GConf schemas that are about to be installed and save their location
-# in the GNOME2_ECLASS_SCHEMAS environment variable.
-# This function should be called from pkg_preinst.
-mate_gconf_savelist() {
+# Find the MateConf schemas that need to be installed, eventually merge
+# such schemas generating an appropriate schema in /usr/share directory and
+# save their location for later stages.
+# This function is ought to be called from pkg_preinst.
+mate_gconf_collect() {
 	has ${EAPI:-0} 0 1 2 && ! use prefix && ED="${D}"
 	pushd "${ED}" &> /dev/null
-	export GNOME2_ECLASS_SCHEMAS=$(find 'etc/mateconf/schemas/' -name '*.schemas' 2> /dev/null)
+	# schemas located in /etc should be merged and placed over /usr/share
+	local schema_list=$(find 'etc/mateconf/schemas/' -name '*.schemas' 2> /dev/null)
+	if [[ ! -z "${schema_list}" ]]; then
+		mkdir -p usr/share/mateconf/schemas || die "schemas directory creation failed"
+		mate_gconf_merge usr/share/mateconf/schemas/${PN}.schemas ${PN} ${schema_list}
+		rm -rf 'etc/mateconf/schemas' 2> /dev/null
+	fi
+
+	# packages could ship schemas even outside /etc, if they don't need merging
+	export MATE_ECLASS_SCHEMAS=$(find 'usr/share/mateconf/schemas/' -name '*.schemas' 2> /dev/null)
 	popd &> /dev/null
 }
 
 # @FUNCTION: mate_gconf_install
 # @DESCRIPTION:
 # Applies any schema files installed by the current ebuild to Gconf's database
-# using gconftool-2.
+# using mateconftool-2.
 # This function should be called from pkg_postinst.
 mate_gconf_install() {
 	has ${EAPI:-0} 0 1 2 && ! use prefix && EROOT="${ROOT}"
@@ -127,7 +168,7 @@ mate_gconf_install() {
 		return
 	fi
 
-	if [[ -z "${GNOME2_ECLASS_SCHEMAS}" ]]; then
+	if [[ -z "${MATE_ECLASS_SCHEMAS}" ]]; then
 		debug-print "No MATE GConf schemas found"
 		return
 	fi
@@ -139,7 +180,7 @@ mate_gconf_install() {
 	einfo "Installing MATE GConf schemas"
 
 	local F
-	for F in ${GNOME2_ECLASS_SCHEMAS}; do
+	for F in ${MATE_ECLASS_SCHEMAS}; do
 		if [[ -e "${EROOT}${F}" ]]; then
 			debug-print "Installing schema: ${F}"
 			"${updater}" --makefile-install-rule "${EROOT}${F}" 1>/dev/null
@@ -157,7 +198,7 @@ mate_gconf_install() {
 
 # @FUNCTION: mate_gconf_uninstall
 # @DESCRIPTION:
-# Removes schema files previously installed by the current ebuild from Gconf's
+# Removes schema files previously installed by the current ebuild from MateConf's
 # database.
 mate_gconf_uninstall() {
 	has ${EAPI:-0} 0 1 2 && ! use prefix && EROOT="${ROOT}"
@@ -168,7 +209,7 @@ mate_gconf_uninstall() {
 		return
 	fi
 
-	if [[ -z "${GNOME2_ECLASS_SCHEMAS}" ]]; then
+	if [[ -z "${MATE_ECLASS_SCHEMAS}" ]]; then
 		debug-print "No MATE GConf schemas found"
 		return
 	fi
@@ -179,7 +220,7 @@ mate_gconf_uninstall() {
 	einfo "Uninstalling MATE GConf schemas"
 
 	local F
-	for F in ${GNOME2_ECLASS_SCHEMAS}; do
+	for F in ${MATE_ECLASS_SCHEMAS}; do
 		if [[ -e "${EROOT}${F}" ]]; then
 			debug-print "Uninstalling gconf schema: ${F}"
 			"${updater}" --makefile-uninstall-rule "${EROOT}${F}" 1>/dev/null

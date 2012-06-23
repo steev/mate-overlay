@@ -1,10 +1,10 @@
 # Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: Exp $
+# $Header: $
 
 # @ECLASS: mate-desktop.org.eclass
 # @MAINTAINER:
-# gnome@gentoo.org
+# micia@sabayon.org
 # @AUTHOR:
 # Authors: Spidler <spidler@gentoo.org> with help of carparski.
 # eclass variable additions and documentation: Gilles Dartiguelongue <eva@gentoo.org>

@@ -1,10 +1,10 @@
 # Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: Exp $
+# $Header: $
 
 # @ECLASS: mate.eclass
 # @MAINTAINER:
-# gnome@gentoo.org
+# micia@sabayon.org
 # @BLURB:
 # @DESCRIPTION:
 # Exports portage base functions used by ebuilds written for packages using the
@@ -138,7 +138,7 @@ mate_src_prepare() {
 
 # @FUNCTION: mate_src_configure
 # @DESCRIPTION:
-# Gnome specific configure handling
+# MATE specific configure handling
 mate_src_configure() {
 	# Skip phase if configure file doesn't exist
 	if [[ ! -f "${S}/configure" ]]; then
@@ -146,7 +146,7 @@ mate_src_configure() {
 		return 0
 	fi
 
-	# Update the GNOME configuration options
+	# Update the MATE configuration options
 	if [[ ${GCONF_DEBUG} != 'no' ]] ; then
 		if use debug ; then
 			G2CONF="${G2CONF} --enable-debug=yes"
@@ -204,7 +204,7 @@ mate_src_compile() {
 
 # @FUNCTION: mate_src_install
 # @DESCRIPTION:
-# Gnome specific install. Handles typical GConf and scrollkeeper setup
+# MATE specific install. Handles typical MateConf and scrollkeeper setup
 # in packages and removal of .la files if requested
 mate_src_install() {
 	has ${EAPI:-0} 0 1 2 && ! use prefix && ED="${D}"
@@ -254,9 +254,9 @@ mate_src_install() {
 
 # @FUNCTION: mate_pkg_preinst
 # @DESCRIPTION:
-# Finds Icons, GConf and GSettings schemas for later handling in pkg_postinst
+# Finds Icons, MateConf and GSettings schemas for later handling in pkg_postinst
 mate_pkg_preinst() {
-	mate_gconf_savelist
+	mate_gconf_collect
 	mate_icon_savelist
 	mate_schemas_savelist
 	mate_scrollkeeper_savelist
@@ -264,7 +264,7 @@ mate_pkg_preinst() {
 
 # @FUNCTION: mate_pkg_postinst
 # @DESCRIPTION:
-# Handle scrollkeeper, GConf, GSettings, Icons, desktop and mime
+# Handle scrollkeeper, MateConf, GSettings, Icons, desktop and mime
 # database updates.
 mate_pkg_postinst() {
 	mate_gconf_install
@@ -277,7 +277,8 @@ mate_pkg_postinst() {
 
 # @FUNCTION: mate_pkg_postrm
 # @DESCRIPTION:
-# Handle scrollkeeper, GSettings, Icons, desktop and mime database updates.
+# Handle scrollkeeper, MateConf, GSettings, Icons, desktop and
+# mime database updates.
 mate_pkg_postrm() {
 	mate_gconf_uninstall
 	fdo-mime_desktop_database_update
