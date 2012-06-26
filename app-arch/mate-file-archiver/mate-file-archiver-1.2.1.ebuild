@@ -49,8 +49,7 @@ pkg_postinst() {
 	mate_pkg_postinst
 
 	elog "${PN} is a frontend for several archiving utilities. If you want a"
-	elog "particular achive format support, see ${HOMEPAGE}"
-	elog "and install the relevant package."
+	elog "particular achive format support install the relevant package."
 	elog
 	elog "for example:"
 	elog "  7-zip   - app-arch/p7zip"
