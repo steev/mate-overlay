@@ -44,6 +44,7 @@ pkg_setup() {
 	G2CONF="${G2CONF}
 		--disable-update-mimedb
 		--disable-packagekit
+		--enable-unique
 		$(use_enable introspection)
 		$(use_enable xmp)"
 	DOCS="AUTHORS ChangeLog* HACKING MAINTAINERS NEWS README THANKS TODO"
