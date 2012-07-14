@@ -14,12 +14,13 @@ DESCRIPTION="Libraries for the MATE desktop that are not part of the UI"
 HOMEPAGE="http://mate-desktop.org"
 
 LICENSE="GPL-2 FDL-1.1 LGPL-2"
-SLOT="2"
+SLOT="0"
 KEYWORDS="~amd64 ~arm ~x86"
 IUSE="doc gtk3"
 
 RDEPEND=">=x11-libs/gtk+-2.18:2
 	>=dev-libs/glib-2.19.1:2
+	dev-libs/libunique:1
 	>=x11-libs/libXrandr-1.2
 	>=mate-base/mate-conf-1.2.1
 	>=x11-libs/startup-notification-0.5"
