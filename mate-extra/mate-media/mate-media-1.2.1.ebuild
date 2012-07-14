@@ -2,16 +2,16 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="3"
-GCONF_DEBUG="no"
+EAPI="4"
+GCONF_DEBUG="yes"
 
-inherit autotools eutils mate mate-desktop.org
+inherit mate
 
 DESCRIPTION="Multimedia related programs for the MATE desktop"
 HOMEPAGE="http://mate-desktop.org"
 
 LICENSE="LGPL-2 GPL-2 FDL-1.1"
-SLOT="2"
+SLOT="0"
 KEYWORDS="~amd64 ~arm ~x86"
 IUSE="aac flac mp3 pulseaudio speex twolame vorbis"
 
@@ -19,7 +19,7 @@ IUSE="aac flac mp3 pulseaudio speex twolame vorbis"
 COMMON_DEPEND="dev-libs/libxml2:2
 	>=dev-libs/glib-2.18.2:2
 	>=x11-libs/gtk+-2.18.0:2
-	mate-base/mate-conf
+	>=mate-base/mate-conf-1.2.1
 	>=media-libs/gstreamer-0.10.23:0.10
 	>=media-libs/gst-plugins-base-0.10.23:0.10
 	>=media-libs/gst-plugins-good-0.10:0.10
@@ -52,22 +52,15 @@ DEPEND="${COMMON_DEPEND}
 	>=dev-util/intltool-0.35.0
 	dev-util/gtk-doc"
 
-src_prepare() {
-	mkdir -p "${S}/m4" || die
-	mate-doc-prepare --force --copy || die
-	mate-doc-common --copy || die
-	eautoreconf
-	mate_src_prepare
-
-	# Fix sliders not working properly, upstream bug #645242
-	# epatch "${FILESDIR}/${PN}-2.32.0-gvc-channel.patch"
-}
+#src_prepare() {
+#	mate_src_prepare
+#
+#	# Fix sliders not working properly, upstream bug #645242
+#	# epatch "${FILESDIR}/${PN}-2.32.0-gvc-channel.patch"
+#}
 
 pkg_setup() {
 	G2CONF="${G2CONF}
-		--disable-static
-		--disable-scrollkeeper
-		--disable-schemas-install
 		--enable-gstprops
 		--enable-grecord
 		--enable-profiles
