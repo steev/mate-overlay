@@ -2,10 +2,11 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="3"
-GCONF_DEBUG="no"
+EAPI="4"
+GCONF_DEBUG="yes"
+MATE_LA_PUNT="yes"
 
-inherit autotools mate multilib virtualx mate-desktop.org
+inherit mate virtualx
 
 DESCRIPTION="The MATE Canvas library"
 HOMEPAGE="http://mate-desktop.org"
@@ -31,12 +32,10 @@ DEPEND="${RDEPEND}
 
 pkg_setup() {
 	DOCS="AUTHORS ChangeLog NEWS README"
-	G2CONF="${G2CONF} $(use_enable glade) --disable-static"
+	G2CONF="${G2CONF} $(use_enable glade)"
 }
 
 src_prepare() {
-	gtkdocize || die
-	eautoreconf
 	mate_src_prepare
 
 	# Fix intltoolize broken file, see upstream #577133
@@ -46,11 +45,6 @@ src_prepare() {
 	# Don't build demos that are not even installed, bug #226299
 	sed 's/^\(SUBDIRS =.*\)demos\(.*\)$/\1\2/' -i Makefile.am Makefile.in \
 		|| die "sed 2 failed"
-}
-
-src_install() {
-	mate_src_install
-	find "${ED}" -name '*.la' -exec rm -f {} +
 }
 
 src_test() {
