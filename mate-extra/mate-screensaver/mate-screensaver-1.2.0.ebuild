@@ -63,6 +63,10 @@ pkg_setup() {
 }
 
 src_prepare() {
+	# Prevent multiple screensaver instances due to race conditions
+	epatch "${FILESDIR}/${P}-prevent-multiple-instances.patch"
+	# Fix QA warnings due to missing includes in popsquares
+	epatch "${FILESDIR}/${P}-fix-popsquares-includes.patch"
 	# Fix intltoolize broken file, see upstream #577133
 	sed "s:'\^\$\$lang\$\$':\^\$\$lang\$\$:g" -i po/Makefile.in.in \
 		|| die "sed failed"
@@ -100,7 +104,6 @@ pkg_postinst() {
 		ewarn "To prevent a duplicate screensaver entry in the menu, you need to"
 		ewarn "build xscreensaver with -gnome in the USE flags."
 		ewarn "echo \"x11-misc/xscreensaver -gnome\" >> /etc/portage/package.use"
-
 		echo
 	fi
 
