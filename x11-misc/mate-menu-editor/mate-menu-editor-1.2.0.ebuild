@@ -41,7 +41,7 @@ pkg_setup() {
 src_prepare() {
 	mate_src_prepare
 
-	# disable pyc compiling
+	# Disable pyc compiling
 	python_clean_py-compile_files
 
 	python_copy_sources
