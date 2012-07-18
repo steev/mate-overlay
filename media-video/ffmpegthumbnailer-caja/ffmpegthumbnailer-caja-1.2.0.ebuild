@@ -4,7 +4,7 @@
 
 EAPI="4"
 
-inherit versionator mate
+inherit versionator mate-utils
 
 DESCRIPTION="Caja video thumbnailer for MATE"
 HOMEPAGE="http://mate-desktop.org"
@@ -25,15 +25,15 @@ DOCS="AUTHORS README"
 
 GNOME2_ECLASS_SCHEMAS="/usr/share/mateconf/schemas/ffmpegthumbnailer-caja.schemas"
 
-#src_install() {
-#	emake DESTDIR="${D}" install
-#	dodoc AUTHORS README
-#}
+src_install() {
+	emake DESTDIR="${D}" install
+	dodoc AUTHORS README
+}
 
-#pkg_postinst() {
-#	mate_gconf_install
-#}
+pkg_postinst() {
+	mate_gconf_install
+}
 
-#pkg_postrm() {
-#	mate_gconf_uninstall
-#}
+pkg_postrm() {
+	mate_gconf_uninstall
+}
