@@ -18,7 +18,8 @@ IUSE="gtk3"
 
 	# libgnome needed for some monospace font schema, bug #274638
 RDEPEND=">=dev-libs/glib-2.25.12:2
-	>=x11-libs/gtk+-2.18:2
+	gtk3? ( x11-libs/gtk+:3 )
+	!gtk3? ( x11-libs/gtk+:2 )
 	>=mate-base/mate-conf-1.2.1
 	>=x11-libs/vte-0.26.0:0
 	x11-libs/libSM
