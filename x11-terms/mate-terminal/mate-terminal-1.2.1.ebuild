@@ -14,22 +14,22 @@ HOMEPAGE="http://mate-desktop.org"
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~arm ~x86"
-IUSE=""
+IUSE="gtk3"
 
-# libgnome needed for some monospace font schema, bug #274638
+	# libgnome needed for some monospace font schema, bug #274638
 RDEPEND=">=dev-libs/glib-2.25.12:2
 	>=x11-libs/gtk+-2.18:2
-	mate-base/mate-conf
+	>=mate-base/mate-conf-1.2.1
 	>=x11-libs/vte-0.26.0:0
 	x11-libs/libSM
-	mate-base/libmate"
+	>=mate-base/libmate-1.2.0"
 
 DEPEND="${RDEPEND}
 	|| ( dev-util/gtk-builder-convert <=x11-libs/gtk+-2.24.10:2 )
 	sys-devel/gettext
 	>=dev-util/intltool-0.40
 	virtual/pkgconfig
-	app-text/mate-doc-utils
+	>=app-text/mate-doc-utils-1.2.1
 	>=app-text/scrollkeeper-0.3.11"
 
 DOCS="AUTHORS ChangeLog HACKING NEWS README"
