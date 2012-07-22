@@ -19,8 +19,8 @@ IUSE="gtk3 startup-notification test xinerama"
 # XXX: libgtop is automagic, hard-enabled instead
 RDEPEND=" >=x11-libs/pango-1.2[X]
 	>=dev-libs/glib-2.25.10:2
-	gtk3? ( x11-libs/gtk+:2 )
-	!gtk3? ( x11-libs/gtk+:3 )
+	gtk3? ( x11-libs/gtk+:3 )
+	!gtk3? ( x11-libs/gtk+:2 )
 	>=mate-base/mate-conf-1.2.1
 	>=gnome-base/gsettings-desktop-schemas-3.3
 	>=x11-libs/startup-notification-0.7
