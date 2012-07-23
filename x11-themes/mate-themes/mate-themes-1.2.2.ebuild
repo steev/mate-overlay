@@ -39,11 +39,13 @@ pkg_setup() {
 src_prepare() {
 	mate_src_prepare
 
-	# Can't be builded with:
 	# Remove themes now provided by x11-themes/gnome-themes-standard
-	# sed 's:HighContrast.*\\:\\:g' -i $(find . -name Makefile.am -o -name Makefile.in) || die
-	# sed 's:LowContrast.*\\:\\:g' -i $(find . -name Makefile.am -o -name Makefile.in) || die
-	# sed 's:Shiny.*\\:\\:g' -i $(find . -name Makefile.am -o -name Makefile.in) || die
+	sed 's:HighContrast.*\\:\\:g' -i $(find . -name Makefile.am -o -name Makefile.in) || die
+	sed 's:LowContrast.*\\:\\:g' -i $(find . -name Makefile.am -o -name Makefile.in) || die
+	# File collision with x11-themes/matacity-themes package
+	sed 's:Shiny.*\\:\\:g' -i $(find . -name Makefile.am -o -name Makefile.in) || die
+	# Compillation issue with all that disabled stuff
+	sed 's:Aldabra.*\\:\\:g' -i $(find . -name Makefile.am -o -name Makefile.in) || die
 
 	# Are we need it?
 	# Fix intltoolize broken file, see upstream #577133
