@@ -82,9 +82,6 @@ src_prepare() {
 	# More network filesystems not to monitor, upstream bug #606421
 	# epatch "${FILESDIR}/${PN}-2.32.1-netfs-monitor.patch"
 
-	# xsettings: Export Xft.lcdfilter for OO.o's benefit, upstream bug #631924
-	# epatch "${FILESDIR}/${PN}-2.32.1-lcdfilter.patch"
-
 	# media-keys: React to stream-removed signal from GvcMixerControl
 	# epatch "${FILESDIR}/${PN}-2.32.1-media-keys-react.patch"
 
