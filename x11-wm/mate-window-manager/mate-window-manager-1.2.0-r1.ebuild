@@ -5,6 +5,7 @@
 EAPI="4"
 # Debug only changes CFLAGS
 GCONF_DEBUG="no"
+MATE_LA_PUNT="yes"
 
 inherit mate
 
