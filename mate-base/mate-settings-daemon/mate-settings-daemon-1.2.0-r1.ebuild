@@ -75,10 +75,6 @@ pkg_setup() {
 src_prepare() {
 	mate_src_prepare
 
-	# We use now debian patch as looks to fix bug #327609
-	# epatch "${DISTDIR}/${PN}-2.30.0-gst-vol-control-support.patch"
-	# epatch "${DISTDIR}/${PN}-2.32.1-gst-vol-control-support.patch"
-
 	# More network filesystems not to monitor, upstream bug #606421
 	epatch "${FILESDIR}/${PV}-netfs-monitor.patch"
 
