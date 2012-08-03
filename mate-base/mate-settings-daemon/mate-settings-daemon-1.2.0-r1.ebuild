@@ -72,14 +72,14 @@ pkg_setup() {
 }
 
 src_prepare() {
-	mate_src_prepare
-
 	# More network filesystems not to monitor, upstream bug #606421
-	epatch "${FILESDIR}/${PV}-netfs-monitor.patch"
+	epatch "${FILESDIR}/${P}-netfs-monitor.patch"
 
 	# media-keys: React to stream-removed signal from GvcMixerControl
-	epatch "${FILESDIR}/${PN}-2.32.1-media-keys-react.patch"
+	epatch "${FILESDIR}/${P}-media-keys-react.patch"
 
 	# mouse: Use event driven mode for syndaemon
-	epatch "${FILESDIR}/${PV}-syndaemon-mode.patch"
+	epatch "${FILESDIR}/${P}-syndaemon-mode.patch"
+
+	mate_src_prepare
 }
