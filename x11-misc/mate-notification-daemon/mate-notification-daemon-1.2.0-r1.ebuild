@@ -3,6 +3,7 @@
 # $Header: $
 
 EAPI="4"
+MATE_LA_PUNT="yes"
 
 inherit mate
 
