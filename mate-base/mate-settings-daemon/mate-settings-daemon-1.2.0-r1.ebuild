@@ -4,8 +4,9 @@
 
 EAPI="4"
 GCONF_DEBUG="yes"
+MATE_LA_PUNT="yes"
 
-inherit autotools eutils mate mate-desktop.org
+inherit eutils mate
 
 DESCRIPTION="MATE Settings Daemon"
 HOMEPAGE="http://mate-desktop.org"
@@ -89,9 +90,6 @@ src_prepare() {
 
 	# mouse: Use event driven mode for syndaemon
 	# epatch "${FILESDIR}/${PN}-2.32.1-syndaemon-mode.patch"
-
-	intltoolize --force --copy --automake || die "intltoolize failed"
-	eautoreconf
 }
 
 pkg_postinst() {
