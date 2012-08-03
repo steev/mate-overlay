@@ -12,11 +12,11 @@ HOMEPAGE="http://mate-dekstop.org"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~arm ~x86"
-IUSE=""
+IUSE="gtk3"
 
 RDEPEND=">=dev-libs/glib-2.4:2
 	>=x11-libs/gtk+-2.18:2
-	mate-base/mate-conf
+	>=mate-base/mate-conf-1.2.1
 	>=dev-libs/dbus-glib-0.78
 	>=sys-apps/dbus-1
 	>=media-libs/libcanberra-0.4[gtk]
