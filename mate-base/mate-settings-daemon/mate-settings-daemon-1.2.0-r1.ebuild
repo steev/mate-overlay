@@ -74,7 +74,7 @@ src_prepare() {
 	epatch "${FILESDIR}/${PV}-netfs-monitor.patch"
 
 	# media-keys: React to stream-removed signal from GvcMixerControl
-	# epatch "${FILESDIR}/${PN}-2.32.1-media-keys-react.patch"
+	epatch "${FILESDIR}/${PN}-2.32.1-media-keys-react.patch"
 
 	# mouse: Use event driven mode for syndaemon
 	epatch "${FILESDIR}/${PV}-syndaemon-mode.patch"
