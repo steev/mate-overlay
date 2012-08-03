@@ -1,6 +1,6 @@
 diff -burN a/plugins/media-keys/msd-media-keys-manager.c b/plugins/media-keys/msd-media-keys-manager.c
 --- a/plugins/media-keys/msd-media-keys-manager.c	2012-02-28 23:45:55.000000000 +0100
-+++ b/plugins/media-keys/msd-media-keys-manager.c	2012-08-03 21:21:10.416223832 +0200
++++ b/plugins/media-keys/msd-media-keys-manager.c	2012-08-03 22:51:11.815389305 +0200
 @@ -862,6 +862,19 @@
          update_default_sink (manager);
  }
@@ -8,7 +8,7 @@ diff -burN a/plugins/media-keys/msd-media-keys-manager.c b/plugins/media-keys/ms
 +static void
 +on_control_stream_removed (GvcMixerControl     *control,
 +                           guint                id,
-+                           GsdMediaKeysManager *manager)
++                           MsdMediaKeysManager *manager)
 +{
 +        if (manager->priv->stream != NULL) {
 +                if (gvc_mixer_stream_get_id (manager->priv->stream) == id) {
