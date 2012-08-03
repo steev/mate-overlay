@@ -89,7 +89,7 @@ src_prepare() {
 	# epatch "${FILESDIR}/${PN}-2.32.1-media-keys-react.patch"
 
 	# mouse: Use event driven mode for syndaemon
-	# epatch "${FILESDIR}/${PN}-2.32.1-syndaemon-mode.patch"
+	epatch "${FILESDIR}/${PV}-syndaemon-mode.patch"
 }
 
 pkg_postinst() {
