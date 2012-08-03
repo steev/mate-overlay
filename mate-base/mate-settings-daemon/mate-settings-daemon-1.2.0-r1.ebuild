@@ -38,6 +38,9 @@ COMMON_DEPEND=">=dev-libs/dbus-glib-0.74
 	pulseaudio? (
 		>=media-sound/pulseaudio-0.9.15
 		media-libs/libcanberra[gtk] )
+	!pulseaudio? (
+		>=media-libs/gstreamer-0.10.1.2:0.10
+		>=media-libs/gst-plugins-base-0.10.1.2:0.10 )
 	smartcard? ( >=dev-libs/nss-3.11.2 )"
 
 # 50-accessibility.xml moved to gnome-control-center in gnome-3
@@ -58,12 +61,13 @@ pkg_setup() {
 		$(use_with libnotify)
 		$(use_enable policykit polkit)
 		$(use_enable pulseaudio pulse)
+		$(use_enable !pulseaudio gstreamer)
 		$(use_enable smartcard smartcard-support)"
 
 	if use pulseaudio; then
 		elog "Building volume media keys using Pulseaudio"
 	else
-		elog "To enable volume media keys enable Pulseaudio"
+		elog "Building volume media keys using GStreamer"
 	fi
 }
 
