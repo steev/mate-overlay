@@ -38,9 +38,6 @@ COMMON_DEPEND=">=dev-libs/dbus-glib-0.74
 	pulseaudio? (
 		>=media-sound/pulseaudio-0.9.15
 		media-libs/libcanberra[gtk] )
-	!pulseaudio? (
-		>=media-libs/gstreamer-0.10.1.2:0.10
-		>=media-libs/gst-plugins-base-0.10.1.2:0.10 )
 	smartcard? ( >=dev-libs/nss-3.11.2 )"
 
 # 50-accessibility.xml moved to gnome-control-center in gnome-3
@@ -57,18 +54,16 @@ pkg_setup() {
 	# README is empty
 	DOCS="AUTHORS NEWS ChangeLog"
 	G2CONF="${G2CONF}
-		--disable-static
 		$(use_enable debug)
 		$(use_with libnotify)
 		$(use_enable policykit polkit)
 		$(use_enable pulseaudio pulse)
-		$(use_enable !pulseaudio gstreamer)
 		$(use_enable smartcard smartcard-support)"
 
 	if use pulseaudio; then
 		elog "Building volume media keys using Pulseaudio"
 	else
-		elog "Building volume media keys using GStreamer"
+		elog "To enable volume media keys enable Pulseaudio"
 	fi
 }
 
@@ -83,13 +78,4 @@ src_prepare() {
 
 	# mouse: Use event driven mode for syndaemon
 	epatch "${FILESDIR}/${PV}-syndaemon-mode.patch"
-}
-
-pkg_postinst() {
-	mate_pkg_postinst
-
-	if ! use pulseaudio; then
-		elog "GStreamer volume control support is a feature powered by Gentoo GNOME Team"
-		elog "PLEASE DO NOT report bugs upstream, report on https://bugs.gentoo.org instead"
-	fi
 }
