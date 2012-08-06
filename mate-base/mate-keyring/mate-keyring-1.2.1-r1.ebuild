@@ -7,7 +7,7 @@ WANT_AUTOMAKE="1.9"
 GCONF_DEBUG="yes"
 MATE_LA_PUNT="yes"
 
-inherit mate virtualx
+inherit mate pam virtualx
 
 DESCRIPTION="Password and keyring managing daemon for MATE"
 HOMEPAGE="http://mate-desktop.org"
