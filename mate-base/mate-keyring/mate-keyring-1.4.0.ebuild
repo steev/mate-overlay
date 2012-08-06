@@ -49,7 +49,6 @@ pkg_setup() {
 		$(use_enable pam)
 		$(use_with pam pam-dir $(getpam_mod_dir))
 		--with-root-certs=${EPREFIX}/usr/share/ca-certificates/
-		--enable-acl-prompts
 		--enable-ssh-agent
 		--enable-gpg-agent"
 #		$(use_enable valgrind)
