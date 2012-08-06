@@ -3,21 +3,23 @@
 # $Header: $
 
 EAPI="4"
+WANT_AUTOMAKE="1.9"
 GCONF_DEBUG="yes"
-MATE_DESKTOP_ORG_MODULE="mate-conf"
+MATE_LA_PUNT="yes"
 
 inherit mate
 
-DESCRIPTION="A configuration database system"
+DESCRIPTION="A configuration database system for MATE"
 HOMEPAGE="http://mate-desktop.org"
 
 LICENSE="LGPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~arm ~x86"
-IUSE="debug doc +introspection ldap policykit"
+IUSE="debug doc gtk3 +introspection ldap policykit"
 
 RDEPEND=">=dev-libs/glib-2.25.9:2
-	>=x11-libs/gtk+-2.14:2
+	gtk3? ( x11-lib/gtk+:3 )
+	!gtk3? ( x11-libs/gtk+:2 )
 	>=dev-libs/dbus-glib-0.74
 	>=sys-apps/dbus-1
 	>=mate-base/mate-common-1.2.2
@@ -37,24 +39,23 @@ pkg_setup() {
 		--enable-gtk
 		--disable-static
 		--enable-gsettings-backend
-		--with-gtk=2.0
 		$(use_enable introspection)
 		$(use_with ldap openldap)
 		$(use_enable policykit defaults-service)"
 	kill_mateconf
 
 	# Need host's IDL compiler for cross or native build, bug #262747
-	export EXTRA_EMAKE="${EXTRA_EMAKE} ORBIT_IDL=/usr/bin/orbit-idl-2"
+	export EXTRA_EMAKE="${EXTRA_EMAKE} MATECORBA_IDL=/usr/bin/matecorba-idl-2"
 }
 
 src_prepare() {
 	mate_src_prepare
 
 	# Do not start gconfd when installing schemas, fix bug #238276, upstream #631983
-	epatch "${FILESDIR}/gconf-2.24.0-no-gconfd.patch"
+	epatch "${FILESDIR}/${P}-no-gconfd.patch"
 
 	# Do not crash in gconf_entry_set_value() when entry pointer is NULL, upstream #631985
-	epatch "${FILESDIR}/gconf-2.28.0-entry-set-value-sigsegv.patch"
+	epatch "${FILESDIR}/${P}-entry-set-value-sigsegv.patch"
 }
 
 src_install() {
@@ -79,17 +80,16 @@ pkg_postinst() {
 	kill_mateconf
 
 	# change the permissions to avoid some gconf bugs
-	einfo "changing permissions for gconf dirs"
+	einfo "changing permissions for mateconf dirs"
 	find  /etc/mateconf/ -type d -exec chmod ugo+rx "{}" \;
 
-	einfo "changing permissions for gconf files"
+	einfo "changing permissions for mateconf files"
 	find  /etc/mateconf/ -type f -exec chmod ugo+r "{}" \;
 }
 
 kill_mateconf() {
 	# This function will kill all running mateconfd-2 that could be causing troubles
-	if [ -x /usr/bin/mateconftool-2 ]
-	then
+	if [ -x /usr/bin/mateconftool-2 ]; then
 		/usr/bin/mateconftool-2 --shutdown
 	fi
 
