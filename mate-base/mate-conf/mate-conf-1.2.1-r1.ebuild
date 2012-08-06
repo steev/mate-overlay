@@ -3,7 +3,6 @@
 # $Header: $
 
 EAPI="4"
-WANT_AUTOMAKE="1.9"
 GCONF_DEBUG="yes"
 MATE_LA_PUNT="yes"
 
@@ -18,7 +17,7 @@ KEYWORDS="~amd64 ~arm ~x86"
 IUSE="debug doc gtk3 +introspection ldap policykit"
 
 RDEPEND=">=dev-libs/glib-2.25.9:2
-	gtk3? ( x11-lib/gtk+:3 )
+	gtk3? ( x11-libs/gtk+:3 )
 	!gtk3? ( x11-libs/gtk+:2 )
 	>=dev-libs/dbus-glib-0.74
 	>=sys-apps/dbus-1
@@ -37,15 +36,14 @@ pkg_setup() {
 	DOCS="AUTHORS ChangeLog NEWS README TODO"
 	G2CONF="${G2CONF}
 		--enable-gtk
-		--disable-static
 		--enable-gsettings-backend
 		$(use_enable introspection)
 		$(use_with ldap openldap)
-		$(use_enable policykit defaults-service)"
+		$(use_enable policykit defaults-service)
+		MATECORBA_IDL=$(type -P matecorba-idl-2)"
+		# Need host's IDL compiler for cross or native build, bug #262747
+	
 	kill_mateconf
-
-	# Need host's IDL compiler for cross or native build, bug #262747
-	export EXTRA_EMAKE="${EXTRA_EMAKE} MATECORBA_IDL=/usr/bin/matecorba-idl-2"
 }
 
 src_prepare() {
