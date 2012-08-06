@@ -10,7 +10,7 @@ DESCRIPTION="Common files for development of MATE packages"
 HOMEPAGE="http://mate-desktop.org"
 
 LICENSE="GPL-3"
-SLOT="3"
+SLOT="0"
 KEYWORDS="~amd64 ~arm ~x86"
 IUSE=""
 
