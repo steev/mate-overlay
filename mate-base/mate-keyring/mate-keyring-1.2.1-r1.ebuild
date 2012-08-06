@@ -4,10 +4,11 @@
 
 EAPI="4"
 GCONF_DEBUG="yes"
+MATE_LA_PUNT="yes"
 
-inherit autotools eutils mate multilib pam virtualx mate-desktop.org
+inherit mate virtualx
 
-DESCRIPTION="Password and keyring managing daemon"
+DESCRIPTION="Password and keyring managing daemon for MATE"
 HOMEPAGE="http://mate-desktop.org"
 
 LICENSE="GPL-2 LGPL-2"
@@ -17,7 +18,7 @@ IUSE="debug doc pam test"
 # USE=valgrind is probably not a good idea for the tree
 
 RDEPEND=">=dev-libs/glib-2.25:2
-	>=x11-libs/gtk+-2.20:2
+	x11-libs/gtk+:2
 	>=mate-base/mate-conf-1.2.1
 	>=sys-apps/dbus-1.0
 	pam? ( virtual/pam )
@@ -54,20 +55,18 @@ pkg_setup() {
 }
 
 src_prepare() {
-	gtkdocize || die
-	eautoreconf
-	mate_src_prepare
-
 	# Remove silly CFLAGS
 	sed 's:CFLAGS="$CFLAGS -Werror:CFLAGS="$CFLAGS:' \
-		-i configure.in configure || die "sed failed"
+		-i configure.in configure || die "sed CFLAGS failed"
 
 	# Remove DISABLE_DEPRECATED flags
 	sed -e '/-D[A-Z_]*DISABLE_DEPRECATED/d' \
-		-i configure.in configure || die "sed 2 failed"
+		-i configure.in configure || die "sed DISABLE_DEPRECATED failed"
 
 	# Fix undefined type in egg-asn1x.c
 	epatch "${FILESDIR}/${PN}-1.2.1-fix-undefined.patch"
+	
+	mate_src_prepare
 }
 
 src_test() {

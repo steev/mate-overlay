@@ -9,7 +9,7 @@ MATE_LA_PUNT="yes"
 
 inherit mate
 
-DESCRIPTION="Compatibility library for accessing secrets"
+DESCRIPTION="Compatibility library for accessing secrets for MATE"
 HOMEPAGE="http://mate-desktop.org"
 
 LICENSE="LGPL-2"
