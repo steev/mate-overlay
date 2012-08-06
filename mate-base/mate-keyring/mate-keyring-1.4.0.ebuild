@@ -3,6 +3,7 @@
 # $Header: $
 
 EAPI="4"
+WANT_AUTOMAKE="1.9"
 GCONF_DEBUG="yes"
 MATE_LA_PUNT="yes"
 
