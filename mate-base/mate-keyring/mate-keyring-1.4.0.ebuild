@@ -56,9 +56,6 @@ pkg_setup() {
 }
 
 src_prepare() {
-	# Fix undefined type in egg-asn1x.c
-	epatch "${FILESDIR}/${PN}-1.2.1-fix-undefined.patch"
-
 	mate_src_prepare
 
 	# Remove silly CFLAGS
