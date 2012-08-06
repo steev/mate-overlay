@@ -48,16 +48,6 @@ pkg_setup() {
 	export EXTRA_EMAKE="${EXTRA_EMAKE} MATECORBA_IDL=/usr/bin/matecorba-idl-2"
 }
 
-src_prepare() {
-	mate_src_prepare
-
-	# Do not start gconfd when installing schemas, fix bug #238276, upstream #631983
-	epatch "${FILESDIR}/${P}-no-gconfd.patch"
-
-	# Do not crash in gconf_entry_set_value() when entry pointer is NULL, upstream #631985
-	epatch "${FILESDIR}/${P}-entry-set-value-sigsegv.patch"
-}
-
 src_install() {
 	mate_src_install
 
