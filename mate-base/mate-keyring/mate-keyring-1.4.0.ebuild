@@ -19,7 +19,7 @@ IUSE="debug doc gtk3 pam test"
 
 RDEPEND=">=dev-libs/glib-2.25:2
 	gtk3? ( x11-libs/gtk+:3 )
-	!gtk3? ( x11-libs/gtk+:2 )
+	!gtk3? ( x11-libs/gtk+:2 )	
 	>=mate-base/mate-conf-1.2.1
 	>=sys-apps/dbus-1.0
 	pam? ( virtual/pam )
@@ -31,7 +31,7 @@ DEPEND="${RDEPEND}
 	>=dev-util/intltool-0.35
 	virtual/pkgconfig
 	doc? ( >=dev-util/gtk-doc-1.9 )"
-PDEPEND=">=mate-base/libmatekeyring-1.2.0"
+PDEPEND=">=mate-base/libmatekeyring-1.4.0"
 
 # eautoreconf needs:
 #	>=dev-util/gtk-doc-am-1.9
