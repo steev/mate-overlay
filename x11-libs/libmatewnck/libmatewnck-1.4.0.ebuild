@@ -3,7 +3,7 @@
 # $Header: $
 
 EAPI="4"
-GNOME2_LA_PUNT="yes"
+MATE_LA_PUNT="yes"
 GCONF_DEBUG="no"
 
 inherit mate
