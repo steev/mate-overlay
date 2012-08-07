@@ -51,12 +51,12 @@ pkg_setup() {
 }
 
 src_prepare() {
+	mate_src_prepare
+
 	# Remove crazy CFLAGS
 	sed -i \
 		-e 's:-DG.*DISABLE_DEPRECATED::g' \
 		configure{,.in} eel/Makefile.{am,in} || die
-
-	mate_src_prepare
 }
 
 src_test() {
