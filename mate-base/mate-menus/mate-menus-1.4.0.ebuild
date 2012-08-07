@@ -4,6 +4,7 @@
 
 EAPI="4"
 GCONF_DEBUG="no"
+MATE_LA_PUNT="yes"
 
 PYTHON_DEPEND="python? 2:2.5"
 SUPPORT_PYTHON_ABIS="1"
