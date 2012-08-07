@@ -3,11 +3,10 @@
 # $Header: $
 
 EAPI="4"
-WANT_AUTOMAKE="1.9"
 GCONF_DEBUG="yes"
 MATE_LA_PUNT="yes"
 
-inherit eutils mate
+inherit mate
 
 DESCRIPTION="MATE Settings Daemon"
 HOMEPAGE="http://mate-desktop.org"
@@ -19,7 +18,7 @@ IUSE="debug libnotify policykit pulseaudio smartcard"
 
 COMMON_DEPEND=">=dev-libs/dbus-glib-0.74
 	>=dev-libs/glib-2.18:2
-	>=x11-libs/gtk+-2.21.2:2
+	x11-libs/gtk+:2
 	>=mate-base/mate-conf-1.2.1
 	>=mate-base/libmatekbd-1.2.0
 	>=mate-base/mate-desktop-1.2.0
@@ -58,8 +57,7 @@ pkg_setup() {
 	# README is empty
 	DOCS="AUTHORS NEWS ChangeLog"
 	G2CONF="${G2CONF}
-		$(use_enable debug)
-		$(use_with libnotify)
+		$(use_with libnotify libmatenotify)
 		$(use_enable policykit polkit)
 		$(use_enable pulseaudio pulse)
 		$(use_enable !pulseaudio gstreamer)
