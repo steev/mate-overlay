@@ -2,13 +2,11 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="3"
+EAPI="4"
 GCONF_DEBUG="yes"
-MATE_DESKTOP_ORG_MODULE="mate-corba"
-WANT_AUTOMAKE=1.9
-WANT_AUTOCONF="2.5"
+MATE_LA_PUNT="yes"
 
-inherit autotools mate toolchain-funcs mate-desktop.org
+inherit mate toolchain-funcs
 
 DESCRIPTION="Thin/fast CORBA ORB"
 HOMEPAGE="http://mate-desktop.org"
@@ -23,7 +21,6 @@ RDEPEND=">=dev-libs/glib-2.8:2
 
 DEPEND="${RDEPEND}
 	virtual/pkgconfig
-	dev-util/gtk-doc
 	dev-util/gtk-doc-am
 	doc? ( >=dev-util/gtk-doc-1 )
 	>=mate-base/mate-common-1.2.2"
@@ -39,10 +36,6 @@ pkg_setup() {
 }
 
 src_prepare() {
-        gtkdocize || die
-
-        eautoreconf
-
 	# Fix wrong process kill, bug #268142
 	# sed "s:killall lt-timeout-server:killall timeout-server:" \
 	#	-i test/timeout.sh || die "sed 1 failed"
@@ -69,9 +62,12 @@ src_configure() {
 	# We need to use the hosts IDL compiler if cross-compiling, bug #262741
 	if tc-is-cross-compiler; then
 		# check that host version is present and executable
-		[ -x /usr/bin/orbit-idl-2 ] || die "Please emerge ~${CATEGORY}/${P} on the host system first"
-		G2CONF="${G2CONF} --with-idl-compiler=/usr/bin/orbit-idl-2"
+		local idl_comp=$(type -P matecorba-idl-2)
+
+		[ -n ${idl_comp} ] && die "Please emerge ~${CATEGORY}/${P} on the host system first"
+		G2CONF="${G2CONF} --with-idl-compiler=${idl_comp}"
 	fi
+
 	mate_src_configure
 }
 
