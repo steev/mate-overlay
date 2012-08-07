@@ -92,7 +92,4 @@ pkg_prerm() {
 		"${mateconftool}" --direct --config-source "${MATECONF_CONFIG_SOURCE}" \
 		--unload="${entries}" > /dev/null || die "mateconf panel default removal failed"
 	fi
-
-	# Same as pkg_postinst()
-	mate_pkg_prerm
 }
