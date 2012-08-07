@@ -14,7 +14,7 @@ HOMEPAGE="http://mate-desktop.org"
 LICENSE="GPL-2 LGPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~arm ~x86"
-IUSE="acl avahi doc fam ipv6 kerberos samba ssl gnutls"
+IUSE="avahi doc fam ipv6 samba ssl gnutls"
 
 RDEPEND=">=mate-base/mate-conf-1.2.1
 	>=dev-libs/glib-2.9.3
@@ -23,14 +23,13 @@ RDEPEND=">=mate-base/mate-conf-1.2.1
 	>=mate-base/mate-mime-data-1.2.2
 	>=x11-misc/shared-mime-info-0.14
 	>=dev-libs/dbus-glib-0.71
-	acl? (
-		sys-apps/acl
-		sys-apps/attr )
+	sys-apps/acl
+	sys-apps/attr
+	virtual/krb5
 	ssl? (
 		gnutls? ( net-libs/gnutls )
 		!gnutls? ( dev-libs/openssl ) )
 	avahi? ( || ( >=net-dns/avahi-gtk-0.6 >=net-dns/avahi-0.6 ) )
-	kerberos? ( virtual/krb5 )
 	fam? ( virtual/fam )
 	samba? ( >=net-fs/samba-3 )
 "
@@ -48,13 +47,11 @@ pkg_setup() {
 		--disable-cdda
 		--disable-howl
 		--disable-openssl
-		$(use_enable acl)
 		$(use_enable avahi)
 		$(use_enable fam)
 		$(use_enable gnutls)
 		--disable-hal
 		$(use_enable ipv6)
-		$(use_enable kerberos krb5)
 		$(use_enable samba)
 		$(use_enable ssl openssl)
 		--enable-daemon"
