@@ -94,5 +94,5 @@ pkg_prerm() {
 	fi
 
 	# Same as pkg_postinst()
-	mate_pkg_postremove
+	mate_pkg_prerm
 }
