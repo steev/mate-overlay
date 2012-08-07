@@ -4,9 +4,10 @@
 
 EAPI="4"
 GCONF_DEBUG="no"
+MATE_LA_PUNT="yes"
 PYTHON_DEPEND="2:2.5"
 
-inherit autotools mate python eutils mate-desktop.org
+inherit mate python
 
 DESCRIPTION="The MATE panel"
 HOMEPAGE="http://mate-desktop.org"
@@ -39,7 +40,6 @@ RDEPEND=">=mate-base/mate-desktop-1.2.0
 	introspection? ( >=dev-libs/gobject-introspection-0.6.7 )
 	networkmanager? ( >=net-misc/networkmanager-0.6.7 )"
 DEPEND="${RDEPEND}
-	dev-util/gtk-doc
 	>=dev-lang/perl-5
 	>=app-text/mate-doc-utils-1.2.1
 	virtual/pkgconfig
@@ -55,10 +55,8 @@ pkg_setup() {
 	G2CONF="${G2CONF}
 		--libexecdir=/usr/libexec/mate-applets
 		--disable-deprecation-flags
-		--disable-static
-		--disable-scrollkeeper
-		--disable-schemas-install
 		--with-in-process-applets=${applets}
+		--enable-matecomponent
 		$(use_enable networkmanager network-manager)
 		$(use_enable introspection)
 		$(use_enable eds)"
@@ -66,38 +64,35 @@ pkg_setup() {
 	python_set_active_version 2
 }
 
-#src_unpack() {
-	# If gobject-introspection is installed, we don't need the extra .m4
-	# if has_version "dev-libs/gobject-introspection"; then
-	#	unpack ${P}.tar.bz2 ${P}-patches.tar.bz2
-	# else
-	#	unpack ${A}
-	# fi
-#}
-
-src_prepare() {
-	mate-doc-prepare --force --copy || die
-	mate-doc-common --copy || die
-	intltoolize --force --copy --automake || die "intltoolize failed"
-	AT_M4DIR=${WORKDIR} eautoreconf
-
-	mate_src_prepare
-}
-
 pkg_postinst() {
-	local entries="${EROOT}etc/gconf/schemas/panel-default-setup.entries"
+	local entries="${ED}etc/mateconf/schemas/panel-default-setup.entries"
 	local mateconftool="${EROOT}usr/bin/mateconftool-2"
 
-	if [ -e "$entries" ]; then
+	if [[ -e ${entries} ]]; then
 		einfo "Setting panel mateconf defaults..."
 
-		GCONF_CONFIG_SOURCE="$("${mateconftool}" --get-default-source | sed "s;:/;:${ROOT};")"
-
-		"${mateconftool}" --direct --config-source \
-			"${GCONF_CONFIG_SOURCE}" --load="${entries}"
+		MATECONF_CONFIG_SOURCE="$("${mateconftool}" --get-default-source | sed "s;:/;:${ROOT};")"
+		"${mateconftool}" --direct --config-source "${MATECONF_CONFIG_SOURCE}" \
+		--load="${entries}" > /dev/null || die "mateconf panel default install failed"
 	fi
 
-	# Calling this late so it doesn't process the GConf schemas file we already
+	# Calling this late so it doesn't process the MateConf schemas file we already
 	# took care of.
 	mate_pkg_postinst
+}
+
+pkg_prerm() {
+	local entries="${EROOT}etc/mateconf/schemas/panel-default-setup.entries"
+	local mateconftool="${EROOT}usr/bin/mateconftool-2"
+
+	if [[ -e "${entries}" ]]; then
+		einfo "Removing panel mateconf defaults..."
+
+		MATECONF_CONFIG_SOURCE="$("${mateconftool}" --get-default-source | sed "s;:/;:${ROOT};")"
+		"${mateconftool}" --direct --config-source "${MATECONF_CONFIG_SOURCE}" \
+		--unload="${entries}" > /dev/null || die "mateconf panel default removal failed"
+	fi
+
+	# Same as pkg_postinst()
+	mate_pkg_postremove
 }
