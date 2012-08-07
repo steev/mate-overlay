@@ -9,6 +9,7 @@ mate-base/libmatecomponentui
 mate-base/libmatekeyring
 mate-base/mate-keyring
 mate-base/libmateui
+x11-libs/libmatewnck
 x11-libs/libmatenotify
 mate-base/libmatekbd
 dev-libs/libmateweather
