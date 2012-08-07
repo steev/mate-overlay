@@ -37,10 +37,3 @@ pkg_setup() {
 	DOCS="AUTHORS ChangeLog HACKING NEWS README"
 }
 
-src_prepare() {
-	# Regenerate pregenerated marshalers for <glib-2.31 compatibility
-	rm -v libmatewnck/wnck-marshal.{c,h} || die "rm failed"
-
-	mate_src_prepare
-}
-
