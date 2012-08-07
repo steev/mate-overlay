@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 EAPI="4"
-inherit autotools mate mate-desktop.org
+inherit mate
 
 DESCRIPTION="MIME data for MATE"
 HOMEPAGE="http://mate-desktop.org"
@@ -18,8 +18,3 @@ DEPEND="virtual/pkgconfig
 
 DOCS="AUTHORS ChangeLog README"
 
-src_prepare() {
-	eautoreconf
-        intltoolize --force || die "intltoolize failed"
-	mate_src_unpack
-}
