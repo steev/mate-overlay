@@ -34,7 +34,7 @@ RDEPEND=" >=x11-libs/pango-1.2[X]
 	x11-libs/libXrandr
 	x11-libs/libSM
 	x11-libs/libICE
-	media-libs/libcanberra[gtk]
+	media-libs/libcanberra[gtk,gtk3?]
 	gnome-base/libgtop
 	>=mate-extra/mate-dialogs-1.2.0
 	xinerama? ( x11-libs/libXinerama )
@@ -51,7 +51,6 @@ DEPEND="${RDEPEND}
 
 pkg_setup() {
 	G2CONF="${G2CONF}
-		--enable-canberra
 		--enable-compositor
 		--enable-render
 		--enable-shape
