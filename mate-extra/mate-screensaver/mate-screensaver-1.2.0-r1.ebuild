@@ -86,7 +86,7 @@ src_install() {
 	# http://bugzilla.gnome.org/show_bug.cgi?id=370847
 	# is fixed.
 	if ! use pam ; then
-		fperms u+s /usr/libexec/gnome-screensaver-dialog
+		fperms u+s /usr/libexec/mate-screensaver-dialog
 	fi
 }
 
