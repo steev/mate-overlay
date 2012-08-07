@@ -149,7 +149,7 @@ mate_gconf_collect() {
 		fi
 
 		mate_gconf_merge usr/share/mateconf/schemas/${PN}.schemas ${PN} ${schema_list}
-		rm -rf 'etc/mateconf/schemas' 2> /dev/null
+		rm -f "${schema_list}" 2> /dev/null
 	fi
 
 	# packages could ship schemas even outside /etc, if they don't need merging
