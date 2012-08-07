@@ -35,7 +35,7 @@ DEPEND="${RDEPEND}
 RESTRICT="test"
 
 pkg_setup() {
-	G2CONF="${G2CONF} $(use_enable debug bonobo-activation-debug)"
+	G2CONF="${G2CONF} $(use_enable debug matecomponent-activation-debug)"
 	DOCS="AUTHORS ChangeLog NEWS README TODO"
 }
 
