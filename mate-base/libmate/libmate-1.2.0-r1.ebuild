@@ -4,6 +4,7 @@
 
 EAPI="4"
 GCONF_DEBUG="yes"
+MATE_LA_PUNT="yes"
 
 inherit mate
 
