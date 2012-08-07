@@ -2,10 +2,11 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="3"
+EAPI="4"
 GCONF_DEBUG="no"
+MATE_LA_PUNT="yes"
 
-inherit autotools eutils mate virtualx mate-desktop.org
+inherit mate virtualx
 
 DESCRIPTION="MATE Virtual Filesystem"
 HOMEPAGE="http://mate-desktop.org"
@@ -42,12 +43,8 @@ DEPEND="${RDEPEND}
 	>=dev-util/gtk-doc-am-1.13
 	doc? ( >=dev-util/gtk-doc-1 )"
 
-DOCS="AUTHORS ChangeLog NEWS README TODO"
-
 pkg_setup() {
 	G2CONF="${G2CONF}
-		--disable-schemas-install
-		--disable-static
 		--disable-cdda
 		--disable-howl
 		--disable-openssl
@@ -62,6 +59,8 @@ pkg_setup() {
 		$(use_enable ssl openssl)
 		--enable-daemon"
 
+	DOCS="AUTHORS ChangeLog NEWS README TODO"
+
 	# this works because of the order of configure parsing
 	# so should always be behind the use_enable options
 	# foser <foser@gentoo.org 19 Apr 2004
@@ -70,11 +69,7 @@ pkg_setup() {
 
 src_prepare() {
 	# Fix compiling with gnutls
-	epatch "${FILESDIR}/${P}-gnutls27.patch"
-	
-	gtkdocize || die
-	intltoolize --force --copy --automake || die "intltoolize failed"
-	eautoreconf
+	epatch "${FILESDIR}/${PN}-1.2.1-gnutls27.patch"
 
 	mate_src_prepare
 }
@@ -84,9 +79,4 @@ src_test() {
 	# Fix bug #285706
 	unset XAUTHORITY
 	Xemake check || die "tests failed"
-}
-
-src_install() {
-	mate_src_install
-	find "${ED}/usr/$(get_libdir)/mate-vfs-2.0/modules/" -name "*.la" -delete || die
 }
