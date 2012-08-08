@@ -5,7 +5,7 @@
 EAPI="4"
 GCONF_DEBUG="yes"
 
-inherit autotools eutils mate mate-desktop.org
+inherit mate
 
 DESCRIPTION="MATE session manager"
 HOMEPAGE="http://mate-desktop.org/"
@@ -14,13 +14,14 @@ LICENSE="GPL-2 LGPL-2 FDL-1.1"
 SLOT="0"
 KEYWORDS="~amd64 ~arm ~x86"
 
-IUSE="doc ipv6 elibc_FreeBSD"
+IUSE="doc gtk3 ipv6 elibc_FreeBSD"
 
 # x11-misc/xdg-user-dirs{,-gtk} are needed to create the various XDG_*_DIRs, and
 # create .config/user-dirs.dirs which is read by glib to get G_USER_DIRECTORY_*
 # xdg-user-dirs-update is run during login (see 10-user-dirs-update-gnome below).
 RDEPEND=">=dev-libs/glib-2.16:2
-	>=x11-libs/gtk+-2.22.0:2
+	gtk3? ( x11-libs/gtk+:3 )
+	!gtk3? ( x11-libs/gtk+:2 )
 	>=dev-libs/dbus-glib-0.76
 	>=mate-base/mate-conf-1.2.1
 	>=sys-power/upower-0.9.0
@@ -53,31 +54,20 @@ pkg_setup() {
 	G2CONF="${G2CONF}
 		--docdir="${EPREFIX}/usr/share/doc/${PF}"
 		--with-default-wm=mate-wm
-		--with-gtk=2.0
 		$(use_enable doc docbook-docs)
 		$(use_enable ipv6)"
 	DOCS="AUTHORS ChangeLog NEWS README"
 }
 
 src_prepare() {
-	# Add "session saving" button back, upstream bug #575544
-	# epatch "${FILESDIR}/${PN}-2.32.0-session-saving-button.patch"
+	# Add "session saving" button back:
+	# see https://bugzilla.gnome.org/show_bug.cgi?id=575544
+	epatch "${FILESDIR}/${P}-save-session-ui.patch"
 
-	# Fix support for GNOME3 conditions, bug #XXXXXX
-	# epatch "${FILESDIR}/${PN}-2.32.1-gnome3-conditions.patch"
+	# Fix race condition in idle monitor, GNOME bug applies to MATE too,
+	# see https://bugzilla.gnome.org/show_bug.cgi?id=627903
+	epatch "${FILESDIR}/${P}-idle-transition.patch"
 
-	# Also support Gsettings conditions to work with libcanberra
-	# epatch "${FILESDIR}/${PN}-2.32.1-gsettings-conditions.patch"
-
-	# gsm: Fix race condition in idle monitor
-	# epatch "${FILESDIR}/${PN}-2.32.1-idle-transition.patch"
-
-	# Fix dialog size
-	# epatch "${FILESDIR}/${PN}-2.32.1-dialog-size.patch"
-	# epatch "${FILESDIR}/${PN}-2.32.1-dialog-size2.patch"
-
-	eautoreconf
-        intltoolize --force --copy --automake || die "intltoolize failed"
 	mate_src_prepare
 }
 
@@ -96,6 +86,6 @@ src_install() {
 	exeinto /etc/X11/xinit/xinitrc.d/
 	doexe "${FILESDIR}/15-xdg-data-mate"
 
-	# This should be done here as discussed in bug #270852
-	# doexe "${FILESDIR}/10-user-dirs-update-gnome"
+	# This should be done in MATE too, see Gentoo bug #270852
+	doexe "${FILESDIR}/10-user-dirs-update-mate"
 }
