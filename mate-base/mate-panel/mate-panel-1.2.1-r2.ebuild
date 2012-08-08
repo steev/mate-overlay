@@ -20,7 +20,7 @@ IUSE="doc eds +introspection networkmanager"
 RDEPEND=">=mate-base/mate-desktop-1.2.0
 	>=x11-libs/pango-1.15.4[introspection?]
 	>=dev-libs/glib-2.25.12:2
-	>=x11-libs/gtk+-2.22:2[introspection?]
+	x11-libs/gtk+:2[introspection?]
 	>=dev-libs/libmateweather-1.2.0
 	dev-libs/libxml2:2
 	>=mate-base/mate-conf-1.2.1[introspection?]
@@ -65,10 +65,10 @@ pkg_setup() {
 }
 
 pkg_postinst() {
-	local entries="${ED}etc/mateconf/schemas/panel-default-setup.entries"
+	local entries="${EROOT}etc/mateconf/schemas/panel-default-setup.entries"
 	local mateconftool="${EROOT}usr/bin/mateconftool-2"
 
-	if [[ -e ${entries} ]]; then
+	if [[ -e "${entries}" ]]; then
 		einfo "Setting panel mateconf defaults..."
 
 		MATECONF_CONFIG_SOURCE="$("${mateconftool}" --get-default-source | sed "s;:/;:${ROOT};")"
