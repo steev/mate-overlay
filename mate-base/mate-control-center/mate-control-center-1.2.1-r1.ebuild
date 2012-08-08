@@ -86,4 +86,7 @@ src_prepare() {
 
 	# Don't erase backgounds.xml, bug #344335
 	epatch "${FILESDIR}/${P}-erase-background.patch"
+
+	# Fix undefined reference to gtk_theme_engine_get()
+	epatch "${FILESDIR}/${P}-fix-undefined-reference.patch"
 }
