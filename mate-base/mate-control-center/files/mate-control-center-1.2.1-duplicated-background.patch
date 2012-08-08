@@ -1,0 +1,109 @@
+--- a/capplets/appearance/appearance-desktop.c	2012-03-26 01:04:17.000000000 +0200
++++ b/capplets/appearance/appearance-desktop.c	2012-08-08 15:27:38.837190087 +0200
+@@ -48,6 +48,47 @@
+ 
+ static void wp_update_preview(GtkFileChooser* chooser, AppearanceData* data);
+ 
++static MateWPItem *lookup_with_symlink (AppearanceData *data, const char *path, char **real_path)
++{
++	MateWPItem *item;
++	gchar      *readlink;
++
++	if (real_path)
++		*real_path = NULL;
++
++	if (!path)
++		return NULL;
++
++	item = g_hash_table_lookup (data->wp_hash, path);
++	if (item)
++		return item;
++
++	/* if the current background is not in the hash of known backgrounds,
++	 * see if it's a symlink and if the file it points to is in the hash */
++
++	readlink = g_strdup (path);
++
++	while (readlink &&
++	       g_file_test (readlink, G_FILE_TEST_IS_SYMLINK) &&
++	       item == NULL) {
++		gchar *new;
++
++		new = g_file_read_link (readlink, NULL);
++		g_free (readlink);
++		readlink = new;
++
++		if (readlink)
++			item = g_hash_table_lookup (data->wp_hash, readlink);
++	}
++
++	if (item != NULL && real_path)
++		*real_path = readlink;
++	else
++		g_free (readlink);
++
++	return item;
++}
++
+ static void select_item(AppearanceData* data, MateWPItem* item, gboolean scroll)
+ {
+ 	GtkTreePath* path;
+@@ -414,11 +455,16 @@
+                 AppearanceData *data)
+ {
+   MateWPItem *item, *selected;
++  gchar *realuri;
++
++  realuri = NULL;
++  item = lookup_with_symlink (data, uri, &realuri);
++  if (!realuri)
++    realuri = g_strdup (uri);
+ 
+-  item = g_hash_table_lookup (data->wp_hash, uri);
+   selected = get_selected_item (data, NULL);
+ 
+-  if (selected != NULL && strcmp (selected->filename, uri) != 0)
++  if (selected != NULL && strcmp (selected->filename, realuri) != 0)
+   {
+     if (item == NULL)
+       item = wp_add_image (data, uri);
+@@ -426,6 +472,8 @@
+     if (item)
+       select_item (data, item, TRUE);
+   }
++
++  g_free (realuri);
+ }
+ 
+ static void
+@@ -932,6 +980,7 @@
+   AppearanceData *data;
+   gchar *imagepath, *uri, *style;
+   MateWPItem *item;
++  gchar *realpath;
+ 
+   data = (AppearanceData *) user_data;
+ 
+@@ -967,7 +1016,11 @@
+ 
+   g_free (uri);
+ 
+-  item = g_hash_table_lookup (data->wp_hash, imagepath);
++  item = lookup_with_symlink (data, imagepath, &realpath);
++  if (realpath) {
++    g_free (imagepath);
++    imagepath = realpath;
++  }
+ 
+   if (item != NULL)
+   {
+@@ -982,7 +1035,9 @@
+         wp_props_load_wallpaper (item->filename, item, data);
+       }
+ 
++      data->wp_update_mateconf = FALSE;
+       select_item (data, item, FALSE);
++      data->wp_update_mateconf = TRUE;
+     }
+   }
+   else if (strcmp (style, "none") != 0)

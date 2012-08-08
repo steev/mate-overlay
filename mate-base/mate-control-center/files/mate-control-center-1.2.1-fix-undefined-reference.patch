@@ -1,0 +1,11 @@
+--- a/capplets/common/mate-theme-info.c	2012-03-26 01:04:17.000000000 +0200
++++ b/capplets/common/mate-theme-info.c	2012-08-08 16:03:07.408255297 +0200
+@@ -1499,7 +1499,7 @@
+ 
+ 		for (l = engines; l; l = l->next)
+ 		{
+-			#if 1 // set to 0 if you can not compile with the follow code
++			#if 0 // set to 0 if you can not compile with the follow code
+ 			GtkThemeEngine* a = gtk_theme_engine_get((const gchar*) l->data);
+ 
+ 			if (!a)

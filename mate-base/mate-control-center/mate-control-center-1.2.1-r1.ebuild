@@ -20,7 +20,8 @@ IUSE="eds gtk3"
 # libgnomekbd-2.91 breaks API/ABI
 RDEPEND="x11-libs/libXft
 	>=x11-libs/libXi-1.2
-	>=x11-libs/gtk+-2.20:2
+	gtk3? ( x11-libs/gtk+:3 )
+	!gtk3? ( x11-libs/gtk+:2 )
 	>=dev-libs/glib-2.28:2
 	>=mate-base/mate-conf-1.2.1
 	>=gnome-base/librsvg-2.0:2
@@ -40,7 +41,7 @@ RDEPEND="x11-libs/libXft
 	media-libs/freetype
 	media-libs/libcanberra[gtk]
 
-	eds? ( >=gnome-extra/evolution-data-server-1.7.90 )
+	eds? ( <=gnome-extra/evolution-data-server-2.32.3 )
 
 	x11-apps/xmodmap
 	x11-libs/libXScrnSaver
@@ -75,4 +76,14 @@ pkg_setup() {
 		--disable-appindicator
 		$(use_enable eds aboutme)"
 	DOCS="AUTHORS ChangeLog NEWS README TODO"
+}
+
+src_prepare() {
+	mate_src_prepare
+
+	# Do not show twice the configured background if it is a symlink to a known background
+	epatch "${FILESDIR}/${P}-duplicated-background.patch"
+
+	# Don't erase backgounds.xml, bug #344335
+	epatch "${FILESDIR}/${P}-erase-background.patch"
 }

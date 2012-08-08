@@ -1,0 +1,46 @@
+diff -burN a/capplets/appearance/appearance-desktop.c b/capplets/appearance/appearance-desktop.c
+--- a/capplets/appearance/appearance-desktop.c	2012-03-26 01:04:17.000000000 +0200
++++ b/capplets/appearance/appearance-desktop.c	2012-08-08 15:08:27.770154824 +0200
+@@ -1221,6 +1221,7 @@
+   GtkCellRenderer *cr;
+   char *url;
+ 
++  data->wp_xml_list_loaded = FALSE;
+   data->wp_update_mateconf = TRUE;
+ 
+   data->wp_uris = NULL;
+diff -burN a/capplets/appearance/appearance.h b/capplets/appearance/appearance.h
+--- a/capplets/appearance/appearance.h	2012-03-26 01:04:17.000000000 +0200
++++ b/capplets/appearance/appearance.h	2012-08-08 15:07:27.825152988 +0200
+@@ -40,6 +40,7 @@
+ 
+ 	/* desktop */
+ 	GHashTable* wp_hash;
++	gboolean wp_xml_list_loaded;
+ 	gboolean wp_update_mateconf;
+ 	GtkIconView* wp_view;
+ 	GtkTreeModel* wp_model;
+diff -burN a/capplets/appearance/mate-wp-xml.c b/capplets/appearance/mate-wp-xml.c
+--- a/capplets/appearance/mate-wp-xml.c	2012-03-26 01:04:17.000000000 +0200
++++ b/capplets/appearance/mate-wp-xml.c	2012-08-08 15:12:58.338163113 +0200
+@@ -477,6 +477,8 @@
+ 	mate_wp_xml_load_from_dir(WALLPAPER_DATADIR, data);
+ 
+ 	mate_wp_load_legacy(data);
++
++	data->wp_xml_list_loaded = TRUE;
+ }
+ 
+ static void mate_wp_list_flatten(const char* key, MateWPItem* item, GSList** list)
+@@ -496,6 +498,11 @@
+ 	GSList* list = NULL;
+ 	char* wpfile;
+ 
++	if (!data->wp_xml_list_loaded) {
++		g_hash_table_destroy (data->wp_hash);
++		return;
++	}
++
+ 	g_hash_table_foreach(data->wp_hash, (GHFunc) mate_wp_list_flatten, &list);
+ 	g_hash_table_destroy(data->wp_hash);
+ 	list = g_slist_reverse(list);
