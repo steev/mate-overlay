@@ -21,7 +21,7 @@ RDEPEND=">=x11-libs/gtk+-2.20:2
 	>=mate-base/mate-conf-1.2.1
 	>=mate-base/mate-panel-1.2.1
 	>=x11-libs/libxklavier-4.0
-	>=x11-libs/libwnck-2.9.3:1
+	>=x11-libs/libmatewnck-1.3.0
 	>=mate-base/mate-desktop-1.2.0
 	>=x11-libs/libmatenotify-1.2.0
 	>=sys-apps/dbus-1.1.2
