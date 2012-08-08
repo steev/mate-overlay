@@ -51,7 +51,7 @@ pkg_setup() {
 		$(use_enable doc docbook-docs)
 		$(use_enable debug)
 		$(use_with libnotify libmatenotify)
-		$(use_with opengl gl)
+		$(use_with opengl libgl)
 		$(use_enable pam)
 		--enable-locking
 		--with-xf86gamma-ext
@@ -67,6 +67,8 @@ src_prepare() {
 	epatch "${FILESDIR}/${P}-prevent-multiple-instances.patch"
 	# Fix QA warnings due to missing includes in popsquares
 	epatch "${FILESDIR}/${P}-fix-popsquares-includes.patch"
+	# Fix libgl typo in configure.ac
+	epatch "${FILESDIR}/${P}-fix-with-libgl.patch"
 	# Fix intltoolize broken file, see upstream #577133
 	sed "s:'\^\$\$lang\$\$':\^\$\$lang\$\$:g" -i po/Makefile.in.in \
 		|| die "sed failed"
