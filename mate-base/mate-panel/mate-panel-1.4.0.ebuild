@@ -36,7 +36,7 @@ RDEPEND=">=mate-base/mate-desktop-1.2.0
 	>=mate-base/libmatecomponentui-1.2.0
 	>=mate-base/mate-corba-1.2.2
 	>=x11-libs/libmatewnck-1.4.0
-	eds? ( <=gnome-extra/evolution-data-server-2.32.3 )
+	eds? ( <gnome-extra/evolution-data-server-3 )
 	introspection? ( >=dev-libs/gobject-introspection-0.6.7 )
 	networkmanager? ( >=net-misc/networkmanager-0.6.7 )"
 DEPEND="${RDEPEND}

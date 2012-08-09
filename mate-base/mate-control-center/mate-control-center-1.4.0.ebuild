@@ -41,7 +41,7 @@ RDEPEND="x11-libs/libXft
 	media-libs/freetype
 	media-libs/libcanberra[gtk]
 
-	eds? ( <=gnome-extra/evolution-data-server-2.32.3 )
+	eds? ( <gnome-extra/evolution-data-server-3 )
 
 	x11-apps/xmodmap
 	x11-libs/libXScrnSaver
