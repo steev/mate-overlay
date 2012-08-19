@@ -1,46 +1,47 @@
-From 3b540c9019d0ef3a578c0bd8da8ac7c8da40ebfe Mon Sep 17 00:00:00 2001
+From b8ac2f36147437b3e59a8f41f11261246acfcc4e Mon Sep 17 00:00:00 2001
 From: Steev Klimaszewski <steev@gentoo.org>
 Date: Fri, 17 Aug 2012 17:37:42 -0500
 Subject: [PATCH 2/2] Fix building with glib >= 2.32
 
-Glib 2.32 has split out gmodule to it's own library.  Due to this, gmodule-2.0 needs to be added to the PKG_CHECK for GLIB.
+Glib 2.32 has split out gmodule to it's own library.  Due to this, do a check for gmodule not just glib.
 
-Also add GLIB_LIBS to libmatekbd/Makefile.am to prevent underlinking.
+Also add GMODULE_LIBS to libmatekbd/Makefile.am to prevent underlinking.
 
 Signed-off-by: Steev Klimaszewski <steev@gentoo.org>
 ---
- configure.in           | 3 ++-
- libmatekbd/Makefile.am | 3 ++-
- 2 files changed, 4 insertions(+), 2 deletions(-)
+ configure.in           |    2 ++
+ libmatekbd/Makefile.am |    2 ++
+ 2 files changed, 4 insertions(+), 0 deletions(-)
 
 diff --git a/configure.in b/configure.in
-index 3320fc8..36dca24 100644
+index 3320fc8..db81cad 100644
 --- a/configure.in
 +++ b/configure.in
-@@ -83,7 +83,8 @@ IT_PROG_INTLTOOL([0.35.0])
- 
+@@ -84,9 +84,11 @@ IT_PROG_INTLTOOL([0.35.0])
  AC_CHECK_FUNCS(setlocale)
  
--PKG_CHECK_MODULES(GLIB, glib-2.0 >= $GLIB_REQUIRED)
-+PKG_CHECK_MODULES(GLIB, glib-2.0 >= $GLIB_REQUIRED
-+                  gmodule-2.0 >= 2.18)
+ PKG_CHECK_MODULES(GLIB, glib-2.0 >= $GLIB_REQUIRED)
++PKG_CHECK_MODULES(GMODULE, gmodule-2.0, [GMODULE_ADD="gmodule-2.0"],[GMODULE_ADD=""])
  
  AC_SUBST(GLIB_CFLAGS)
  AC_SUBST(GLIB_LIBS)
++AC_SUBST(GMODULE_LIBS)
+ 
+ PKG_CHECK_MODULES(MATECONF, mateconf-2.0 >= $MATECONF_REQUIRED)
+ 
 diff --git a/libmatekbd/Makefile.am b/libmatekbd/Makefile.am
-index 74ae112..6b63f3c 100644
+index 74ae112..1bcfcd2 100644
 --- a/libmatekbd/Makefile.am
 +++ b/libmatekbd/Makefile.am
-@@ -36,7 +36,8 @@ libmatekbd_la_LIBADD =  $(common_LIBADD)
+@@ -36,6 +36,8 @@ libmatekbd_la_LIBADD =  $(common_LIBADD)
  libmatekbdui_la_LDFLAGS = $(common_LDFLAGS)
  libmatekbdui_la_LIBADD = libmatekbd.la \
                             $(common_LIBADD) \
--                           $(GTK_LIBS)
-+                           $(GTK_LIBS) \
-+			   $(GLIB_LIBS)
++                           $(GLIB_LIBS) \
++                           $(GMODULE_LIBS) \
+                            $(GTK_LIBS)
  
  libmatekbd_la_SOURCES = \
-                          matekbd-desktop-config.c \
 -- 
-1.7.11.1
+1.7.3.4
 
