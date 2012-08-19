@@ -50,3 +50,8 @@ pkg_setup() {
 		$(use_enable doc desktop-docs)"
 	DOCS="AUTHORS ChangeLog HACKING NEWS README"
 }
+
+src_prepare() {
+	epatch "${FILESDIR}"/0001-Add-lm-since-we-use-sqrt-floor-fmod-and-pow.patch
+	mate_src_prepare
+}

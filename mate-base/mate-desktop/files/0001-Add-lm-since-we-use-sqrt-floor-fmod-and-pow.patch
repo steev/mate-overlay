@@ -1,0 +1,28 @@
+From 4053dc79086125f9196cccffb998db38d36eae3e Mon Sep 17 00:00:00 2001
+From: Steev Klimaszewski <steev@gentoo.org>
+Date: Fri, 17 Aug 2012 23:06:46 -0500
+Subject: [PATCH] Add -lm since we use sqrt, floor, fmod and pow.
+
+Just like with libmatekbd, we are underlinking so we need -lm when using sqrt, floor, fmod and pow.
+
+Signed-off-by: Steev Klimaszewski <steev@gentoo.org>
+---
+ configure.in | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/configure.in b/configure.in
+index a70113c..5256117 100644
+--- a/configure.in
++++ b/configure.in
+@@ -286,6 +286,8 @@ if test "x$enable_rebuilds" = "xyes" && \
+ fi
+ AC_SUBST(REBUILD)
+ 
++AC_SEARCH_LIBS([sqrt], [m])
++
+ # check for gtk-doc
+ GTK_DOC_CHECK([1.4])
+ 
+-- 
+1.7.11.1
+
