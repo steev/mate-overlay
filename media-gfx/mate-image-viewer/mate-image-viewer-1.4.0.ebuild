@@ -57,3 +57,8 @@ pkg_setup() {
 	DOCS="AUTHORS ChangeLog HACKING NEWS README THANKS TODO"
 	python_set_active_version 2
 }
+
+src_prepare() {
+	epatch "${FILESDIR}"/0001-Add-check-for-lm-since-we-use-maths.patch
+	mate_src_prepare
+}
