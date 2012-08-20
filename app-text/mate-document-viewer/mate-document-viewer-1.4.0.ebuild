@@ -81,5 +81,9 @@ src_prepare() {
 	# Fix .desktop categories, upstream bug #666346
 	epatch "${FILESDIR}"/${PN}-1.2.1-desktop-categories.patch
 
+	# Needed for linking when using gold
+	epatch "${FILESDIR}"/0001-Add-search-for-hypot.patch
+	epatch "${FILESDIR}"/0002-Add-gmodule-check-for-libdocument.patch
+
 	mate_src_prepare
 }

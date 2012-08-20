@@ -31,7 +31,12 @@ pkg_setup() {
 }
 
 src_prepare() {
-	mate_src_prepare
+
+	# Require -lm because we use sqrt,atan and sincos
+	epatch "${FILESDIR}"/0001-libmatekbd-Require-lm-when-using-sqrt.patch
+
+	# Fix underlinking and building with glib 2.32
+	epatch "${FILESDIR}"/0002-Fix-building-with-glib-2.32.patch
 
 	# Unneeded casts removed
 	# epatch "${FILESDIR}/${P}-unneeded-casts.patch"
@@ -41,4 +46,6 @@ src_prepare() {
 
 	# Replace GDK_keyname with GDK_KEY_keyname
 	# epatch "${FILESDIR}/${P}-gdkkeyname-replace.patch"
+
+	mate_src_prepare
 }
