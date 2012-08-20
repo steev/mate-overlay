@@ -55,6 +55,7 @@ pkg_setup() {
 }
 
 src_prepare() {
+	epatch "${FILESDIR}"/0001-Fixes-for-using-glib-2.32.patch
 	mate_src_prepare
 
 	# Remove silly CFLAGS
