@@ -49,6 +49,11 @@ DEPEND="${RDEPEND}
 	>=mate-base/mate-common-1.2.2
 	dev-util/gtk-doc-am"
 
+src_compile() {
+	epatch ${FILESDIR}/clock-applet-include-fix.patch
+	emake || die "Make failed!"
+}
+
 pkg_setup() {
 	# possible values: none, clock, fish, notification-area, wncklet, all
 	local applets="all"
