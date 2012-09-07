@@ -51,7 +51,7 @@ DEPEND="${RDEPEND}
 
 src_compile() {
 	epatch ${FILESDIR}/clock-applet-include-fix.patch
-	emake || die "Make failed!"
+	mate_src_compile
 }
 
 pkg_setup() {
