@@ -19,10 +19,11 @@ IUSE="doc test"
 RDEPEND=">=dev-libs/glib-2.8:2
 	>=dev-libs/libIDL-0.8.2"
 
+# Hard depend on gtk-doc because we gtkdocize.
 DEPEND="${RDEPEND}
 	virtual/pkgconfig
 	dev-util/gtk-doc-am
-	doc? ( >=dev-util/gtk-doc-1 )
+	>=dev-util/gtk-doc-1
 	>=mate-base/mate-common-1.2.2"
 
 pkg_setup() {

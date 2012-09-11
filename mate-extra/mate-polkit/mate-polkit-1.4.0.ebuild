@@ -3,7 +3,7 @@
 # $Header: $
 
 EAPI=4
-inherit autotools mate-desktop.org
+inherit autotools mate
 
 DESCRIPTION="A dbus session bus service that is used to bring up authentication dialogs"
 HOMEPAGE="https://github.com/mate-desktop/mate-polkit"
@@ -13,15 +13,20 @@ SLOT="0"
 KEYWORDS="~amd64 ~arm ~x86"
 IUSE="+introspection"
 
+# We call gtkdocize so we need to depend on gtk-doc.
 RDEPEND=">=dev-libs/glib-2.28
 	>=x11-libs/gtk+-2.24:2[introspection?]
 	>=sys-auth/polkit-0.102[introspection?]
 	introspection? ( >=dev-libs/gobject-introspection-0.6.2 )"
+
 DEPEND="${RDEPEND}
+	dev-util/gtk-doc
 	dev-util/intltool
-	virtual/pkgconfig
+	!<gnome-extra/polkit-gnome-0.102
+	mate-base/mate-common
 	sys-devel/gettext
-	!<gnome-extra/polkit-gnome-0.102"
+	virtual/pkgconfig"
+
 # Entropy PMS specific. This way we can install the pkg
 # into the build chroots.
 ENTROPY_RDEPEND="!lxde-base/lxpolkit"

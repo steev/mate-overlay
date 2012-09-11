@@ -38,7 +38,7 @@ DEPEND="${RDEPEND}
 	dev-util/gtk-doc-am
 	doc? ( >=dev-util/gtk-doc-1.4 )"
 PDEPEND="mate? ( >=x11-themes/mate-icon-theme-1.2.0 )
-	>=gnome-base/gvfs-1.10.1"
+	>=mate-base/mate-vfs-1.4.0"
 
 pkg_setup() {
 	G2CONF="${G2CONF}
