@@ -14,13 +14,12 @@ HOMEPAGE="http://mate-desktop.org"
 LICENSE="GPL-2 LGPL-2 FDL-1.1"
 SLOT="0"
 KEYWORDS="~amd64 ~arm ~x86"
-IUSE="doc gtk3 mate +introspection xmp"
+IUSE="doc mate +introspection xmp"
 
 RDEPEND=">=dev-libs/glib-2.28.0:2
 	>=mate-base/mate-desktop-1.2.0
 	>=x11-libs/pango-1.1.2
-	gtk3? ( x11-libs/gtk+:3[introspection?] )
-	!gtk3? ( x11-libs/gtk+:2[introspection?] )
+	x11-libs/gtk+:2[introspection?]
 	>=dev-libs/libxml2-2.4.7:2
 	>=media-libs/libexif-0.5.12
 	>=mate-base/mate-conf-1.2.1
