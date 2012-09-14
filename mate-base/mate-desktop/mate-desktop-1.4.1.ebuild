@@ -15,10 +15,10 @@ HOMEPAGE="http://mate-desktop.org"
 LICENSE="GPL-2 FDL-1.1 LGPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~arm ~x86"
-IUSE="doc gtk3"
+IUSE="doc"
 
-RDEPEND="gtk3? ( x11-libs/gtk+:3 )
-	!gtk3? ( x11-libs/gtk+:2 )
+# GTK3 doesn't actually work, so hard dep on gtk+-2
+RDEPEND="x11-libs/gtk+:2
 	>=dev-libs/glib-2.19.1:2
 	dev-libs/libunique:1
 	>=x11-libs/libXrandr-1.2
