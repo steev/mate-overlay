@@ -15,13 +15,13 @@ HOMEPAGE="http://mate-desktop.org"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~arm ~x86"
-IUSE="gtk3 startup-notification test xinerama"
+IUSE="startup-notification test xinerama"
 
+# Building against gtk+3 is broken.
 # XXX: libgtop is automagic, hard-enabled instead
 RDEPEND=" >=x11-libs/pango-1.2[X]
 	>=dev-libs/glib-2.25.10:2
-	gtk3? ( x11-libs/gtk+:3 )
-	!gtk3? ( x11-libs/gtk+:2 )
+	x11-libs/gtk+:2
 	>=mate-base/mate-conf-1.2.1
 	>=x11-libs/startup-notification-0.7
 	>=x11-libs/libXcomposite-0.2
@@ -34,7 +34,7 @@ RDEPEND=" >=x11-libs/pango-1.2[X]
 	x11-libs/libXrandr
 	x11-libs/libSM
 	x11-libs/libICE
-	media-libs/libcanberra[gtk,gtk3?]
+	media-libs/libcanberra[gtk]
 	gnome-base/libgtop
 	>=mate-extra/mate-dialogs-1.2.0
 	xinerama? ( x11-libs/libXinerama )
