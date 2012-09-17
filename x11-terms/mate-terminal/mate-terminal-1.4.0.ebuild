@@ -14,14 +14,13 @@ HOMEPAGE="http://mate-desktop.org"
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~arm ~x86"
-IUSE="gtk3"
+IUSE=""
 
 	# libgnome needed for some monospace font schema, bug #274638
+	# Remove gtk3 useflag because it doesn't build
 RDEPEND=">=dev-libs/glib-2.25.12:2
-	gtk3? ( x11-libs/gtk+:3
-			>=x11-libs/vte-0.30 )
-	!gtk3? ( x11-libs/gtk+:2
-			 >=x11-libs/vte-0.26.0:0 )
+	x11-libs/gtk+:2
+	>=x11-libs/vte-0.26.0:0
 	>=mate-base/mate-conf-1.2.1
 	x11-libs/libSM
 	>=mate-base/libmate-1.2.0"
