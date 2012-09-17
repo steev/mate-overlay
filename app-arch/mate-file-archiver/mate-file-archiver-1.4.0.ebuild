@@ -14,10 +14,10 @@ HOMEPAGE="http://mate-desktop.org"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~arm ~x86"
-IUSE="caja gtk3"
+IUSE="caja"
 
-RDEPEND="gtk3? ( x11-libs/gtk+:3 )
-	!gtk3? ( x11-libs/gtk+:2 )
+# Doesn't build against gtk+-3 so remove useflag and dep for now.
+RDEPEND="x11-libs/gtk+:2
 	>=dev-libs/glib-2.25.5:2
 	>=mate-base/mate-conf-1.2.1
 	caja? ( >=mate-base/mate-file-manager-1.2.2 )"
