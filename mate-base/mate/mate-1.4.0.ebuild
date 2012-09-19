@@ -50,7 +50,7 @@ RDEPEND=">=mate-base/mate-corba-1.4.0
 	>=x11-misc/mate-menu-editor-1.4.0
 	>=x11-terms/mate-terminal-1.4.0
 	>=app-arch/mate-file-archiver-1.4.0
-	>=x11-misc/mate-notification-daemon-1.4.0"
+	virtual/notification-daemon"
 
 pkg_postinst() {
 	elog "If you found a bug and have a solution, contact joost_op in #sabayon-dev at freenode.net."
