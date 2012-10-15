@@ -7,7 +7,7 @@ EAPI="4"
 DESCRIPTION="Meta ebuild for MATE, The traditional desktop environment"
 HOMEPAGE="http://mate-desktop.org"
 
-LICENSE="GPL-2"
+LICENSE="metapackage"
 SLOT="0"
 KEYWORDS="~x86 ~amd64 ~arm"
 IUSE=""
