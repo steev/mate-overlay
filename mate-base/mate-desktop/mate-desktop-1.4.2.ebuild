@@ -18,8 +18,11 @@ KEYWORDS="~amd64 ~arm ~x86"
 IUSE="doc"
 
 # GTK3 doesn't actually work, so hard dep on gtk+-2
+# Upstream says to use glib 2.34 so as to not have to rebuild once someone
+# moves to 2.34 - see mailing list for more info:
+# http://ml.mate-desktop.org/pipermail/mate-dev/2012-November/000009.html
 RDEPEND="x11-libs/gtk+:2
-	>=dev-libs/glib-2.19.1:2
+	>=dev-libs/glib-2.34:2
 	dev-libs/libunique:1
 	>=x11-libs/libXrandr-1.2
 	>=mate-base/mate-conf-1.2.1
