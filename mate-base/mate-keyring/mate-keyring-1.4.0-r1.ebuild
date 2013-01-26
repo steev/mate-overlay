@@ -20,7 +20,7 @@ IUSE="debug doc gtk3 pam test"
 
 RDEPEND=">=dev-libs/glib-2.25:2
 	gtk3? ( x11-libs/gtk+:3 )
-	!gtk3? ( x11-libs/gtk+:2 )	
+	!gtk3? ( x11-libs/gtk+:2 )
 	>=mate-base/mate-conf-1.2.1
 	>=sys-apps/dbus-1.0
 	pam? ( virtual/pam )
@@ -55,6 +55,8 @@ pkg_setup() {
 }
 
 src_prepare() {
+	# See Sabayon bug #3939, backported from new upstream ver
+	epatch "${FILESDIR}"/${P}-fix-schema-path.patch
 	epatch "${FILESDIR}"/0001-Fixes-for-using-glib-2.32.patch
 	mate_src_prepare
 
