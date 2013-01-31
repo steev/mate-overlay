@@ -10,7 +10,7 @@ HOMEPAGE="http://mate-desktop.org"
 LICENSE="metapackage"
 SLOT="0"
 KEYWORDS="~x86 ~amd64 ~arm"
-IUSE=""
+IUSE="+extras"
 
 RDEPEND=">=mate-base/mate-corba-1.2.2
 	>=mate-base/mate-conf-1.2.1
@@ -42,14 +42,16 @@ RDEPEND=">=mate-base/mate-corba-1.2.2
 	>=mate-extra/mate-utils-1.2.0
 	>=mate-extra/mate-media-1.2.1
 	>=mate-extra/mate-screensaver-1.2.0
-	>=mate-extra/mate-power-manager-1.2.1
-	>=app-editors/mate-text-editor-1.2.0
-	>=mate-extra/mate-system-monitor-1.2.1
-	>=media-gfx/mate-image-viewer-1.2.0
-	>=app-text/mate-document-viewer-1.2.1
 	>=x11-misc/mate-menu-editor-1.2.0
 	>=x11-terms/mate-terminal-1.2.1
-	>=app-arch/mate-file-archiver-1.2.1"
+	extras? (
+		>=mate-extra/mate-power-manager-1.2.1
+		>=app-editors/mate-text-editor-1.2.0
+		>=mate-extra/mate-system-monitor-1.2.1
+		>=media-gfx/mate-image-viewer-1.2.0
+		>=app-text/mate-document-viewer-1.2.1
+		>=app-arch/mate-file-archiver-1.2.1
+	)"
 	# >=x11-misc/mate-notification-daemon-1.2.0"
 
 pkg_postinst() {
