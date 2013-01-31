@@ -10,7 +10,7 @@ HOMEPAGE="http://mate-desktop.org"
 LICENSE="metapackage"
 SLOT="0"
 KEYWORDS="~x86 ~amd64 ~arm"
-IUSE=""
+IUSE="+extras"
 
 RDEPEND=">=mate-base/mate-corba-1.4.0
 	>=mate-base/mate-conf-1.4.0
@@ -42,15 +42,17 @@ RDEPEND=">=mate-base/mate-corba-1.4.0
 	>=mate-extra/mate-utils-1.4.0
 	>=mate-extra/mate-media-1.4.0
 	>=mate-extra/mate-screensaver-1.4.0
-	>=mate-extra/mate-power-manager-1.4.0
-	>=app-editors/mate-text-editor-1.4.0
-	>=mate-extra/mate-system-monitor-1.4.0
-	>=media-gfx/mate-image-viewer-1.4.0
-	>=app-text/mate-document-viewer-1.4.0
 	>=x11-misc/mate-menu-editor-1.4.0
 	>=x11-terms/mate-terminal-1.4.0
-	>=app-arch/mate-file-archiver-1.4.0
-	virtual/notification-daemon"
+	virtual/notification-daemon
+	extras? (
+		>=mate-extra/mate-power-manager-1.4.0
+		>=app-editors/mate-text-editor-1.4.0
+		>=app-arch/mate-file-archiver-1.4.0
+		>=media-gfx/mate-image-viewer-1.4.0
+		>=app-text/mate-document-viewer-1.4.0
+		>=mate-extra/mate-system-monitor-1.4.0
+	)"
 
 pkg_postinst() {
 	elog "If you found a bug and have a solution, contact joost_op in #sabayon-dev at freenode.net."
