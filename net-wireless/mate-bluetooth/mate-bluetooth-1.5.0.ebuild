@@ -17,7 +17,7 @@ IUSE="doc +introspection test"
 
 COMMON_DEPEND="dev-libs/glib:2
 	x11-libs/gtk+:2
-	>=x11-libs/libmatenotify-1.2.0
+	>=x11-libs/libmatenotify-1.5.0
 	>=mate-base/mate-conf-1.2.1
 	dev-libs/dbus-glib
 	dev-libs/libunique:1"
@@ -41,7 +41,7 @@ DEPEND="${COMMON_DEPEND}
 	x11-libs/libXi
 	x11-proto/xproto
 	doc? ( dev-util/gtk-doc )
-	>=mate-base/mate-common-1.2.2
+	>=mate-base/mate-common-1.5.0
 	dev-util/gtk-doc-am"
 
 # Tests are not ready to pass with docs enabled, upstream bug #573392
