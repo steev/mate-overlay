@@ -5,26 +5,25 @@
 EAPI="4"
 GCONF_DEBUG="no"
 
-inherit mate
+inherit mate eutils
 
-DESCRIPTION="The MATE System Monitor"
+DESCRIPTION="A calculator application for MATE"
 HOMEPAGE="http://mate-desktop.org"
 
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~arm ~x86"
-IUSE="gtk3"
+IUSE=""
 
-RDEPEND="gtk3? ( x11-libs/gtk+:3 )
-	!gtk3? ( x11-libs/gtk+:2 )
+RDEPEND="x11-libs/gtk+:2 
 	>=dev-libs/glib-2.20:2
 	dev-libs/libxml2:2"
 
 DEPEND="${RDEPEND}
-	>=app-text/mate-doc-utils-1.2.1
+	sys-devel/gettext
 	virtual/pkgconfig
-	>=app-text/scrollkeeper-0.3.11
+	app-text/scrollkeeper
 	>=dev-util/intltool-0.35
-	dev-util/gtk-doc"
+	>=app-text/mate-doc-utils-1.2.1"
 
 DOCS="AUTHORS ChangeLog NEWS README"
