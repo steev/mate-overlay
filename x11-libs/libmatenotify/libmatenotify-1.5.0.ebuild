@@ -18,6 +18,7 @@ IUSE="doc -symlink test"
 RDEPEND=">=dev-libs/glib-2.26
 	x11-libs/gdk-pixbuf:2"
 DEPEND="${RDEPEND}
+	dev-util/gtk-doc
 	dev-util/gtk-doc-am
 	virtual/pkgconfig
 	doc? ( >=dev-util/gtk-doc-1.14 )
