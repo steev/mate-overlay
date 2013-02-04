@@ -25,7 +25,7 @@ RDEPEND="
 	x11-libs/gtk+:2[introspection?]
 	>=x11-libs/libSM-1
 	|| (
-		>=x11-themes/mate-icon-theme-1.5.0
+		>=x11-themes/mate-icon-theme-1.2.0
 		>=x11-themes/hicolor-icon-theme-0.10 )
 	>=x11-libs/cairo-1.9.10
 	>=app-text/poppler-0.14[cairo]
@@ -33,10 +33,10 @@ RDEPEND="
 	dvi? (
 		virtual/tex-base
 		t1lib? ( >=media-libs/t1lib-5.0.0 ) )
-	mate? ( >=mate-base/mate-conf-1.5.0[introspection?] )
-	mate-keyring? ( >=mate-base/mate-keyring-1.5.0 )
+	mate? ( >=mate-base/mate-conf-1.2.1[introspection?] )
+	mate-keyring? ( >=mate-base/mate-keyring-1.2.1 )
 	introspection? ( >=dev-libs/gobject-introspection-0.6 )
-	caja? ( >=mate-base/mate-file-manager-1.5.0[introspection?] )
+	caja? ( >=mate-base/mate-file-manager-1.2.2[introspection?] )
 	ps? ( >=app-text/libspectre-0.2.0 )
 	tiff? ( >=media-libs/tiff-3.6:0 )"
 DEPEND="${RDEPEND}
