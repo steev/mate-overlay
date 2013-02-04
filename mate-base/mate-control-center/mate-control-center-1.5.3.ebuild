@@ -25,15 +25,15 @@ RDEPEND="x11-libs/libXft
 	>=dev-libs/glib-2.28:2
 	>=mate-base/mate-conf-1.2.1
 	>=gnome-base/librsvg-2.0:2
-	>=mate-base/mate-file-manager-1.5.0
+	>=mate-base/mate-file-manager-1.2.2
 	>=media-libs/fontconfig-1
 	>=dev-libs/dbus-glib-0.73
 	>=x11-libs/libxklavier-4.0
-	>=x11-wm/mate-window-manager-1.5.0
-	>=mate-base/libmatekbd-1.5.0
-	>=mate-base/mate-desktop-1.5.0
-	>=mate-base/mate-menus-1.5.0
-	>=mate-base/mate-settings-daemon-1.5.0
+	>=x11-wm/mate-window-manager-1.2.0
+	>=mate-base/libmatekbd-1.2.0
+	>=mate-base/mate-desktop-1.5.2
+	>=mate-base/mate-menus-1.2.0
+	>=mate-base/mate-settings-daemon-1.2.0
 
 	dev-libs/libunique:1
 	x11-libs/pango
@@ -67,8 +67,8 @@ DEPEND="${RDEPEND}
 	dev-util/desktop-file-utils
 
 	app-text/scrollkeeper
-	>=app-text/mate-doc-utils-1.5.0
-	>=mate-base/mate-common-1.5.0"
+	>=app-text/mate-doc-utils-1.2.1
+	>=mate-base/mate-common-1.2.2"
 
 pkg_setup() {
 	G2CONF="${G2CONF}
@@ -78,12 +78,13 @@ pkg_setup() {
 	DOCS="AUTHORS ChangeLog NEWS README TODO"
 }
 
-src_prepare() {
-	mate_src_prepare
+#src_prepare() {
+#	mate_src_prepare
 
-	# Do not show twice the configured background if it is a symlink to a known background
-	epatch "${FILESDIR}/${PN}-1.2.1-duplicated-background.patch"
+	# Do not show twice the configured background if it is a symlink to a known
+	# background -- fixed dd 2013-02-04
+	# epatch "${FILESDIR}/${PN}-1.2.1-duplicated-background.patch"
 
-	# Don't erase backgounds.xml, bug #344335
-	epatch "${FILESDIR}/${PN}-1.2.1-erase-background.patch"
-}
+	# Don't erase backgounds.xml, bug #344335 -- does not apply dd 2013-02-04
+	# epatch "${FILESDIR}/${PN}-1.2.1-erase-background.patch"
+#}
