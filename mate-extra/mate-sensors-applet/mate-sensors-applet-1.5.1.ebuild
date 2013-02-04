@@ -27,7 +27,7 @@ RDEPEND="
 			>=dev-libs/dbus-glib-0.80
 			>=dev-libs/libatasmart-0.16 )
 		!dbus? ( >=app-admin/hddtemp-0.3_beta13 ) )
-	libnotify? ( x11-libs/libnotify )
+	libnotify? ( x11-libs/libmatenotify )
 	lm_sensors? ( sys-apps/lm_sensors )
 	video_cards_fglrx? ( x11-drivers/ati-drivers )
 	video_cards_nvidia? ( || (
@@ -51,7 +51,7 @@ pkg_setup() {
 		--disable-scrollkeeper
 		--disable-static
 		$(use_enable dbus udisks)
-		$(use_enable libnotify)
+		$(use_enable libnotify libmatenotify)
 		$(use_with lm_sensors libsensors)
 		$(use_with video_cards_fglrx aticonfig)
 		$(use_with video_cards_nvidia nvidia)"
@@ -64,9 +64,7 @@ pkg_setup() {
 }
 
 src_prepare() {
-	epatch \
-		"${FILESDIR}"/${P}-libnotify-0.7.patch \
-		"${FILESDIR}"/${P}-underlinking.patch
+	epatch "${FILESDIR}"/${P}-underlinking.patch
 	mate_src_prepare
 }
 
