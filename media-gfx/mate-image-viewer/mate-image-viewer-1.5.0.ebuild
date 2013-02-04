@@ -21,8 +21,8 @@ RDEPEND=">=x11-libs/gtk+-2.18:2
 	>=dev-libs/glib-2.25.9:2
 	>=dev-libs/libxml2-2
 	>=mate-base/mate-conf-1.2.1
-	>=mate-base/mate-desktop-1.5.0
-	>=x11-themes/mate-icon-theme-1.5.0
+	>=mate-base/mate-desktop-1.2.0
+	>=x11-themes/mate-icon-theme-1.2.0
 	>=x11-misc/shared-mime-info-0.20
 	x11-libs/libX11
 	dbus? ( >=dev-libs/dbus-glib-0.71 )
@@ -38,7 +38,7 @@ RDEPEND=">=x11-libs/gtk+-2.18:2
 	xmp? ( >=media-libs/exempi-2 )"
 
 DEPEND="${RDEPEND}
-	>=app-text/mate-doc-utils-1.5.0
+	>=app-text/mate-doc-utils-1.2.1
 	sys-devel/gettext
 	>=dev-util/intltool-0.40
 	dev-util/gtk-doc
@@ -58,7 +58,7 @@ pkg_setup() {
 	python_set_active_version 2
 }
 
-src_prepare() {
-	epatch "${FILESDIR}"/0001-Add-check-for-lm-since-we-use-maths.patch
-	mate_src_prepare
-}
+#src_prepare() {
+#	epatch "${FILESDIR}"/0001-Add-check-for-lm-since-we-use-maths.patch
+#	mate_src_prepare
+#}
