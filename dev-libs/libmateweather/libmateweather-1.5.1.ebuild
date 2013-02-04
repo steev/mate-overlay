@@ -50,7 +50,7 @@ pkg_setup() {
 
 src_prepare() {
 	# fix python automagic in configure.in
-	epatch "${FILESDIR}/${PN}-1.2.0-fix-automagic-python-support.patch"
+	epatch "${FILESDIR}/${PN}-1.5.0-fix-automagic-python-support.patch"
 	# fix undefined use of MKDIR_P in python/Makefile.am
 	epatch "${FILESDIR}/${PN}-1.2.0-fix-mkdirp.patch"
 
