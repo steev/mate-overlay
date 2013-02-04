@@ -36,6 +36,7 @@ RDEPEND=">=mate-base/mate-desktop-1.2.0
 	>=mate-base/libmatecomponentui-1.2.0
 	>=mate-base/mate-corba-1.2.2
 	>=x11-libs/libmatewnck-1.4.0
+	>=gnome-base/dconf-0.10
 	eds? ( <gnome-extra/evolution-data-server-3 )
 	introspection? ( >=dev-libs/gobject-introspection-0.6.7 )
 	networkmanager? ( >=net-misc/networkmanager-0.6.7 )"
@@ -61,10 +62,8 @@ pkg_setup() {
 		--libexecdir=/usr/libexec/mate-applets
 		--disable-deprecation-flags
 		--with-in-process-applets=${applets}
-		--enable-matecomponent
 		$(use_enable networkmanager network-manager)
-		$(use_enable introspection)
-		$(use_enable eds)"
+		$(use_enable introspection)"
 	DOCS="AUTHORS ChangeLog HACKING NEWS README"
 	python_set_active_version 2
 }
