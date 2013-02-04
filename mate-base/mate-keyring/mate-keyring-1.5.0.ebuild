@@ -56,8 +56,9 @@ pkg_setup() {
 
 src_prepare() {
 	# See Sabayon bug #3939, backported from new upstream ver
-	epatch "${FILESDIR}"/${P}-fix-schema-path.patch
-	epatch "${FILESDIR}"/0001-Fixes-for-using-glib-2.32.patch
+	epatch "${FILESDIR}"/${PN}-1.4.0-fix-schema-path.patch
+	#Fixed dd 2013-02-04
+	#epatch "${FILESDIR}"/0001-Fixes-for-using-glib-2.32.patch
 	mate_src_prepare
 
 	# Remove silly CFLAGS
