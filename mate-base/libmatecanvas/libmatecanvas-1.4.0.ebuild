@@ -27,7 +27,7 @@ DEPEND="${RDEPEND}
 	sys-devel/gettext
 	>=dev-util/intltool-0.35
 	virtual/pkgconfig
-	doc? ( >=dev-util/gtk-doc-1 )"
+	>=dev-util/gtk-doc-1"
 
 pkg_setup() {
 	DOCS="AUTHORS ChangeLog NEWS README"
