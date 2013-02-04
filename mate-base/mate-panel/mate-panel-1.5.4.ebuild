@@ -50,9 +50,8 @@ DEPEND="${RDEPEND}
 	>=mate-base/mate-common-1.2.2
 	dev-util/gtk-doc-am"
 
-src_compile() {
+src_prepare() {
 	epatch ${FILESDIR}/clock-applet-include-fix.patch
-	mate_src_compile
 }
 
 pkg_setup() {
