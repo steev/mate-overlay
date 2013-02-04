@@ -35,7 +35,7 @@ RDEPEND=">=x11-libs/gtk+-2.20:2
 	mate-base/libmate
 	gnome-base/libgtop:2
 	sys-power/cpufrequtils
-	>=gnome-extra/gucharmap-2.23:0
+	mate-extra/mate-character-map
 	gstreamer?	(
 		>=media-libs/gstreamer-0.10.2:0.10
 		>=media-libs/gst-plugins-base-0.10.14:0.10
