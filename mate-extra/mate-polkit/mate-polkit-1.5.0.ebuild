@@ -34,7 +34,7 @@ ENTROPY_RDEPEND="!lxde-base/lxpolkit"
 DOCS=( AUTHORS HACKING NEWS README )
 
 src_prepare() {
-	gtkdocize || die
+	gtkdocize
 	eautoreconf
 	mate_src_prepare
 }
