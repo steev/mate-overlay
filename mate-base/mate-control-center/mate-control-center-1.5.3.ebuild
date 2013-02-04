@@ -29,11 +29,11 @@ RDEPEND="x11-libs/libXft
 	>=media-libs/fontconfig-1
 	>=dev-libs/dbus-glib-0.73
 	>=x11-libs/libxklavier-4.0
-	>=x11-wm/mate-window-manager-1.2.0
+	>=x11-wm/mate-window-manager-1.5.0
 	>=mate-base/libmatekbd-1.2.0
 	>=mate-base/mate-desktop-1.5.2
 	>=mate-base/mate-menus-1.2.0
-	>=mate-base/mate-settings-daemon-1.2.0
+	>=mate-base/mate-settings-daemon-1.5.2
 
 	dev-libs/libunique:1
 	x11-libs/pango
