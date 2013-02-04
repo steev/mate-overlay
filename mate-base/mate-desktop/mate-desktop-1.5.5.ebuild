@@ -25,14 +25,14 @@ RDEPEND="x11-libs/gtk+:2
 	>=dev-libs/glib-2.34:2
 	dev-libs/libunique:1
 	>=x11-libs/libXrandr-1.2
-	>=mate-base/mate-conf-1.5.0
+	>=mate-base/mate-conf-1.2.1
 	>=x11-libs/startup-notification-0.5"
 
 DEPEND="${RDEPEND}
 	dev-util/gtk-doc
 	>=dev-util/intltool-0.40
 	virtual/pkgconfig
-	>=app-text/mate-doc-utils-1.5.0
+	>=app-text/mate-doc-utils-1.2.1
 	~app-text/docbook-xml-dtd-4.1.2
 	x11-proto/xproto
 	>=x11-proto/randrproto-1.2"
@@ -54,7 +54,7 @@ pkg_setup() {
 	DOCS="AUTHORS ChangeLog HACKING NEWS README"
 }
 
-src_prepare() {
-	epatch "${FILESDIR}"/0001-Add-lm-since-we-use-sqrt-floor-fmod-and-pow.patch
-	mate_src_prepare
-}
+#src_prepare() {
+#	epatch "${FILESDIR}"/0001-Add-lm-since-we-use-sqrt-floor-fmod-and-pow.patch
+#	mate_src_prepare
+#}
