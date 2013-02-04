@@ -28,12 +28,13 @@ DEPEND="${RDEPEND}
 	sys-devel/gettext
 	virtual/pkgconfig
 	>=dev-util/intltool-0.40
-	doc? ( >=dev-util/gtk-doc-1.9 )"
+	>=dev-util/gtk-doc-1.9"
 
 pkg_setup() {
 	G2CONF="${G2CONF}
 		$(use_enable introspection)
 		$(use_enable startup-notification)"
+
 	DOCS="AUTHORS ChangeLog HACKING NEWS README"
 }
 
