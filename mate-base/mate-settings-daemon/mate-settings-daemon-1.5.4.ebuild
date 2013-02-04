@@ -20,7 +20,7 @@ COMMON_DEPEND=">=dev-libs/dbus-glib-0.74
 	>=dev-libs/glib-2.18:2
 	x11-libs/gtk+:2
 	>=mate-base/mate-conf-1.2.1
-	>=mate-base/libmatekbd-1.2.0
+	>=mate-base/libmatekbd-1.5.0
 	>=mate-base/mate-desktop-1.2.0
 
 	x11-libs/libX11
@@ -72,7 +72,7 @@ pkg_setup() {
 
 src_prepare() {
 	# More network filesystems not to monitor, upstream bug #606421
-	epatch "${FILESDIR}/${P}-netfs-monitor.patch"
+	epatch "${FILESDIR}/${PN}-1.4.0-netfs-monitor.patch"
 
 	# mouse: Use event driven mode for syndaemon
 	epatch "${FILESDIR}/${PN}-1.2.0-syndaemon-mode.patch"
