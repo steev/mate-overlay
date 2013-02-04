@@ -22,7 +22,7 @@ RDEPEND=">=dev-libs/glib-2.28.0:2
 	x11-libs/gtk+:2[introspection?]
 	>=dev-libs/libxml2-2.4.7:2
 	>=media-libs/libexif-0.5.12
-	>=mate-base/mate-conf-1.5.0
+	>=mate-base/mate-conf-1.2.1
 	dev-libs/libunique:1
 	x11-libs/libXext
 	x11-libs/libXrender
@@ -33,11 +33,11 @@ DEPEND="${RDEPEND}
 	sys-devel/gettext
 	virtual/pkgconfig
 	>=dev-util/intltool-0.40.1
-	>=mate-base/mate-common-1.5.0
+	>=mate-base/mate-common-1.2.2
 	dev-util/gtk-doc-am
 	doc? ( >=dev-util/gtk-doc-1.4 )"
-PDEPEND="mate? ( >=x11-themes/mate-icon-theme-1.5.0 )
-	>=mate-base/mate-vfs-1.5.0"
+PDEPEND="mate? ( >=x11-themes/mate-icon-theme-1.2.0 )
+	>=mate-base/mate-vfs-1.4.0"
 
 pkg_setup() {
 	G2CONF="${G2CONF}
