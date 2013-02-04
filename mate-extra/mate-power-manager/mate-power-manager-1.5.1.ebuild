@@ -64,7 +64,6 @@ pkg_setup() {
 		--enable-unique
 		$(use_enable applet applets)
 		$(use_enable doc docbook-docs)
-		$(use_enable policykit mateconf-defaults)
 		$(use_enable test tests)
 		--enable-compile-warnings=minimum"
 	DOCS="AUTHORS HACKING NEWS README TODO"
