@@ -5,7 +5,7 @@
 EAPI="4"
 MATE_LA_PUNT="yes"
 
-inherit mate
+inherit mate autotools
 
 DESCRIPTION="MATE Notification daemon"
 HOMEPAGE="http://mate-dekstop.org"
@@ -36,6 +36,10 @@ DEPEND="${RDEPEND}
 
 DOCS=( AUTHORS ChangeLog NEWS )
 
+src_prepare() {
+	eautoreconf
+	mate_src_prepare
+}
 src_install() {
 	mate_src_install
 
