@@ -81,8 +81,8 @@ src_prepare() {
 	epatch "${FILESDIR}"/${PN}-1.2.1-desktop-categories.patch
 
 	# Needed for linking when using gold
-	epatch "${FILESDIR}"/0001-Add-search-for-hypot.patch
-	epatch "${FILESDIR}"/0002-Add-gmodule-check-for-libdocument.patch
+	#epatch "${FILESDIR}"/0001-Add-search-for-hypot.patch
+	#epatch "${FILESDIR}"/0002-Add-gmodule-check-for-libdocument.patch
 
 	mate_src_prepare
 }
