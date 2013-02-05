@@ -26,6 +26,7 @@ RDEPEND=">=dev-libs/glib-2.18
 DEPEND="${RDEPEND}
 	sys-devel/gettext
 	virtual/pkgconfig
+	>=mate-base/mate-common-1.2.0
 	>=dev-util/intltool-0.40"
 
 pkg_setup() {
