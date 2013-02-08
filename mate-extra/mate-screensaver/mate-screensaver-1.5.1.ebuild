@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="4"
+EAPI="5"
 GCONF_DEBUG="yes"
 
 inherit mate multilib
@@ -14,7 +14,7 @@ LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~arm ~x86"
 KERNEL_IUSE="kernel_linux"
-IUSE="doc libnotify opengl pam systemd consolekit $KERNEL_IUSE"
+IUSE="libnotify opengl pam systemd consolekit $KERNEL_IUSE"
 
 RDEPEND=">=mate-base/mate-conf-1.2.1
 	>=x11-libs/gtk+-2.14.0:2
@@ -36,10 +36,6 @@ RDEPEND=">=mate-base/mate-conf-1.2.1
 DEPEND="${RDEPEND}
 	virtual/pkgconfig
 	>=dev-util/intltool-0.40
-	doc? (
-		app-text/xmlto
-		~app-text/docbook-xml-dtd-4.1.2
-		~app-text/docbook-xml-dtd-4.4 )
 	x11-proto/xextproto
 	x11-proto/randrproto
 	x11-proto/scrnsaverproto
@@ -50,7 +46,6 @@ DEPEND="${RDEPEND}
 
 pkg_setup() {
 	G2CONF="${G2CONF}
-		$(use_enable doc docbook-docs)
 		$(use_enable debug)
 		$(use_with libnotify libmatenotify)
 		$(use_with opengl libgl)
