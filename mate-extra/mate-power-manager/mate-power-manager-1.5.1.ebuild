@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="4"
+EAPI="5"
 GCONF_DEBUG="no"
 
 inherit mate
@@ -14,7 +14,7 @@ HOMEPAGE="http://mate-desktop.org"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~arm ~x86"
-IUSE="+applet doc policykit test"
+IUSE="+applet policykit test"
 
 # FIXME: Interactive testsuite (upstream ? I'm so...pessimistic)
 RESTRICT="test"
@@ -41,19 +41,12 @@ RDEPEND="${COMMON_DEPEND}
 
 DEPEND="${COMMON_DEPEND}
 	x11-proto/randrproto
-
 	sys-devel/gettext
 	app-text/scrollkeeper
 	app-text/docbook-xml-dtd:4.3
 	virtual/pkgconfig
 	>=dev-util/intltool-0.35
-	app-text/mate-doc-utils
-	doc? (
-		app-text/xmlto
-		app-text/docbook-sgml-utils
-		app-text/docbook-xml-dtd:4.4
-		app-text/docbook-sgml-dtd:4.1
-		app-text/docbook-xml-dtd:4.1.2 )"
+	app-text/mate-doc-utils"
 
 # docbook-sgml-utils and docbook-sgml-dtd-4.1 used for creating man pages
 # (files under ${S}/man).
@@ -63,7 +56,6 @@ pkg_setup() {
 	G2CONF="${G2CONF}
 		--enable-unique
 		$(use_enable applet applets)
-		$(use_enable doc docbook-docs)
 		$(use_enable test tests)
 		--enable-compile-warnings=minimum"
 	DOCS="AUTHORS HACKING NEWS README TODO"
@@ -73,12 +65,10 @@ src_prepare() {
 	mate_src_prepare
 
 	# This needs to be after eautoreconf to prevent problems like bug #356277
-	if ! use doc; then
-		# Remove the docbook2man rules here since it's not handled by a proper
-		# parameter in configure.in.
-		sed -e 's:@HAVE_DOCBOOK2MAN_TRUE@.*::' -i man/Makefile.in \
-			|| die "docbook sed failed"
-	fi
+	# Remove the docbook2man rules here since it's not handled by a proper
+	# parameter in configure.in.
+	sed -e 's:@HAVE_DOCBOOK2MAN_TRUE@.*::' -i man/Makefile.in \
+		|| die "docbook sed failed"
 }
 
 src_test() {
