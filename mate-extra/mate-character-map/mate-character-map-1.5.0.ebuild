@@ -33,8 +33,6 @@ DEPEND="${RDEPEND}
 
 pkg_setup() {
 	G2CONF="${G2CONF}
-		--disable-scrollkeeper
-		--disable-maintainer-mode
 		$(use_enable introspection)
 		$(use_enable cjk unihan)
 		$(use_enable python python-bindings)"
