@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="4"
+EAPI="5"
 GCONF_DEBUG="yes"
 MATE_LA_PUNT="yes"
 
@@ -14,7 +14,7 @@ HOMEPAGE="http://mate-desktop.org"
 LICENSE="GPL-2 LGPL-2 FDL-1.1"
 SLOT="0"
 KEYWORDS="~amd64 ~arm ~x86"
-IUSE="doc mate +introspection xmp"
+IUSE="mate +introspection xmp"
 
 RDEPEND=">=dev-libs/glib-2.28.0:2
 	>=mate-base/mate-desktop-1.5.0
@@ -33,9 +33,7 @@ DEPEND="${RDEPEND}
 	sys-devel/gettext
 	virtual/pkgconfig
 	>=dev-util/intltool-0.40.1
-	>=mate-base/mate-common-1.2.2
-	dev-util/gtk-doc-am
-	doc? ( >=dev-util/gtk-doc-1.4 )"
+	>=mate-base/mate-common-1.2.2"
 PDEPEND="mate? ( >=x11-themes/mate-icon-theme-1.2.0 )
 	>=mate-base/mate-vfs-1.4.0"
 
