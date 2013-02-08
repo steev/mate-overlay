@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="4"
+EAPI="5"
 MATE_LA_PUNT="yes"
 GCONF_DEBUG="no"
 
@@ -15,7 +15,7 @@ LICENSE="LGPL-2"
 SLOT="1"
 KEYWORDS="~amd64 ~arm ~x86"
 
-IUSE="doc +introspection startup-notification"
+IUSE="+introspection startup-notification"
 
 RDEPEND="x11-libs/gtk+:2[introspection?]
 	>=dev-libs/glib-2.16:2
@@ -27,8 +27,7 @@ RDEPEND="x11-libs/gtk+:2[introspection?]
 DEPEND="${RDEPEND}
 	sys-devel/gettext
 	virtual/pkgconfig
-	>=dev-util/intltool-0.40
-	>=dev-util/gtk-doc-1.9"
+	>=dev-util/intltool-0.40"
 
 pkg_setup() {
 	G2CONF="${G2CONF}
