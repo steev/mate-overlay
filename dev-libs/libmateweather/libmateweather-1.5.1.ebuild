@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="4"
+EAPI="5"
 GCONF_DEBUG="yes"
 MATE_LA_PUNT="yes"
 PYTHON_DEPEND="python? 2"
@@ -15,7 +15,7 @@ HOMEPAGE="http://mate-desktop.org"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~arm ~x86"
-IUSE="python doc"
+IUSE="python"
 
 # libsoup-gnome is to be used because libsoup[gnome] might not
 # get libsoup-gnome installed by the time ${P} is built
@@ -32,8 +32,7 @@ DEPEND="${RDEPEND}
 	sys-devel/gettext
 	>=dev-util/intltool-0.40.3
 	>=mate-base/mate-common-1.5.0
-	virtual/pkgconfig
-	>=dev-util/gtk-doc-am-1.9"
+	virtual/pkgconfig"
 
 DOCS="AUTHORS ChangeLog MAINTAINERS NEWS"
 
