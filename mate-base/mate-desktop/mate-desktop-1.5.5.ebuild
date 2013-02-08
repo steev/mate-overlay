@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="4"
+EAPI="5"
 GCONF_DEBUG="yes"
 MATE_LA_PUNT="yes"
 PYTHON_DEPEND="2"
@@ -15,7 +15,7 @@ HOMEPAGE="http://mate-desktop.org"
 LICENSE="GPL-2 FDL-1.1 LGPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~arm ~x86"
-IUSE="doc"
+IUSE=""
 
 # GTK3 doesn't actually work, so hard dep on gtk+-2
 # Upstream says to use glib 2.34 so as to not have to rebuild once someone
@@ -29,7 +29,6 @@ RDEPEND="x11-libs/gtk+:2
 	>=x11-libs/startup-notification-0.5"
 
 DEPEND="${RDEPEND}
-	dev-util/gtk-doc
 	>=dev-util/intltool-0.40
 	virtual/pkgconfig
 	>=app-text/mate-doc-utils-1.2.1
@@ -49,8 +48,7 @@ pkg_setup() {
 	python_pkg_setup
 	G2CONF="${G2CONF}
 		PYTHON=$(PYTHON -a)
-		--disable-deprecations
-		$(use_enable doc desktop-docs)"
+		--disable-deprecations"
 	DOCS="AUTHORS ChangeLog HACKING NEWS README"
 }
 
