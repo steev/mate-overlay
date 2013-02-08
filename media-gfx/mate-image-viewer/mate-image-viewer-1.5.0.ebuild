@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="4"
+EAPI="5"
 GCONF_DEBUG="yes"
 PYTHON_DEPEND="2:2.5"
 
@@ -14,7 +14,7 @@ HOMEPAGE="http://mate-desktop.org"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~arm ~x86"
-IUSE="dbus doc exif jpeg lcms python svg tiff xmp"
+IUSE="dbus exif jpeg lcms python svg tiff xmp"
 
 RDEPEND=">=x11-libs/gtk+-2.18:2
 	x11-libs/gdk-pixbuf:2[jpeg?,tiff?]
@@ -41,9 +41,7 @@ DEPEND="${RDEPEND}
 	>=app-text/mate-doc-utils-1.2.1
 	sys-devel/gettext
 	>=dev-util/intltool-0.40
-	dev-util/gtk-doc
-	virtual/pkgconfig
-	doc? ( >=dev-util/gtk-doc-1.10 )"
+	virtual/pkgconfig"
 
 pkg_setup() {
 	G2CONF="${G2CONF}
