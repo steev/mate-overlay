@@ -62,6 +62,7 @@ DEPEND="${COMMON_DEPEND}
 
 pkg_setup() {
 	G2CONF="${G2CONF}
+		--enable-gstmix
 		--enable-gst-mixer-applet
 		$(use_enable pulseaudio)
 		$(use_enable !pulseaudio gstmix)"
