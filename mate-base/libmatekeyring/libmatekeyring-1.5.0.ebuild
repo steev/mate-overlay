@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="4"
+EAPI="5"
 WANT_AUTOMAKE="1.9"
 GCONF_DEBUG="yes"
 MATE_LA_PUNT="yes"
@@ -15,7 +15,7 @@ HOMEPAGE="http://mate-desktop.org"
 LICENSE="LGPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~arm ~x86"
-IUSE="debug doc test"
+IUSE="debug test"
 
 RDEPEND=">=sys-apps/dbus-1.0
 	>=mate-base/mate-keyring-1.2.1[test?]"
@@ -23,8 +23,7 @@ RDEPEND=">=sys-apps/dbus-1.0
 DEPEND="${RDEPEND}
 	sys-devel/gettext
 	>=dev-util/intltool-0.35
-	virtual/pkgconfig
-	doc? ( >=dev-util/gtk-doc-1.9 )"
+	virtual/pkgconfig"
 
 pkg_setup() {
 	G2CONF="${G2CONF}
