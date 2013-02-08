@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="4"
+EAPI="5"
 GCONF_DEBUG="yes"
 
 inherit mate multilib
@@ -13,7 +13,7 @@ HOMEPAGE="http://mate-desktop.org/"
 LICENSE="GPL-2 LGPL-2.1"
 SLOT="0"
 KEYWORDS="~amd64 ~arm ~x86"
-IUSE="doc +introspection test"
+IUSE="+introspection test"
 
 COMMON_DEPEND="dev-libs/glib:2
 	x11-libs/gtk+:2
@@ -25,7 +25,7 @@ COMMON_DEPEND="dev-libs/glib:2
 RDEPEND="${COMMON_DEPEND}
 	net-wireless/bluez
 	app-mobilephone/obexd
-	sys-fs/udev
+	virtual/udev
 	introspection? ( dev-libs/gobject-introspection )"
 
 DEPEND="${COMMON_DEPEND}
@@ -40,12 +40,7 @@ DEPEND="${COMMON_DEPEND}
 	x11-libs/libX11
 	x11-libs/libXi
 	x11-proto/xproto
-	doc? ( dev-util/gtk-doc )
-	>=mate-base/mate-common-1.2.1
-	dev-util/gtk-doc-am"
-
-# Tests are not ready to pass with docs enabled, upstream bug #573392
-REQUIRED_USE="test? ( !doc )"
+	>=mate-base/mate-common-1.2.1"
 
 pkg_setup() {
 	G2CONF="${G2CONF}
