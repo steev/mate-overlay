@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="4"
+EAPI="5"
 GCONF_DEBUG="no"
 MATE_LA_PUNT="yes"
 PYTHON_DEPEND="2:2.5"
@@ -15,7 +15,7 @@ HOMEPAGE="http://mate-desktop.org"
 LICENSE="GPL-2 FDL-1.1 LGPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~arm ~x86"
-IUSE="doc eds +introspection networkmanager"
+IUSE="eds +introspection networkmanager"
 
 RDEPEND=">=mate-base/mate-desktop-1.2.0
 	>=x11-libs/pango-1.15.4[introspection?]
@@ -46,9 +46,7 @@ DEPEND="${RDEPEND}
 	virtual/pkgconfig
 	>=dev-util/intltool-0.40
 	~app-text/docbook-xml-dtd-4.1.2
-	doc? ( >=dev-util/gtk-doc-1 )
-	>=mate-base/mate-common-1.2.2
-	dev-util/gtk-doc-am"
+	>=mate-base/mate-common-1.2.2"
 
 pkg_setup() {
 	# possible values: none, clock, fish, notification-area, wncklet, all
