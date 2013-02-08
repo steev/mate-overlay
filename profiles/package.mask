@@ -1,3 +1,6 @@
+#Mask caja-dropbox for now. I have no idea how this works.
+>=mate-extra/caja-dropbox-0.7.1
+
 #Mate development version 1.5, unstable == mask.
 =app-arch/mate-file-archiver-1.5*
 =app-text/mate-doc-utils-1.5*
@@ -38,3 +41,5 @@
 =x11-themes/mate-icon-theme-1.5*
 =x11-themes/mate-themes-1.5*
 =x11-wm/mate-window-manager-1.5*
+=mate-extra/mate-file-manager-sendto-1.5*
+=mate-extra/mate-file-manager-open-terminal-1.5*
