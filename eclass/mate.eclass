@@ -12,6 +12,9 @@
 
 inherit autotools fdo-mime libtool mate-desktop.org mate-utils
 
+DEPEND="app-util/gtk-doc
+		app-util/gtk-doc-am"
+
 case "${EAPI:-0}" in
 	0|1)
 		EXPORT_FUNCTIONS src_unpack src_compile src_install pkg_preinst pkg_postinst pkg_postrm
@@ -153,9 +156,19 @@ mate_src_configure() {
 		fi
 	fi
 
-	# Prevent a QA warning
-	if has doc ${IUSE} ; then
-		grep -q "enable-gtk-doc" configure && G2CONF="${G2CONF} $(use_enable doc gtk-doc)"
+	# Starting with EAPI=5, we consider packages installing gtk-doc to be
+	# handled by adding DEPEND="dev-util/gtk-doc-am" which provides tools to
+	# relink URLs in documentation to already installed documentation.
+	# This decision also greatly helps with constantly broken doc generation.
+	# Remember to drop 'doc' USE flag from your package if it was only used to
+	# rebuild docs.
+	# Preserve old behavior for older EAPI.
+	if grep -q "enable-gtk-doc" ${ECONF_SOURCE:-.}/configure ; then
+		if has ${EAPI:-0} 0 1 2 3 4 && in_iuse doc ; then
+			G2CONF="$(use_enable doc gtk-doc) ${G2CONF}"
+		else
+			G2CONF="--disable-gtk-doc ${G2CONF}"
+		fi
 	fi
 
 	# Pass --disable-maintainer-mode when needed
