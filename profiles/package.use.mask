@@ -7,3 +7,4 @@ mate-base/mate-file-manager gtk3
 app-text/mate-document-viewer gtk3
 mate-extra/mate-power-manager gtk3
 x11-misc/mate-notification-daemon gtk3
+x11-wm/mate-window-manager gtk3
