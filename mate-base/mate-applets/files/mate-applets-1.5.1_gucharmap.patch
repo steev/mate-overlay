@@ -1,0 +1,118 @@
+diff -ur mate-applets-1.5.1.orig/charpick/Makefile.am mate-applets-1.5.1/charpick/Makefile.am
+--- mate-applets-1.5.1.orig/charpick/Makefile.am	2013-02-22 12:49:56.564969296 +0100
++++ mate-applets-1.5.1/charpick/Makefile.am	2013-02-22 12:50:39.255596660 +0100
+@@ -5,7 +5,7 @@
+ 	-I$(srcdir)				\
+ 	-DCHARPICK_MENU_UI_DIR=\""$(uidir)"\"	\
+ 	$(MATE_APPLETS4_CFLAGS)		\
+-	$(GUCHARMAP_CFLAGS)
++	$(MUCHARMAP_CFLAGS)
+ 
+ libexec_PROGRAMS = charpick_applet2
+ 
+@@ -15,7 +15,7 @@
+ 
+ charpick_applet2_LDADD = \
+ 		       $(MATE_APPLETS4_LIBS)	\
+-		       $(GUCHARMAP_LIBS)
++		       $(MUCHARMAP_LIBS)
+ 
+ appletdir       = $(datadir)/mate-panel/applets
+ applet_in_files = org.mate.applets.CharpickerApplet.mate-panel-applet.in
+diff -ur mate-applets-1.5.1.orig/charpick/charpick.c mate-applets-1.5.1/charpick/charpick.c
+--- mate-applets-1.5.1.orig/charpick/charpick.c	2013-02-22 12:49:56.568302679 +0100
++++ mate-applets-1.5.1/charpick/charpick.c	2013-02-22 12:51:57.080069344 +0100
+@@ -6,8 +6,8 @@
+ #include <string.h>
+ #include <mate-panel-applet.h>
+ #include <mate-panel-applet-gsettings.h>
+-#ifdef HAVE_GUCHARMAP
+-#	include <gucharmap/gucharmap.h>
++#ifdef HAVE_MUCHARMAP
++#	include <mucharmap/mucharmap.h>
+ #endif
+ #include "charpick.h"
+ 
+@@ -457,13 +457,13 @@
+     g_utf8_strncpy (label, charlist, 1);
+     charlist = g_utf8_next_char (charlist);
+ 
+-#ifdef HAVE_GUCHARMAP
++#ifdef HAVE_MUCHARMAP
+     /* TRANSLATOR: This sentance reads something like 'Insert "PILCROW SIGN"'
+      *             hopefully, the name of the unicode character has already
+      *             been translated.
+      */
+     name = g_strdup_printf (_("Insert \"%s\""),
+-		    gucharmap_get_unicode_name (g_utf8_get_char (label)));
++		    mucharmap_get_unicode_name (g_utf8_get_char (label)));
+ #else
+     name = g_strdup (_("Insert special character"));
+ #endif
+diff -ur mate-applets-1.5.1.orig/configure.in mate-applets-1.5.1/configure.in
+--- mate-applets-1.5.1.orig/configure.in	2013-02-22 12:49:56.581636207 +0100
++++ mate-applets-1.5.1/configure.in	2013-02-22 12:54:09.072002012 +0100
+@@ -28,8 +28,8 @@
+ PYGOBJECT_REQUIRED=2.6
+ MATE_ICON_THEME_REQUIRED=1.1.0
+ LIBXML_REQUIRED=2.5.0
+-GUCHARMAP2_REQUIRED=2.23.0
+-GUCHARMAP_REQUIRED=1.4.0
++MUCHARMAP2_REQUIRED=1.5.0
++MUCHARMAP_REQUIRED=1.4.0
+ POLKIT_REQUIRED=0.92
+ NETWORKMANAGER_REQUIRED=0.7
+ dnl ***************************************************************************
+@@ -238,27 +238,27 @@
+ AC_SUBST(UPOWER_CFLAGS)
+ AC_SUBST(UPOWER_LIBS)
+ 
+-dnl -- check for gucharmap (optional) -----------------------------------------
++dnl -- check for mucharmap (optional) -----------------------------------------
+ 
+-PKG_CHECK_EXISTS([gucharmap-2 >= $GUCHARMAP2_REQUIRED],
+-                 [have_gucharmap=yes have_gucharmap_2=yes],[have_gucharmap_2=no])
+-if test "$have_gucharmap_2" = "yes"; then
+-      PKG_CHECK_MODULES([GUCHARMAP],[gucharmap-2 >= $GUCHARMAP2_REQUIRED])
++PKG_CHECK_EXISTS([mucharmap-2 >= $MUCHARMAP2_REQUIRED],
++                 [have_mucharmap=yes have_mucharmap_2=yes],[have_mucharmap_2=no])
++if test "$have_mucharmap_2" = "yes"; then
++      PKG_CHECK_MODULES([MUCHARMAP],[mucharmap-2 >= $MUCHARMAP2_REQUIRED])
+ else
+-      PKG_CHECK_MODULES([GUCHARMAP], [gucharmap >= $GUCHARMAP_REQUIRED],
+-                        [have_gucharmap=yes],[have_gucharmap=no])
++      PKG_CHECK_MODULES([MUCHARMAP], [mucharmap >= $MUCHARMAP_REQUIRED],
++                        [have_mucharmap=yes],[have_mucharmap=no])
+ fi
+ 
+-if test "$have_gucharmap_2" = "yes"; then
+-        AC_DEFINE([HAVE_GUCHARMAP_2],[1],[Define if gucharmap API is version 2])
++if test "$have_mucharmap_2" = "yes"; then
++        AC_DEFINE([HAVE_MUCHARMAP_2],[1],[Define if mucharmap API is version 2])
+ fi
+-if test "$have_gucharmap" = "yes"; then
+-	AC_DEFINE([HAVE_GUCHARMAP],[1],[Gucharmap Available])
++if test "$have_mucharmap" = "yes"; then
++	AC_DEFINE([HAVE_MUCHARMAP],[1],[Gucharmap Available])
+ else
+-  AC_MSG_WARN([*** 'charpick' applet will not be built with gucharmap support ***])
++  AC_MSG_WARN([*** 'charpick' applet will not be built with mucharmap support ***])
+ fi
+-AC_SUBST(GUCHARMAP_CFLAGS)
+-AC_SUBST(GUCHARMAP_LIBS)
++AC_SUBST(MUCHARMAP_CFLAGS)
++AC_SUBST(MUCHARMAP_LIBS)
+ 
+ dnl -- check for Python modules (optional) ------------------------------
+ PYGTK_CFLAGS=
+@@ -714,8 +714,8 @@
+         - accessx-status           $HAVE_XKB
+         - battstat                 $build_battstat_applet
+         - charpick                 always
+-            - gucharmap support    $have_gucharmap
+-            - gucharmap-2 support  $have_gucharmap_2
++            - mucharmap support    $have_mucharmap
++            - mucharmap-2 support  $have_mucharmap_2
+         - cpufreq                  $build_cpufreq_applet
+             - building selector    $enable_selector
+             - using PolicyKit      $HAVE_POLKIT
