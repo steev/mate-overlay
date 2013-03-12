@@ -18,7 +18,6 @@ IUSE="ipv6 networkmanager policykit"
 
 RDEPEND=">=x11-libs/gtk+-2.20:2
 	>=dev-libs/glib-2.22:2
-	>=mate-base/mate-conf-1.2.1
 	>=mate-base/mate-panel-1.5.2
 	>=x11-libs/libxklavier-4.0
 	>=x11-libs/libmatewnck-1.3.0
