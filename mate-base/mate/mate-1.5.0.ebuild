@@ -14,7 +14,6 @@ IUSE="bluetooth +extras"
 
 RDEPEND=">=mate-base/libmatekeyring-1.5.0
 	>=mate-base/mate-keyring-1.5.0
-	>=x11-libs/libmatenotify-1.5.0
 	>=mate-base/libmatekbd-1.5.0
 	>=dev-libs/libmateweather-1.5.0
 	>=x11-themes/mate-icon-theme-1.5.0
@@ -34,7 +33,7 @@ RDEPEND=">=mate-base/libmatekeyring-1.5.0
 	>=mate-extra/mate-media-1.5.0
 	>=mate-extra/mate-screensaver-1.5.0
 	>=x11-misc/mate-menu-editor-1.5.0
-	>=x11-terms/mate-terminal-1.4.0
+	>=x11-terms/mate-terminal-1.5.0
 	virtual/notification-daemon
 	extras? (
 		>=mate-extra/mate-power-manager-1.5.0
