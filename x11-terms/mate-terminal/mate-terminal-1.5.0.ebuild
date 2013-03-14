@@ -2,9 +2,8 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="4"
+EAPI="5"
 GCONF_DEBUG="no"
-WANT_AUTOMAKE="1.9"
 
 inherit mate
 
@@ -13,13 +12,13 @@ HOMEPAGE="http://mate-desktop.org"
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS=""
-IUSE=""
+KEYWORDS="~amd64 ~x86 ~arm"
+IUSE="-gtk3"
 
 	# libgnome needed for some monospace font schema, bug #274638
-	# Remove gtk3 useflag because it doesn't build
 RDEPEND=">=dev-libs/glib-2.25.12:2
-	x11-libs/gtk+:2
+	gtk3? ( x11-libs/gtk+:3 )
+	!gtk3? ( x11-libs/gtk+:2 )
 	>=x11-libs/vte-0.26.0:0
 	x11-libs/libSM
 	>=mate-base/libmate-1.2.0"
