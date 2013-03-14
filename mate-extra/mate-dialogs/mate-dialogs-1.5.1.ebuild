@@ -2,8 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="4"
-WANT_AUTOMAKE="1.9"
+EAPI="5"
 GCONF_DEBUG="yes"
 
 inherit mate
