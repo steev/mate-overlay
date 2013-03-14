@@ -15,13 +15,11 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86 ~arm"
 IUSE="-gtk3"
 
-	# libgnome needed for some monospace font schema, bug #274638
 RDEPEND=">=dev-libs/glib-2.25.12:2
 	gtk3? ( x11-libs/gtk+:3 )
 	!gtk3? ( x11-libs/gtk+:2 )
 	>=x11-libs/vte-0.26.0:0
-	x11-libs/libSM
-	>=mate-base/libmate-1.2.0"
+	x11-libs/libSM"
 
 DEPEND="${RDEPEND}
 	|| ( dev-util/gtk-builder-convert <=x11-libs/gtk+-2.24.10:2 )
