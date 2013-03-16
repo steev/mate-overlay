@@ -5,7 +5,7 @@
 EAPI="5"
 MATE_LA_PUNT="yes"
 
-inherit mate autotools
+inherit mate
 
 DESCRIPTION="MATE Notification daemon"
 HOMEPAGE="http://mate-dekstop.org"
@@ -37,7 +37,9 @@ DEPEND="${RDEPEND}
 DOCS=( AUTHORS ChangeLog NEWS )
 
 src_prepare() {
-	eautoreconf
+	# Run autopiont as workaround for upstream bug 13
+	# https://github.com/mate-desktop/mate-notification-daemon/issues/13
+	autopoint --force || die
 	mate_src_prepare
 }
 src_install() {
