@@ -22,6 +22,7 @@
 =mate-extra/mate-character-map-1.5*
 =mate-extra/mate-dialogs-1.5*
 =mate-extra/mate-indicator-applet-1.5*
+=mate-extra/mate-media-1.5*
 =mate-extra/mate-polkit-1.5*
 =mate-extra/mate-power-manager-1.5*
 =mate-extra/mate-screensaver-1.5*
