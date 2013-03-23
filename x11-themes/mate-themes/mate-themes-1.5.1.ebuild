@@ -16,7 +16,8 @@ KEYWORDS="~amd64 ~arm ~x86"
 IUSE=""
 
 RDEPEND=">=x11-libs/gtk+-2:2
-	>=x11-themes/gtk-engines-2.15.3:2"
+	>=x11-themes/gtk-engines-2.15.3:2
+	x11-themes/murrine-themes"
 
 DEPEND="${RDEPEND}
 	>=app-text/mate-doc-utils-1.2.1
@@ -36,19 +37,19 @@ pkg_setup() {
 	DOCS="AUTHORS ChangeLog NEWS README"
 }
 
-src_prepare() {
-	mate_src_prepare
-
+#src_prepare() {
+#	mate_src_prepare
+#
 	# Remove themes now provided by x11-themes/gnome-themes-standard
-	sed 's:HighContrast.*\\:\\:g' -i $(find . -name Makefile.am -o -name Makefile.in) || die
-	sed 's:LowContrast.*\\:\\:g' -i $(find . -name Makefile.am -o -name Makefile.in) || die
+	#sed 's:HighContrast.*\\:\\:g' -i $(find . -name Makefile.am -o -name Makefile.in) || die
+	#sed 's:LowContrast.*\\:\\:g' -i $(find . -name Makefile.am -o -name Makefile.in) || die
 	# File collision with x11-themes/matacity-themes package
-	sed 's:Shiny.*\\:\\:g' -i $(find . -name Makefile.am -o -name Makefile.in) || die
+	#sed 's:Shiny.*\\:\\:g' -i $(find . -name Makefile.am -o -name Makefile.in) || die
 	# Compillation issue with all that disabled stuff
-	sed 's:Aldabra.*\\:\\:g' -i $(find . -name Makefile.am -o -name Makefile.in) || die
+	#sed 's:Aldabra.*\\:\\:g' -i $(find . -name Makefile.am -o -name Makefile.in) || die
 
 	# Are we need it?
 	# Fix intltoolize broken file, see upstream #577133
 	# sed "s:'\^\$\$lang\$\$':\^\$\$lang\$\$:g" -i po/Makefile.in.in \
 	#	|| die "intltool rules fix failed"
-}
+#}
