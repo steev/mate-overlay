@@ -14,15 +14,16 @@ HOMEPAGE="http://mate-desktop.org"
 LICENSE="GPL-2 LGPL-2 FDL-1.1"
 SLOT="0"
 KEYWORDS="~amd64 ~arm ~x86"
-IUSE="mate +introspection xmp"
+IUSE="-gtk3 mate +introspection xmp"
 
 RDEPEND=">=dev-libs/glib-2.28.0:2
+	gtk3? ( x11-libs/gtk+:3 )
+	!gtk3? ( x11-libs/gtk+:2 )
 	>=mate-base/mate-desktop-1.5.0
 	>=x11-libs/pango-1.1.2
 	x11-libs/gtk+:2[introspection?]
 	>=dev-libs/libxml2-2.4.7:2
 	>=media-libs/libexif-0.5.12
-	>=mate-base/mate-conf-1.2.1
 	dev-libs/libunique:1
 	x11-libs/libXext
 	x11-libs/libXrender
@@ -34,8 +35,7 @@ DEPEND="${RDEPEND}
 	virtual/pkgconfig
 	>=dev-util/intltool-0.40.1
 	>=mate-base/mate-common-1.2.2"
-PDEPEND="mate? ( >=x11-themes/mate-icon-theme-1.2.0 )
-	>=mate-base/mate-vfs-1.4.0"
+PDEPEND="mate? ( >=x11-themes/mate-icon-theme-1.2.0 )"
 
 pkg_setup() {
 	G2CONF="${G2CONF}

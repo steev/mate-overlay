@@ -20,7 +20,6 @@ RDEPEND=">=x11-libs/gtk+-2.18:2
 	x11-libs/gdk-pixbuf:2[jpeg?,tiff?]
 	>=dev-libs/glib-2.25.9:2
 	>=dev-libs/libxml2-2
-	>=mate-base/mate-conf-1.2.1
 	>=mate-base/mate-desktop-1.2.0
 	>=x11-themes/mate-icon-theme-1.2.0
 	>=x11-misc/shared-mime-info-0.20
@@ -55,8 +54,3 @@ pkg_setup() {
 	DOCS="AUTHORS ChangeLog HACKING NEWS README THANKS TODO"
 	python_set_active_version 2
 }
-
-#src_prepare() {
-#	epatch "${FILESDIR}"/0001-Add-check-for-lm-since-we-use-maths.patch
-#	mate_src_prepare
-#}

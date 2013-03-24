@@ -1,18 +1,19 @@
 # Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/gnome-extra/gnome-user-share/gnome-user-share-2.30.1.ebuild,v 1.10 2012/05/06 05:39:00 tetromino Exp $
+# $Header: $
 
-EAPI="4"
+EAPI="5"
 GCONF_DEBUG="no"
+MATE_LA_PUNT="yes"
 
-inherit eutils mate multilib
+inherit mate multilib
 
 DESCRIPTION="Personal file sharing for the Mate desktop"
 HOMEPAGE="http://www.gnome.org/"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 # FIXME: could libnotify be made optional ?
@@ -24,15 +25,14 @@ RDEPEND=">=dev-libs/glib-2.16.0
 	>=app-mobilephone/obex-data-server-0.4
 	>=dev-libs/dbus-glib-0.70
 	dev-libs/libunique:1
-	>=gnome-base/gconf-2.10:2
-	>=mate-base/mate-file-manager-1.2.0
+	>=mate-base/mate-file-manager-1.5.0
 	media-libs/libcanberra[gtk]
-	>=net-wireless/mate-bluetooth-1.2.0
+	>=net-wireless/mate-bluetooth-1.5.0
 	>=net-wireless/bluez-4.18
 	>=sys-apps/dbus-1.1.1
 	>=www-apache/mod_dnssd-0.6
 	=www-servers/apache-2.2*[apache2_modules_dav,apache2_modules_dav_fs,apache2_modules_authn_file,apache2_modules_auth_digest,apache2_modules_authz_groupfile]
-	>=x11-libs/libnotify-0.7"
+	>=x11-libs/libnotify-0.7.0"
 DEPEND="${RDEPEND}
 	sys-devel/gettext
 	>=dev-util/intltool-0.35
@@ -45,15 +45,4 @@ pkg_setup() {
 	G2CONF="${G2CONF}
 		--with-httpd=apache2
 		--with-modules-path=/usr/$(get_libdir)/apache2/modules/"
-}
-
-src_prepare() {
-	epatch "${FILESDIR}"/${P}-libnotify-0.7.patch
-	mate_src_prepare
-}
-
-src_install() {
-	mate_src_install
-	# caja does not need la files
-	find "${ED}" -name "*.la" -delete
 }

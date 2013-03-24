@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="4"
+EAPI="5"
 MATE_LA_PUNT="yes"
 
 inherit mate autotools
@@ -13,11 +13,11 @@ HOMEPAGE="http://mate-dekstop.org"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~arm ~x86"
-IUSE=""
+IUSE="-gtk3"
 
 RDEPEND=">=dev-libs/glib-2.4:2
-	>=x11-libs/gtk+-2.18:2
-	>=mate-base/mate-conf-1.2.1
+	gtk3? ( x11-libs/gtk+:3 )
+	!gtk3? ( x11-libs/gtk+:2 )
 	>=dev-libs/dbus-glib-0.78
 	>=sys-apps/dbus-1
 	>=media-libs/libcanberra-0.4[gtk]
