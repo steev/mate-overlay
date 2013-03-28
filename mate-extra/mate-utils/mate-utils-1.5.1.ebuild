@@ -22,15 +22,15 @@ RDEPEND=">=dev-libs/glib-2.20:2
 	>=media-libs/libcanberra-0.4[gtk]
 	x11-libs/libXext
 	x11-libs/libX11
-	applet? ( >=mate-base/mate-panel-1.2.1 )"
+	applet? ( >=mate-base/mate-panel-1.5.0 )"
 
 DEPEND="${RDEPEND}
 	x11-proto/xextproto
-	>=app-text/mate-doc-utils-1.2.1
+	>=app-text/mate-doc-utils-1.5.0
 	app-text/scrollkeeper
 	>=dev-util/intltool-0.40
 	virtual/pkgconfig
-	>=mate-base/mate-common-1.2.2"
+	>=mate-base/mate-common-1.5.0"
 
 pkg_setup() {
 	if ! use debug; then
