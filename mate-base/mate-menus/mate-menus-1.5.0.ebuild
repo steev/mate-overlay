@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="4"
+EAPI="5"
 GCONF_DEBUG="no"
 MATE_LA_PUNT="yes"
 
@@ -26,7 +26,7 @@ RDEPEND=">=dev-libs/glib-2.18
 DEPEND="${RDEPEND}
 	sys-devel/gettext
 	virtual/pkgconfig
-	>=mate-base/mate-common-1.2.0
+	>=mate-base/mate-common-1.5.0
 	>=dev-util/intltool-0.40"
 
 pkg_setup() {
@@ -87,5 +87,5 @@ src_install() {
 
 	exeinto /etc/X11/xinit/xinitrc.d/
 	# TODO: check xdg
-	doexe "${FILESDIR}/10-xdg-menu-mate" || die "doexe failed"
+	doexe "${FILESDIR}/10-xdg-menu-mate"
 }
