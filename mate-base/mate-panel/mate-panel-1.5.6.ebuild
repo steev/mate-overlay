@@ -24,7 +24,7 @@ RDEPEND=">=mate-base/mate-desktop-1.5.0
 	>=dev-libs/libmateweather-1.5.0
 	dev-libs/libxml2:2
 	>=media-libs/libcanberra-0.23[gtk]
-	>=mate-base/mate-menus-1.2.0
+	>=mate-base/mate-menus-1.5.0
 	gnome-base/librsvg:2
 	>=dev-libs/dbus-glib-0.80
 	>=sys-apps/dbus-1.1.2
@@ -42,7 +42,7 @@ DEPEND="${RDEPEND}
 	virtual/pkgconfig
 	>=dev-util/intltool-0.40
 	~app-text/docbook-xml-dtd-4.1.2
-	>=mate-base/mate-common-1.2.2"
+	>=mate-base/mate-common-1.5.0"
 
 pkg_setup() {
 	# possible values: none, clock, fish, notification-area, wncklet, all
