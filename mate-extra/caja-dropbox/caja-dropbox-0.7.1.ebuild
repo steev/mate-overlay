@@ -4,6 +4,7 @@
 
 EAPI="5"
 PYTHON_DEPEND="2"
+MATE_LA_PUNT="yes"
 inherit autotools eutils python linux-info mate user
 
 DESCRIPTION="Store, Sync and Share Files Online"
@@ -20,7 +21,6 @@ RDEPEND="mate-base/mate-file-manager
 	dev-python/pygtk:2
 	net-misc/dropbox
 	x11-libs/gtk+:2
-	x11-libs/libmatenotify
 	x11-libs/libXinerama"
 
 DEPEND="${RDEPEND}
@@ -60,8 +60,6 @@ src_install () {
 
 	# Strip $EPREFIX from $extensiondir as fowners/fperms act on $ED not $D
 	extensiondir="${extensiondir#${EPREFIX}}"
-
-	find "${ED}" -name '*.la' -exec rm -f {} + || die
 
 	use prefix || fowners root:dropbox "${extensiondir}"/libcaja-dropbox.so
 	fperms o-rwx "${extensiondir}"/libcaja-dropbox.so
