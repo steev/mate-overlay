@@ -9,3 +9,4 @@ mate-extra/mate-power-manager gtk3
 x11-misc/mate-notification-daemon gtk3
 x11-wm/mate-window-manager gtk3
 x11-terms/mate-terminal gtk3
+mate-base/libmatekbd gtk3
