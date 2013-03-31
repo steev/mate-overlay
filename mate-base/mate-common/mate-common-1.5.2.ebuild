@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
 inherit autotools base mate-desktop.org
 
@@ -21,5 +21,5 @@ src_prepare() {
 src_install() {
 	base_src_install
 	mv doc-build/README README.doc-build || die "renaming doc-build/README failed"
-	dodoc ChangeLog README* doc/usage.txt || die "dodoc failed"
+	dodoc ChangeLog README* doc/usage.txt
 }
