@@ -17,7 +17,6 @@ SLOT="0"
 KEYWORDS="~amd64 ~arm ~x86"
 IUSE="gtk3"
 
-# GTK3 doesn't actually work, so hard dep on gtk+-2
 # Upstream says to use glib 2.34 so as to not have to rebuild once someone
 # moves to 2.34 - see mailing list for more info:
 # http://ml.mate-desktop.org/pipermail/mate-dev/2012-November/000009.html
@@ -50,8 +49,3 @@ pkg_setup() {
 		PYTHON=$(PYTHON -a)"
 	DOCS="AUTHORS ChangeLog HACKING NEWS README"
 }
-
-#src_prepare() {
-#	epatch "${FILESDIR}"/0001-Add-lm-since-we-use-sqrt-floor-fmod-and-pow.patch
-#	mate_src_prepare
-#}
