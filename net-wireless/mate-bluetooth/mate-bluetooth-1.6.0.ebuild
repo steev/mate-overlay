@@ -17,7 +17,7 @@ IUSE="+introspection test"
 
 COMMON_DEPEND="dev-libs/glib:2
 	x11-libs/gtk+:2
-	>=x11-libs/libmatenotify-1.2.1
+	>=x11-libs/libnotify-0.7.0
 	dev-libs/dbus-glib
 	dev-libs/libunique:1"
 
@@ -57,7 +57,7 @@ pkg_setup() {
 src_install() {
 	mate_src_install
 
-	insinto /$(get_libdir)/udev/rules.d
+	insinto /lib/udev/rules.d
 	doins "${FILESDIR}"/80-mate-rfkill.rules
 }
 
