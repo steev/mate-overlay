@@ -19,7 +19,8 @@ RDEPEND=">=dev-libs/glib-2.25.12:2
 	gtk3? ( x11-libs/gtk+:3 )
 	!gtk3? ( x11-libs/gtk+:2 )
 	>=x11-libs/vte-0.26.0:0
-	x11-libs/libSM"
+	x11-libs/libSM
+	>=gnome-base/dconf-0.10.0"
 
 DEPEND="${RDEPEND}
 	|| ( dev-util/gtk-builder-convert <=x11-libs/gtk+-2.24.10:2 )
