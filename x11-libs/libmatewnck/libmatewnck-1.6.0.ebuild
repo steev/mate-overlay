@@ -27,7 +27,8 @@ RDEPEND="x11-libs/gtk+:2[introspection?]
 DEPEND="${RDEPEND}
 	sys-devel/gettext
 	virtual/pkgconfig
-	>=dev-util/intltool-0.40"
+	>=dev-util/intltool-0.40
+	>=mate-base/mate-common-1.5.0"
 
 pkg_setup() {
 	G2CONF="${G2CONF}
