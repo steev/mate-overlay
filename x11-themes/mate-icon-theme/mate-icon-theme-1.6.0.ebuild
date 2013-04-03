@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="4"
+EAPI="5"
 GCONF_DEBUG="no"
 
 inherit mate
@@ -23,7 +23,6 @@ DEPEND="${RDEPEND}
 	>=dev-util/intltool-0.40
 	sys-devel/gettext"
 
-# Upstream didn't give us a ChangeLog with 2.30
 DOCS="AUTHORS NEWS TODO"
 
 # This ebuild does not install any binaries
