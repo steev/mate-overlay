@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="4"
+EAPI="5"
 GCONF_DEBUG="yes"
 
 inherit mate
@@ -19,7 +19,8 @@ IUSE="aac flac mp3 pulseaudio speex twolame vorbis"
 COMMON_DEPEND="dev-libs/libxml2:2
 	>=dev-libs/glib-2.18.2:2
 	>=x11-libs/gtk+-2.18.0:2
-	>=mate-base/mate-panel-1.2.1
+	>=mate-base/mate-panel-1.5.0
+	>=mate-base/mate-desktop-1.5.0
 	>=media-libs/gstreamer-0.10.23:0.10
 	>=media-libs/gst-plugins-base-0.10.23:0.10
 	>=media-libs/gst-plugins-good-0.10:0.10
@@ -49,15 +50,7 @@ DEPEND="${COMMON_DEPEND}
 	virtual/pkgconfig
 	>=app-text/scrollkeeper-0.3.11
 	app-text/mate-doc-utils
-	>=dev-util/intltool-0.35.0
-	dev-util/gtk-doc"
-
-#src_prepare() {
-#	mate_src_prepare
-#
-#	# Fix sliders not working properly, upstream bug #645242
-#	# epatch "${FILESDIR}/${PN}-2.32.0-gvc-channel.patch"
-#}
+	>=dev-util/intltool-0.35.0"
 
 pkg_setup() {
 	G2CONF="${G2CONF}
