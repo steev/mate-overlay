@@ -18,12 +18,11 @@ IUSE="ipv6 networkmanager policykit"
 
 RDEPEND=">=x11-libs/gtk+-2.20:2
 	>=dev-libs/glib-2.22:2
-	>=mate-base/mate-conf-1.2.1
 	>=mate-base/mate-panel-1.5.2
 	>=x11-libs/libxklavier-4.0
 	>=x11-libs/libmatewnck-1.3.0
 	>=mate-base/mate-desktop-1.2.0
-	>=x11-libs/libmatenotify-1.2.0
+	>=x11-libs/libnotify-0.7.0
 	>=sys-apps/dbus-1.1.2
 	>=dev-libs/dbus-glib-0.74
 	>=sys-power/upower-0.9.4
@@ -55,11 +54,6 @@ pkg_setup() {
 		$(use_enable networkmanager)
 		$(use_enable policykit polkit)"
 	DOCS="AUTHORS ChangeLog NEWS README"
-}
-
-src_prepare() {
-	epatch ${FILESDIR}/${P}_gucharmap.patch
-	mate_src_prepare
 }
 
 src_test() {
