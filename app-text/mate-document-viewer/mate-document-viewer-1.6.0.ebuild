@@ -76,7 +76,9 @@ pkg_setup() {
 
 src_prepare() {
 	# Fix .desktop categories, upstream bug #666346
-	epatch "${FILESDIR}"/${PN}-1.2.1-desktop-categories.patch
+	sed -e \ 
+		"s:GTK\;Graphics\;VectorGraphics\;Viewer\;:GTK\;Office\;Viewer\;Graphics\;VectorGraphics;:g" \
+		-i data/atril.desktop.in.in || die
 
 	mate_src_prepare
 }
