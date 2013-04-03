@@ -2,8 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="4"
-WANT_AUTOMAKE="1.9"
+EAPI="5"
 GCONF_DEBUG="yes"
 
 inherit mate
@@ -22,7 +21,7 @@ RDEPEND="gtk3? ( x11-libs/gtk+:3 )
 	>=dev-libs/glib-2.8:2
 	compat? ( >=dev-lang/perl-5
 			!<=gnome-extra/zenity-2.32.1[compat] )
-	libnotify? ( >=x11-libs/libmatenotify-1.5.0 )"
+	libnotify? ( >=x11-libs/libnotify-0.7.0 )"
 DEPEND="${RDEPEND}
 	app-text/scrollkeeper
 	app-text/docbook-xml-dtd:4.1.2
@@ -34,7 +33,7 @@ DEPEND="${RDEPEND}
 
 pkg_setup() {
 	G2CONF="${G2CONF}
-		$(use_enable libnotify libmatenotify)"
+		$(use_enable libnotify)"
 	DOCS="AUTHORS ChangeLog HACKING NEWS README THANKS TODO"
 }
 
