@@ -22,7 +22,7 @@ RDEPEND=">=x11-libs/gtk+-2.14.0:2
 	>=dev-libs/glib-2.15:2
 	>=mate-base/libmatekbd-1.5.0
 	>=dev-libs/dbus-glib-0.71
-	libnotify? ( >=x11-libs/libmatenotify-1.2.0 )
+	libnotify? ( >=x11-libs/libnotify-0.7.0 )
 	opengl? ( virtual/opengl )
 	pam? ( virtual/pam )
 	!pam? ( kernel_linux? ( sys-apps/shadow ) )
@@ -46,7 +46,7 @@ DEPEND="${RDEPEND}
 pkg_setup() {
 	G2CONF="${G2CONF}
 		$(use_enable debug)
-		$(use_with libnotify libmatenotify)
+		$(use_with libnotify)
 		$(use_with opengl libgl)
 		$(use_enable pam)
 		$(use_with systemd)
@@ -61,8 +61,6 @@ pkg_setup() {
 }
 
 src_prepare() {
-	# Prevent multiple screensaver instances due to race conditions -- fixed
-	# upstream dd 2012-12-05
 	#epatch "${FILESDIR}/${PN}-1.2.0-prevent-multiple-instances.patch"
 	# Fix QA warnings due to missing includes in popsquares
 	epatch "${FILESDIR}/${PN}-1.2.0-fix-popsquares-includes.patch"
