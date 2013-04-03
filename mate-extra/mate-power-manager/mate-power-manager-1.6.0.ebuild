@@ -14,7 +14,7 @@ HOMEPAGE="http://mate-desktop.org"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~arm ~x86"
-IUSE="+applet -gtk3 policykit test"
+IUSE="+applet -gtk3 policykit systemd test"
 
 # FIXME: Interactive testsuite (upstream ? I'm so...pessimistic)
 RESTRICT="test"
@@ -24,7 +24,7 @@ COMMON_DEPEND=">=dev-libs/glib-2.13.0:2
 	!gtk3? ( x11-libs/gtk+:2 )
 	mate-base/mate-keyring
 	>=dev-libs/dbus-glib-0.71
-	>=x11-libs/libmatenotify-0.4.3
+	>=x11-libs/libnotify-0.7.0
 	>=x11-libs/cairo-1
 	>=media-libs/libcanberra-0.10[gtk]
 	>=sys-power/upower-0.9.1
@@ -33,7 +33,8 @@ COMMON_DEPEND=">=dev-libs/glib-2.13.0:2
 	>=x11-proto/xproto-7.0.15
 	x11-libs/libX11
 	x11-libs/libXext
-	applet? ( mate-base/mate-panel )"
+	applet? ( mate-base/mate-panel )
+	systemd? ( >=sys-apps/systemd-195 )"
 
 RDEPEND="${COMMON_DEPEND}
 	>=sys-auth/consolekit-0.4[policykit?]
@@ -57,6 +58,7 @@ pkg_setup() {
 		--enable-unique
 		$(use_enable applet applets)
 		$(use_enable test tests)
+		$(use_with systemd systemdinhibit)
 		--enable-compile-warnings=minimum"
 	DOCS="AUTHORS HACKING NEWS README TODO"
 }
