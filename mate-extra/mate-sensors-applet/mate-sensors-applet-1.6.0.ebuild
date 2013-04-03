@@ -2,8 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/gnome-extra/sensors-applet/sensors-applet-2.2.7-r1.ebuild,v 1.10 2012/05/05 06:25:22 jdhore Exp $
 
-EAPI="4"
+EAPI="5"
 GCONF_DEBUG="no"
+MATE_LA_PUNT="yes"
 
 inherit eutils mate
 
@@ -25,7 +26,7 @@ RDEPEND="
 			>=dev-libs/dbus-glib-0.80
 			>=dev-libs/libatasmart-0.16 )
 		!dbus? ( >=app-admin/hddtemp-0.3_beta13 ) )
-	libnotify? ( x11-libs/libmatenotify )
+	libnotify? ( >=x11-libs/libnotify-0.7.0 )
 	lm_sensors? ( sys-apps/lm_sensors )
 	video_cards_fglrx? ( x11-drivers/ati-drivers )
 	video_cards_nvidia? ( || (
@@ -48,25 +49,14 @@ pkg_setup() {
 	G2CONF="${G2CONF}
 		--disable-scrollkeeper
 		--disable-static
-		$(use_enable dbus udisks)
-		$(use_enable libnotify libmatenotify)
+		$(use_enable libnotify)
 		$(use_with lm_sensors libsensors)
 		$(use_with video_cards_fglrx aticonfig)
 		$(use_with video_cards_nvidia nvidia)"
 
-	if use hddtemp; then
+	if use hddtemp && use dbus; then
 		G2CONF="${G2CONF} $(use_enable dbus udisks)"
 	else
 		G2CONF="${G2CONF} --disable-udisks"
 	fi
-}
-
-src_prepare() {
-	epatch "${FILESDIR}"/${P}-underlinking.patch
-	mate_src_prepare
-}
-
-src_install() {
-	mate_src_install
-	find "${D}"usr -name '*.la' -exec rm -f {} +
 }
