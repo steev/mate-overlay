@@ -32,15 +32,15 @@ pkg_setup() {
 }
 
 src_prepare() {
-	mate_src_prepare
-
 	# Remove silly CFLAGS
 	sed 's:CFLAGS="$CFLAGS -Werror:CFLAGS="$CFLAGS:' \
-		-i configure.in configure || die "sed CFLAGS failed"
+		-i configure.ac || die "sed CFLAGS failed"
 
 	# Remove DISABLE_DEPRECATED flags
 	sed -e '/-D[A-Z_]*DISABLE_DEPRECATED/d' \
-		-i configure.in configure || die "sed DISABLE_DEPRECATED failed"
+		-i configure.ac || die "sed DISABLE_DEPRECATED failed"
+
+	mate_src_prepare
 }
 
 src_test() {
