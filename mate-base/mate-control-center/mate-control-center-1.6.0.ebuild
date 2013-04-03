@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="4"
+EAPI="5"
 GCONF_DEBUG="yes"
 MATE_LA_PUNT="yes"
 
@@ -14,7 +14,7 @@ HOMEPAGE="http://mate-desktop.org"
 LICENSE="GPL-2"
 SLOT="2"
 KEYWORDS="~amd64 ~arm ~x86"
-IUSE="eds gtk3"
+IUSE="gtk3"
 
 # TODO: appindicator
 # libgnomekbd-2.91 breaks API/ABI
@@ -33,14 +33,13 @@ RDEPEND="x11-libs/libXft
 	>=mate-base/mate-desktop-1.5.2
 	>=mate-base/mate-menus-1.2.0
 	>=mate-base/mate-settings-daemon-1.5.2
+	>=gnome-base/dconf-0.10.0
 
 	dev-libs/libunique:1
 	x11-libs/pango
 	dev-libs/libxml2
 	media-libs/freetype
 	media-libs/libcanberra[gtk]
-
-	eds? ( <gnome-extra/evolution-data-server-3 )
 
 	x11-apps/xmodmap
 	x11-libs/libXScrnSaver
@@ -72,18 +71,6 @@ DEPEND="${RDEPEND}
 pkg_setup() {
 	G2CONF="${G2CONF}
 		--disable-update-mimedb
-		--disable-appindicator
-		$(use_enable eds aboutme)"
+		--disable-appindicator"
 	DOCS="AUTHORS ChangeLog NEWS README TODO"
 }
-
-#src_prepare() {
-#	mate_src_prepare
-
-	# Do not show twice the configured background if it is a symlink to a known
-	# background -- fixed dd 2013-02-04
-	# epatch "${FILESDIR}/${PN}-1.2.1-duplicated-background.patch"
-
-	# Don't erase backgounds.xml, bug #344335 -- does not apply dd 2013-02-04
-	# epatch "${FILESDIR}/${PN}-1.2.1-erase-background.patch"
-#}
