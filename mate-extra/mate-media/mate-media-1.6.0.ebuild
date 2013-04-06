@@ -50,7 +50,8 @@ DEPEND="${COMMON_DEPEND}
 	virtual/pkgconfig
 	>=app-text/scrollkeeper-0.3.11
 	app-text/mate-doc-utils
-	>=dev-util/intltool-0.35.0"
+	>=dev-util/intltool-0.35.0
+	!!<mate-base/mate-applets-1.6.0"
 
 pkg_setup() {
 	G2CONF="${G2CONF}
