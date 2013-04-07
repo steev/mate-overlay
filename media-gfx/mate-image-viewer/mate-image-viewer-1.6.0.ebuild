@@ -54,3 +54,9 @@ pkg_setup() {
 	DOCS="AUTHORS ChangeLog HACKING NEWS README THANKS TODO"
 	python_set_active_version 2
 }
+
+src_prepare() {
+	sed -e 's/[org.mate.eom.fullscreen]/[org.mate.eom.full-screen]/g' -i \
+	data/eom.convert || die
+	mate_src_prepare
+}
