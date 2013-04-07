@@ -56,7 +56,7 @@ pkg_setup() {
 }
 
 src_prepare() {
-	sed -e 's/[org.mate.eom.fullscreen]/[org.mate.eom.full-screen]/g' -i \
+	sed -e 's/\[org.mate.eom.fullscreen\]/\[org.mate.eom.full-screen\]/g' -i \
 	data/eom.convert || die
 	mate_src_prepare
 }
