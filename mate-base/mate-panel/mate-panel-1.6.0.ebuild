@@ -56,3 +56,11 @@ pkg_setup() {
 	DOCS="AUTHORS ChangeLog HACKING NEWS README"
 	python_set_active_version 2
 }
+
+src_prepare() {
+	sed -e '/toplevel-id-list \= \/apps\/panel\/general\/toplevel_id_list/d' \
+		-i data/mate-panel.convert
+	sed -e '/object-id-list \= \/apps\/panel\/general\/object_id_list/d' \
+		-i data/mate-panel.convert
+	mate_src_prepare
+}
