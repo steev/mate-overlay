@@ -48,4 +48,11 @@ RDEPEND=">=mate-base/libmatekeyring-1.6.0
 
 pkg_postinst() {
 	elog "If you found a bug and have a solution, contact joost_op in #sabayon-dev at freenode.net."
+	elog "Mate 1.6 moved from mateconf to gsettings. This means that the desktop setting, panel applets will return to their default."
+	elog "You will have to re-add the applets and re-do your settings"
+	elog "There is an *experimental* script that converts from mateconf to gsettings"
+	elog "It is available on [1] and you need dev-python/pygobject emerged"
+	elog "For support with this script see [2]"
+	elog "[1] https://github.com/mate-desktop/mate-desktop/blob/master/mate-conf/mate-conf-import"
+	elog "[2] http://forums.mate-desktop.org/viewtopic.php?f=16&t=1650"
 }
