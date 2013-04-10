@@ -34,7 +34,7 @@ RDEPEND=">=mate-base/libmatekeyring-1.6.0
 	>=mate-extra/mate-screensaver-1.6.0
 	>=x11-misc/mate-menu-editor-1.6.0
 	>=x11-terms/mate-terminal-1.6.0
-	>=mate-extra/mate-applets-1.6.0
+	>=mate-base/mate-applets-1.6.0
 	virtual/notification-daemon
 	extras? (
 		>=mate-extra/mate-power-manager-1.6.0
