@@ -25,7 +25,7 @@ COMMON_DEPEND="dev-libs/glib:2
 RDEPEND="${COMMON_DEPEND}
 	net-wireless/bluez
 	app-mobilephone/obexd
-	sys-fs/udev
+	virtual/udev
 	introspection? ( dev-libs/gobject-introspection )"
 
 DEPEND="${COMMON_DEPEND}
