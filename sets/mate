@@ -1,16 +1,6 @@
-mate-base/mate-corba
-mate-base/mate-conf
-mate-base/libmatecomponent
-mate-base/mate-mime-data
-mate-base/mate-vfs
-mate-base/libmate
-mate-base/libmatecanvas
-mate-base/libmatecomponentui
 mate-base/libmatekeyring
 mate-base/mate-keyring
-mate-base/libmateui
 x11-libs/libmatewnck
-x11-libs/libmatenotify
 mate-base/libmatekbd
 dev-libs/libmateweather
 x11-themes/mate-icon-theme
@@ -38,8 +28,8 @@ app-text/mate-document-viewer
 x11-misc/mate-menu-editor
 x11-terms/mate-terminal
 app-arch/mate-file-archiver
-media-video/ffmpegthumbnailer-caja
 mate-extra/mate-file-manager-open-terminal
 mate-extra/mate-file-manager-sendto
 net-wireless/mate-bluetooth
-mate-extra/mate-conf-editor
+mate-extra/mate-calc
+mate-extra/mate-character-map
