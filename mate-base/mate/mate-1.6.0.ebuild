@@ -52,9 +52,8 @@ pkg_postinst() {
 	elog "Mate 1.6 moved from mateconf to gsettings. This means that the desktop settings and panel applets will return to their default."
 	elog "You will have to reconfigure your desktop appearance."
 	elog ""
-	elog "There is an *experimental* script that converts from mateconf to gsettings"
-	elog "It is available on [1] and you need dev-python/pygobject emerged"
-	elog "For support with this script see [2]"
-	elog "[1] https://github.com/mate-desktop/mate-desktop/blob/master/mate-conf/mate-conf-import"
-	elog "[2] http://forums.mate-desktop.org/viewtopic.php?f=16&t=1650"
+	elog "There is a script (mate-conf-import) that converts from mateconf to gsettings"
+	elog "Run it with 'python2 /usr/$(get_libdir)/mate-desktop/mate-conf-import'"
+	elog "For support with this script see the following url"
+	elog "http://forums.mate-desktop.org/viewtopic.php?f=16&t=1650"
 }

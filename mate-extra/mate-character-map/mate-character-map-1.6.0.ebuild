@@ -14,7 +14,7 @@ HOMEPAGE="http://mate-desktop.org"
 
 LICENSE="GPL-2 LGPL-2.1"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64 ~arm ~x86"
 IUSE="cjk gtk3 +introspection python test"
 
 RDEPEND=">=dev-libs/glib-2.16.3
