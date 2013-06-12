@@ -15,7 +15,7 @@ HOMEPAGE="http://mate-desktop.org"
 LICENSE="GPL-2 FDL-1.1 LGPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~arm ~x86"
-IUSE="eds +introspection networkmanager"
+IUSE="+introspection networkmanager"
 
 RDEPEND=">=mate-base/mate-desktop-1.5.0
 	>=x11-libs/pango-1.15.4[introspection?]
@@ -33,7 +33,6 @@ RDEPEND=">=mate-base/mate-desktop-1.5.0
 	>=x11-libs/libXrandr-1.2
 	>=x11-libs/libmatewnck-1.5.1
 	>=gnome-base/dconf-0.10.0
-	eds? ( <gnome-extra/evolution-data-server-3 )
 	introspection? ( >=dev-libs/gobject-introspection-0.6.7 )
 	networkmanager? ( >=net-misc/networkmanager-0.6.7 )"
 DEPEND="${RDEPEND}
