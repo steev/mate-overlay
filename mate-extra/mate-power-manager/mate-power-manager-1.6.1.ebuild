@@ -59,6 +59,7 @@ pkg_setup() {
 		$(use_enable applet applets)
 		$(use_enable test tests)
 		$(use_with systemd systemdinhibit)
+		$(use_with systemd systemdsleep)
 		--enable-compile-warnings=minimum"
 	DOCS="AUTHORS HACKING NEWS README TODO"
 }
