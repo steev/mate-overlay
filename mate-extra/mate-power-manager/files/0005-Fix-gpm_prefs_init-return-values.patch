@@ -1,0 +1,34 @@
+From 247f3aeeffd20e0971641d8bb9ab1337f81991cd Mon Sep 17 00:00:00 2001
+From: Fabio Erculiani <lxnay@sabayon.org>
+Date: Wed, 10 Jul 2013 14:22:44 +0200
+Subject: [PATCH 5/5] Fix gpm_prefs_init return values
+
+---
+ src/gpm-prefs-core.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/src/gpm-prefs-core.c b/src/gpm-prefs-core.c
+index ee63674..d1795dd 100644
+--- a/src/gpm-prefs-core.c
++++ b/src/gpm-prefs-core.c
+@@ -841,7 +841,7 @@ gpm_prefs_init (GpmPrefs *prefs)
+ 		if (proxy == NULL) {
+ 			egg_error("Error connecting to dbus - %s", error->message);
+ 			g_error_free (error);
+-			return -1;
++			return;
+ 		}
+ 
+ 		res = g_dbus_proxy_call_sync (proxy, "CanPowerOff",
+@@ -913,7 +913,7 @@ gpm_prefs_init (GpmPrefs *prefs)
+ 		if (proxy == NULL) {
+ 			egg_error("Error connecting to dbus - %s", error->message);
+ 			g_error_free (error);
+-			return -1;
++			return;
+ 		}
+ 
+ 		res = g_dbus_proxy_call_sync (proxy, "Get", 
+-- 
+1.8.2.1
+
