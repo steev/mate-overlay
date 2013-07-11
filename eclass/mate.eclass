@@ -98,6 +98,7 @@ mate_src_prepare() {
 	mate_omf_fix
 
 	# Retrieve configure script
+	if [[ ! -f "${S}/configure" ]]; then
 	local mate_conf_in
 	if [[ -f "${S}/configure.in" ]]; then
 		mate_conf_in="${S}/configure.in"
@@ -137,6 +138,7 @@ mate_src_prepare() {
 	eautoconf
 	eautoheader
 	eautomake
+	fi
 }
 
 # @FUNCTION: mate_src_configure
