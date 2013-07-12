@@ -98,45 +98,47 @@ mate_src_prepare() {
 	mate_omf_fix
 
 	# Retrieve configure script
-	local mate_conf_in
-	if [[ -f "${S}/configure.in" ]]; then
-		mate_conf_in="${S}/configure.in"
-	elif [[ -f "${S}/configure.ac" ]]; then
-		mate_conf_in="${S}/configure.ac"
-	else
-		einfo "no configure.in or configure.ac file were found"
-		return 0
-	fi
+	if [[ ! -f "${S}/configure" ]]; then
+		local mate_conf_in
+		if [[ -f "${S}/configure.in" ]]; then
+			mate_conf_in="${S}/configure.in"
+		elif [[ -f "${S}/configure.ac" ]]; then
+			mate_conf_in="${S}/configure.ac"
+		else
+			einfo "no configure.in or configure.ac file were found"
+			return 0
+		fi
 
-	# Mate preparation, doing similar to autotools eclass stuff. (Do we need die here?)
-	if grep -q "^AM_GLIB_GNU_GETTEXT" "${mate_conf_in}"; then
-		autotools_run_tool glib-gettextize --copy --force || die
-	elif grep -q "^AM_GNU_GETTEXT" "${mate_conf_in}"; then
-		eautopoint --force
-	fi
+		# Mate preparation, doing similar to autotools eclass stuff. (Do we need die here?)
+		if grep -q "^AM_GLIB_GNU_GETTEXT" "${mate_conf_in}"; then
+			autotools_run_tool glib-gettextize --copy --force || die
+		elif grep -q "^AM_GNU_GETTEXT" "${mate_conf_in}"; then
+			eautopoint --force
+		fi
 
-	if grep -q "^AC_PROG_INTLTOOL" "${mate_conf_in}" || grep -q "^IT_PROG_INTLTOOL" "${mate_conf_in}"; then
-		mkdir -p "${S}/m4"
-		autotools_run_tool intltoolize --automake --copy --force || die
-	fi
+		if grep -q "^AC_PROG_INTLTOOL" "${mate_conf_in}" || grep -q "^IT_PROG_INTLTOOL" "${mate_conf_in}"; then
+			mkdir -p "${S}/m4"
+			autotools_run_tool intltoolize --automake --copy --force || die
+		fi
 
-	if grep -q "^GTK_DOC_CHECK" "${mate_conf_in}"; then
-		autotools_run_tool gtkdocize --copy || die
-	fi
+		if grep -q "^GTK_DOC_CHECK" "${mate_conf_in}"; then
+			autotools_run_tool gtkdocize --copy || die
+		fi
 
-	if grep -q "^MATE_DOC_INIT" "${mate_conf_in}"; then
-		autotools_run_tool mate-doc-prepare --force --copy || die
-		autotools_run_tool mate-doc-common --copy || die
-	fi
+		if grep -q "^MATE_DOC_INIT" "${mate_conf_in}"; then
+			autotools_run_tool mate-doc-prepare --force --copy || die
+			autotools_run_tool mate-doc-common --copy || die
+		fi
 
-	if grep -q "^A[CM]_PROG_LIBTOOL" "${mate_conf_in}" || grep -q "^LT_INIT" "${mate_conf_in}"; then
-		_elibtoolize --copy --force --install
-	fi
+		if grep -q "^A[CM]_PROG_LIBTOOL" "${mate_conf_in}" || grep -q "^LT_INIT" "${mate_conf_in}"; then
+			_elibtoolize --copy --force --install
+		fi
 
 	eaclocal
-	eautoconf
-	eautoheader
-	eautomake
+		eautoconf
+		eautoheader
+		eautomake
+		fi
 }
 
 # @FUNCTION: mate_src_configure
