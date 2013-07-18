@@ -3,3 +3,5 @@
 
 #Mask new development release
 >=mate-base/mate-common-1.7.0
+=mate-base/mate-desktop-1.7.0
+>=mate-base/libmatekbd-1.7.0
