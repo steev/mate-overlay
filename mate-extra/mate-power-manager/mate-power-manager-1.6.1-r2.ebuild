@@ -5,7 +5,7 @@
 EAPI="5"
 GCONF_DEBUG="no"
 
-inherit mate
+inherit mate autotools
 
 DESCRIPTION="A session daemon for MATE that makes it easy to manage your laptop or desktop system"
 HOMEPAGE="http://mate-desktop.org"
@@ -61,20 +61,23 @@ pkg_setup() {
 }
 
 src_prepare() {
-	# This needs to be after eautoreconf to prevent problems like bug #356277
-	# Remove the docbook2man rules here since it's not handled by a proper
-	# parameter in configure.in.
-	sed -e 's:@HAVE_DOCBOOK2MAN_TRUE@.*::' -i man/Makefile.in \
-		|| die "docbook sed failed"
-
 	epatch "${FILESDIR}/0001-Remove-debug-prints.patch"
 	epatch "${FILESDIR}/0001-drop-with-systemdsleep-and-move-logind-detection-to-.patch"
 	epatch "${FILESDIR}/0002-drop-with-systemdinhibit-and-move-logind-detection-t.patch"
 	epatch "${FILESDIR}/0003-gpm-prefs-core-fix-can_shutdown-when-logind-is-in-us.patch"
 	epatch "${FILESDIR}/0004-Add-systemd-Shutdown-API-support-to-gpm-control.c.patch"
 	epatch "${FILESDIR}/0005-Fix-gpm_prefs_init-return-values.patch"
+	
+	eautoreconf
 
 	mate_src_prepare
+		
+	# This needs to be after eautoreconf to prevent problems like bug #356277
+	# Remove the docbook2man rules here since it's not handled by a proper
+	# parameter in configure.in.
+	sed -e 's:@HAVE_DOCBOOK2MAN_TRUE@.*::' -i man/Makefile.in \
+		|| die "docbook sed failed"
+
 }
 
 src_test() {
