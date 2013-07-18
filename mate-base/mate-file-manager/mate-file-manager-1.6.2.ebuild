@@ -56,15 +56,6 @@ src_prepare() {
 	sed -i \
 		-e 's:-DG.*DISABLE_DEPRECATED::g' \
 		configure{,.ac} eel/Makefile.{am,in} || die
-	
-	# Fix default sort order in preferences window gh issue 106
-	# https://github.com/mate-desktop/mate-file-manager/issues/106
-	sed -i \
-		-e '/"manually"/d' \
-		src/caja-file-management-properties.c || die
-
-	# Fix radio button in the caja prefferences
-	epatch ${FILESDIR}/${P}-preferences-fix.patch
 }
 
 src_test() {
