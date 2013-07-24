@@ -21,6 +21,7 @@ COMMON_DEPEND=">=dev-libs/dbus-glib-0.74
 	x11-libs/gtk+:2
 	>=mate-base/libmatekbd-1.6.1
 	>=mate-base/mate-desktop-1.6.0
+	>=gnome-base/dconf-0.13.4
 
 	x11-libs/libX11
 	x11-libs/libXi
