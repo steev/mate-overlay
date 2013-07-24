@@ -14,7 +14,7 @@ HOMEPAGE="http://mate-desktop.org"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~arm ~x86"
-IUSE="+applet -gtk3 policykit test"
+IUSE="+applet gtk3 policykit test"
 
 # FIXME: Interactive testsuite (upstream ? I'm so...pessimistic)
 RESTRICT="test"
@@ -61,15 +61,6 @@ pkg_setup() {
 }
 
 src_prepare() {
-	epatch "${FILESDIR}/0001-Remove-debug-prints.patch"
-	epatch "${FILESDIR}/0001-drop-with-systemdsleep-and-move-logind-detection-to-.patch"
-	epatch "${FILESDIR}/0002-drop-with-systemdinhibit-and-move-logind-detection-t.patch"
-	epatch "${FILESDIR}/0003-gpm-prefs-core-fix-can_shutdown-when-logind-is-in-us.patch"
-	epatch "${FILESDIR}/0004-Add-systemd-Shutdown-API-support-to-gpm-control.c.patch"
-	epatch "${FILESDIR}/0005-Fix-gpm_prefs_init-return-values.patch"
-	
-	eautoreconf
-
 	mate_src_prepare
 		
 	# This needs to be after eautoreconf to prevent problems like bug #356277
