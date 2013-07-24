@@ -38,6 +38,9 @@ pkg_setup() {
 }
 
 src_prepare() {
+	#Fix crash because of missing keys in schema
+	epatch "${FILESDIR}/${P}-schema-fix.patch"
+
 	mate_src_prepare
 
 	# Drop DEPRECATED flags as configure option doesn't do it, bug #385453
