@@ -15,6 +15,8 @@ KEYWORDS="~amd64 ~arm ~x86"
 IUSE=""
 
 src_prepare() {
+	# Add automake 1.14 support
+	epatch "${FILESDIR}/${P}-automake-1.14.patch"
 	eautoreconf
 }
 
