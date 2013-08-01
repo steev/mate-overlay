@@ -58,7 +58,6 @@ pkg_setup() {
 		--disable-tests
 		--enable-pdf
 		--enable-comics
-		--enable-impress
 		--enable-thumbnailer
 		--enable-pixbuf
 		--with-smclient=xsmp
