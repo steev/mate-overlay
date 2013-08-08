@@ -80,5 +80,7 @@ src_prepare() {
 	# Fix .desktop categories, upstream bug #666346
 	sed -e "s:GTK\;Graphics\;VectorGraphics\;Viewer\;:GTK\;Office\;Viewer\;Graphics\;VectorGraphics;:g" -i data/atril.desktop.in.in || die
 
+	#Fix broken build system on newer autofoo/libtool
+	eautoreconf
 	mate_src_prepare
 }
