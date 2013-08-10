@@ -80,7 +80,12 @@ src_prepare() {
 	# Fix .desktop categories, upstream bug #666346
 	sed -e "s:GTK\;Graphics\;VectorGraphics\;Viewer\;:GTK\;Office\;Viewer\;Graphics\;VectorGraphics;:g" -i data/atril.desktop.in.in || die
 
-	#Fix broken build system on newer autofoo/libtool
+	#Fix zlib link failure
+	#Github: https://github.com/Sabayon/mate-overlay/issues/46
+	#Gentoo: https://bugs.gentoo.org/show_bug.cgi?id=480464
+
+	epatch "${FILESDIR}/${P}-zlib-linkfix.patch"
 	eautoreconf
+
 	mate_src_prepare
 }
