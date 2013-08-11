@@ -42,11 +42,13 @@ PDEPEND=">=dev-python/pygtk-2.8:2
 # Includes X11/extensions/Xrandr.h that includes randr.h from randrproto (and
 # eventually libXrandr shouldn't RDEPEND on randrproto)
 
+#Disable desktop help due to file collision
 pkg_setup() {
 	python_set_active_version 2
 	python_pkg_setup
 	G2CONF="${G2CONF}
 		--enable-mate-conf-import
+		--disable-desktop-docs
 		PYTHON=$(PYTHON -a)"
 	DOCS="AUTHORS ChangeLog HACKING NEWS README"
 }
