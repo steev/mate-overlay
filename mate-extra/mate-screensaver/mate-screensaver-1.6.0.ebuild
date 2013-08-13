@@ -31,7 +31,8 @@ RDEPEND=">=x11-libs/gtk+-2.14.0:2
 	x11-libs/libXrandr
 	x11-libs/libXScrnSaver
 	x11-libs/libXxf86misc
-	x11-libs/libXxf86vm"
+	x11-libs/libXxf86vm
+	!!<gnome-extra/gnome-screensaver-3.0.0"
 DEPEND="${RDEPEND}
 	virtual/pkgconfig
 	>=dev-util/intltool-0.40
