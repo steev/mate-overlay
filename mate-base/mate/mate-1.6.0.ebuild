@@ -31,7 +31,6 @@ RDEPEND=">=mate-base/libmatekeyring-1.6.0
 	>=x11-themes/mate-themes-1.6.0
 	>=mate-extra/mate-utils-1.6.0
 	>=mate-extra/mate-media-1.6.0
-	>=mate-extra/mate-screensaver-1.6.0
 	>=x11-misc/mate-menu-editor-1.6.0
 	>=x11-terms/mate-terminal-1.6.0
 	>=mate-base/mate-applets-1.6.0
@@ -44,6 +43,7 @@ RDEPEND=">=mate-base/libmatekeyring-1.6.0
 		>=app-text/mate-document-viewer-1.6.0
 		>=mate-extra/mate-system-monitor-1.6.0
 		>=mate-extra/mate-calc-1.6.0
+		>=mate-extra/mate-screensaver-1.6.0
 	)
 	bluetooth? ( >=net-wireless/mate-bluetooth-1.6.0 )"
 
