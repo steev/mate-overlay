@@ -4,9 +4,9 @@
 
 EAPI="5"
 GCONF_DEBUG="no"
-PYTHON_DEPEND="2:2.5"
+PYTHON_DEPEND="2"
 
-inherit mate
+inherit mate python
 
 DESCRIPTION="Applets for the MATE Desktop and Panel"
 HOMEPAGE="http://mate-desktop.org"
@@ -47,6 +47,7 @@ DEPEND="${RDEPEND}
 	>=mate-base/mate-common-1.2.2"
 
 pkg_setup() {
+	python_set_active_version 2
 	G2CONF="${G2CONF}
 		--libexecdir=/usr/libexec/mate-applets
 		--without-hal
@@ -54,6 +55,11 @@ pkg_setup() {
 		$(use_enable networkmanager)
 		$(use_enable policykit polkit)"
 	DOCS="AUTHORS ChangeLog NEWS README"
+}
+
+src_prepare() {
+	python_convert_shebangs -r 2 .
+	mate_src_prepare
 }
 
 src_test() {
