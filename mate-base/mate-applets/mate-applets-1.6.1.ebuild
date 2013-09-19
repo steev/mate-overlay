@@ -48,6 +48,8 @@ DEPEND="${RDEPEND}
 
 pkg_setup() {
 	python_set_active_version 2
+	python_pkg_setup
+
 	G2CONF="${G2CONF}
 		--libexecdir=/usr/libexec/mate-applets
 		--without-hal
@@ -59,6 +61,12 @@ pkg_setup() {
 
 src_prepare() {
 	python_convert_shebangs -r 2 .
+
+	#Correct icon name, upstrean PR at:
+	#https://github.com/mate-desktop/mate-applets/pull/54
+	sed -i -e 's:Icon=invest-applet:Icon=mate-invest-applet:' \
+		invest-applet/data/org.mate.applets.InvestApplet.mate-panel-applet.in.in || die
+
 	mate_src_prepare
 }
 
