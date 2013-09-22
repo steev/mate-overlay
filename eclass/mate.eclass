@@ -10,7 +10,7 @@
 # Exports portage base functions used by ebuilds written for packages using the
 # MATE framework. For additional functions, see mate-utils.eclass.
 
-inherit autotools fdo-mime libtool mate-desktop.org mate-utils
+inherit autotools fdo-mime libtool mate-desktop.org mate-utils eutils
 
 DEPEND="dev-util/gtk-doc
 		dev-util/gtk-doc-am"
@@ -91,6 +91,7 @@ mate_src_unpack() {
 # Prepare environment for build, fix build of scrollkeeper documentation,
 # run elibtoolize.
 mate_src_prepare() {
+	epatch_user
 	# Prevent assorted access violations and test failures
 	mate_environment_reset
 
