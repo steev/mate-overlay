@@ -117,6 +117,11 @@ mate_src_prepare() {
 			eautopoint --force
 		fi
 
+		if grep -q "^A[CM]_PROG_LIBTOOL" "${mate_conf_in}" || grep -q "^LT_INIT" "${mate_conf_in}"; then
+			_elibtoolize --copy --force --install
+		fi
+
+
 		if grep -q "^AC_PROG_INTLTOOL" "${mate_conf_in}" || grep -q "^IT_PROG_INTLTOOL" "${mate_conf_in}"; then
 			mkdir -p "${S}/m4"
 			autotools_run_tool intltoolize --automake --copy --force || die
@@ -131,11 +136,7 @@ mate_src_prepare() {
 			autotools_run_tool mate-doc-common --copy || die
 		fi
 
-		if grep -q "^A[CM]_PROG_LIBTOOL" "${mate_conf_in}" || grep -q "^LT_INIT" "${mate_conf_in}"; then
-			_elibtoolize --copy --force --install
-		fi
-
-	eaclocal
+		eaclocal
 		eautoconf
 		eautoheader
 		eautomake
