@@ -14,7 +14,7 @@ HOMEPAGE="http://mate-desktop.org"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~arm ~x86"
-IUSE="+applet gtk3 policykit test"
+IUSE="+applet gnome-keyring gtk3 man policykit test"
 
 # FIXME: Interactive testsuite (upstream ? I'm so...pessimistic)
 RESTRICT="test"
@@ -22,7 +22,7 @@ RESTRICT="test"
 COMMON_DEPEND=">=dev-libs/glib-2.13.0:2
 	gtk3? ( x11-libs/gtk+:3 )
 	!gtk3? ( x11-libs/gtk+:2 )
-	mate-base/mate-keyring
+	gnome-keyring? ( >=gnome-base/gnome-keyring-3.0.0 )
 	>=dev-libs/dbus-glib-0.71
 	>=x11-libs/libnotify-0.7.0
 	>=x11-libs/cairo-1
@@ -45,7 +45,9 @@ DEPEND="${COMMON_DEPEND}
 	app-text/docbook-xml-dtd:4.3
 	virtual/pkgconfig
 	>=dev-util/intltool-0.35
-	app-text/mate-doc-utils"
+	app-text/mate-doc-utils
+	man? ( app-text/docbook-sgml-utils
+			>=app-text/docbook-sgml-dtd-4.3 )"
 
 # docbook-sgml-utils and docbook-sgml-dtd-4.1 used for creating man pages
 # (files under ${S}/man).
@@ -55,20 +57,24 @@ pkg_setup() {
 	G2CONF="${G2CONF}
 		--enable-unique
 		$(use_enable applet applets)
+		$(use_with gnome-keyring keyring)
 		$(use_enable test tests)
 		--enable-compile-warnings=minimum"
 	DOCS="AUTHORS HACKING NEWS README TODO"
 }
 
 src_prepare() {
+	epatch "${FILESDIR}/${PN}-1.6-libsecret.patch"
+	eautoreconf
 	mate_src_prepare
-		
+
+	if ! use man; then
 	# This needs to be after eautoreconf to prevent problems like bug #356277
 	# Remove the docbook2man rules here since it's not handled by a proper
 	# parameter in configure.in.
 	sed -e 's:@HAVE_DOCBOOK2MAN_TRUE@.*::' -i man/Makefile.in \
 		|| die "docbook sed failed"
-
+	fi
 }
 
 src_test() {
