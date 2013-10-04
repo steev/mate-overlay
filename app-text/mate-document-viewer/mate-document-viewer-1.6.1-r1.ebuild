@@ -15,7 +15,7 @@ LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~arm ~x86"
 
-IUSE="-gtk3 caja dbus debug djvu dvi +introspection mate-keyring +ps t1lib tiff
+IUSE="-gtk3 caja dbus debug djvu dvi +introspection gnome-keyring +ps t1lib tiff
 xps"
 
 # Since 2.26.2, can handle poppler without cairo support. Make it optional ?
@@ -35,7 +35,7 @@ RDEPEND=">=dev-libs/glib-2.25.11:2
 	dvi? (
 		virtual/tex-base
 		t1lib? ( >=media-libs/t1lib-5.0.0 ) )
-	mate-keyring? ( >=mate-base/mate-keyring-1.2.1 )
+	gnome-keyring? ( app-crypt/libsecret )
 	introspection? ( >=dev-libs/gobject-introspection-0.6 )
 	caja? ( >=mate-base/mate-file-manager-1.2.2[introspection?] )
 	ps? ( >=app-text/libspectre-0.2.0 )
@@ -66,7 +66,7 @@ pkg_setup() {
 		$(use_enable dbus)
 		$(use_enable djvu)
 		$(use_enable dvi)
-		$(use_with mate-keyring keyring)
+		$(use_with gnome-keyring keyring)
 		$(use_enable introspection)
 		$(use_enable caja)
 		$(use_enable ps)
@@ -85,6 +85,7 @@ src_prepare() {
 	#Gentoo: https://bugs.gentoo.org/show_bug.cgi?id=480464
 
 	epatch "${FILESDIR}/${P}-zlib-linkfix.patch"
+	epatch "${FILESDIR}/${PN}-1.6-libsecret.patch"
 	eautoreconf
 
 	mate_src_prepare
