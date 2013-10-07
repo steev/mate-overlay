@@ -34,10 +34,3 @@ pkg_setup() {
 		$(use_enable libnotify)"
 	DOCS="AUTHORS ChangeLog HACKING NEWS NEWS.GNOME README THANKS TODO"
 }
-
-src_prepare() {
-	sed -i 's:(pkgdatadir):(datadir)/matedialog:' \
-		src/Makefile.am || die
-	eautoreconf
-	mate_src_prepare
-}
