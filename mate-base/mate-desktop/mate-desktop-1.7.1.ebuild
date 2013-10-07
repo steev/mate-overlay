@@ -53,6 +53,11 @@ pkg_setup() {
 	DOCS="AUTHORS ChangeLog HACKING NEWS README"
 }
 
+src_prepare() {
+	# *Very* dirty hack so it installs, fixed in next release 
+	touch "${S}/tools/mate-conf-import" || die
+	mate_src_prepare
+}
 src_install() {
 	mate_src_install
 	# Do migrate script foo see url:
