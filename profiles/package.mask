@@ -6,3 +6,4 @@
 >=mate-base/mate-desktop-1.7
 >=mate-base/libmatekbd-1.7
 >=x11-terms/mate-terminal-1.7
+>=mate-extra/mate-dialogs-1.7
