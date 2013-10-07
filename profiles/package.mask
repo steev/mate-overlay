@@ -9,3 +9,4 @@
 >=mate-extra/mate-dialogs-1.7
 >=mate-extra/mate-polkit-1.7
 >=x11-themes/mate-icon-theme-1.7
+>=dev-libs/libmateweather-1.7
