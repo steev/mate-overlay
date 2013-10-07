@@ -8,3 +8,4 @@
 >=x11-terms/mate-terminal-1.7
 >=mate-extra/mate-dialogs-1.7
 >=mate-extra/mate-polkit-1.7
+>=x11-themes/mate-icon-theme-1.7
