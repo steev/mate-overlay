@@ -41,30 +41,6 @@ pkg_setup() {
 }
 
 src_prepare() {
-	gtkdocize
 	eautoreconf
 	mate_src_prepare
-}
-
-src_compile() {
-	emake -C polkitgtkmate libpolkit-gtk-mate-1.la
-}
-
-src_install() {
-	default
-
-	cat <<-EOF > "${T}"/polkit-mate-authentication-agent-1.desktop
-[Desktop Entry]
-Name=PolicyKit Authentication Agent
-Comment=PolicyKit Authentication Agent
-Exec=/usr/libexec/polkit-mate-authentication-agent-1
-Terminal=false
-Type=Application
-Categories=
-NoDisplay=true
-NotShowIn=KDE;
-EOF
-
-	insinto /etc/xdg/autostart
-	doins "${T}"/polkit-mate-authentication-agent-1.desktop
 }
