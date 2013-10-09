@@ -3,6 +3,8 @@
 # $Header: $
 
 EAPI=5
+GCONF_DEBUG="no"
+
 inherit autotools mate
 
 DESCRIPTION="A dbus session bus service that is used to bring up authentication dialogs"
@@ -32,16 +34,16 @@ ENTROPY_RDEPEND="!lxde-base/lxpolkit"
 
 DOCS=( AUTHORS HACKING NEWS README )
 
+pkg_setup() {
+	GCONF="${GCONF}
+		--disable-static
+		$(use_enable introspection)"
+}
+
 src_prepare() {
 	gtkdocize
 	eautoreconf
 	mate_src_prepare
-}
-
-src_configure() {
-	econf \
-		--disable-static \
-		$(use_enable introspection)
 }
 
 src_compile() {
