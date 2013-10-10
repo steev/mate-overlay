@@ -15,6 +15,8 @@ inherit autotools fdo-mime libtool mate-desktop.org mate-utils eutils
 DEPEND="dev-util/gtk-doc
 		dev-util/gtk-doc-am"
 
+RESTRICT="primaryuri"
+
 case "${EAPI:-0}" in
 	0|1)
 		EXPORT_FUNCTIONS src_unpack src_compile src_install pkg_preinst pkg_postinst pkg_postrm
