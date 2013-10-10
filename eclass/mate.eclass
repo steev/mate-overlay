@@ -269,6 +269,14 @@ mate_src_install() {
 	fi
 }
 
+# @FUNCTION: mate_src_test
+# @DESCRIPTION: Run make check
+src_test() {
+	if grep -q "^check:" Makefile; then
+		emake check
+	fi
+}
+
 # @FUNCTION: mate_pkg_preinst
 # @DESCRIPTION:
 # Finds Icons, MateConf and GSettings schemas for later handling in pkg_postinst
