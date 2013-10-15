@@ -69,6 +69,9 @@ src_prepare() {
 	# Fix suspend support with systemd
 	epatch "${FILESDIR}/${P}-login1.patch"
 
+	# Use gnome-keyring
+	epatch "${FILESDIR}/${PN}-1.6-gnome-keyring.patch"
+	
 	eautoreconf
 	mate_src_prepare
 }
