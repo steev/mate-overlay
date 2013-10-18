@@ -49,8 +49,8 @@ src_prepare() {
 	mate_src_prepare
 
 	# Drop DEPRECATED flags as configure option doesn't do it, bug #385453
-	#sed -i -e 's:-D[A-Z_]*DISABLE_DEPRECATED:$(NULL):g' \
-	#	copy-n-paste/Makefile.am copy-n-paste/Makefile.in || die
+	sed -i -e 's:-D[A-Z_]*DISABLE_DEPRECATED:$(NULL):g' \
+		copy-n-paste/Makefile.am copy-n-paste/Makefile.in || die
 }
 
 pkg_postinst() {
