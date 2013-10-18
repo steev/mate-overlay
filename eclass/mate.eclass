@@ -275,7 +275,7 @@ mate_src_install() {
 # @DESCRIPTION: Run make check
 src_test() {
 	if grep -q "^check:" Makefile; then
-		emake check
+		emake check LINGUAS=""
 	fi
 }
 
