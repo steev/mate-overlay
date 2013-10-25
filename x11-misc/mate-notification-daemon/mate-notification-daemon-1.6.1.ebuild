@@ -39,7 +39,9 @@ DOCS=( AUTHORS ChangeLog NEWS )
 src_prepare() {
 	# Run autopiont as workaround for upstream bug 13
 	# https://github.com/mate-desktop/mate-notification-daemon/issues/13
-	autopoint --force || die
+	#autopoint --force || die
+	epatch "${FILESDIR}/0001-back-to-libwnck.patch"
+	eautoreconf
 	mate_src_prepare
 }
 src_install() {
