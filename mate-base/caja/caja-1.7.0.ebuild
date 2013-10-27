@@ -17,15 +17,16 @@ KEYWORDS="~amd64 ~arm ~x86"
 IUSE="-gtk3 mate +introspection xmp"
 
 RDEPEND=">=dev-libs/glib-2.28.0:2
-	gtk3? ( x11-libs/gtk+:3 )
-	!gtk3? ( x11-libs/gtk+:2 )
+	gtk3? ( x11-libs/gtk+:3
+			dev-libs/libunique:3 )
+	!gtk3? ( x11-libs/gtk+:2
+			dev-libs/libunique:1 )
 	>=mate-base/mate-desktop-1.7.1
 	>=x11-libs/pango-1.1.2
 	x11-libs/gtk+:2[introspection?]
 	>=gnome-base/gvfs-1.10.1
 	>=dev-libs/libxml2-2.4.7:2
 	>=media-libs/libexif-0.5.12
-	dev-libs/libunique:1
 	x11-libs/libXext
 	x11-libs/libXrender
 	introspection? ( >=dev-libs/gobject-introspection-0.6.4 )
