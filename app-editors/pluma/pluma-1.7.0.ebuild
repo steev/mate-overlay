@@ -25,9 +25,9 @@ RDEPEND=">=x11-libs/libSM-1.0
 	>=dev-libs/libxml2-2.5.0:2
 	>=dev-libs/glib-2.23.1:2
 	gtk3? ( x11-libs/gtk+:3
-			x11-libs/gtksourceview:3 )
+			x11-libs/gtksourceview:3.0 )
 	!gtk3? ( x11-libs/gtk+:2
-			x11-libs/gtksourceview:2 )
+			x11-libs/gtksourceview:2.0 )
 	spell? (
 		>=app-text/enchant-1.2
 		>=app-text/iso-codes-0.35
