@@ -15,7 +15,7 @@ HOMEPAGE="http://mate-desktop.org"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~arm ~x86"
-IUSE="python spell"
+IUSE="gtk3 python spell"
 
 # Failed tests:https://github.com/mate-desktop/mate-text-editor/issues/33
 RESTRICT="test"
@@ -24,8 +24,10 @@ RESTRICT="test"
 RDEPEND=">=x11-libs/libSM-1.0
 	>=dev-libs/libxml2-2.5.0:2
 	>=dev-libs/glib-2.23.1:2
-	>=x11-libs/gtk+-2.19.0:2
-	>=x11-libs/gtksourceview-2.9.7:2.0
+	gtk3? ( x11-libs/gtk+:3
+			x11-libs/gtksourceview:3 )
+	!gtk3? ( x11-libs/gtk+:2
+			x11-libs/gtksourceview:2 )
 	spell? (
 		>=app-text/enchant-1.2
 		>=app-text/iso-codes-0.35
