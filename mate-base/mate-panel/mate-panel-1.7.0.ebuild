@@ -27,7 +27,7 @@ RDEPEND="
 	>=mate-base/mate-desktop-1.7.0[gtk3?]
 	>=x11-libs/pango-1.15.4[introspection?]
 	>=dev-libs/glib-2.25.12:2
-	>=dev-libs/libmateweather-1.7.0
+	>=dev-libs/libmateweather-1.7.0[gtk3?]
 	dev-libs/libxml2:2
 	>=mate-base/mate-menus-1.5.0
 	gnome-base/librsvg:2
