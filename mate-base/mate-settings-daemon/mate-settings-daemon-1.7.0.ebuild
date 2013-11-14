@@ -39,7 +39,7 @@ COMMON_DEPEND=">=dev-libs/dbus-glib-0.74
 	pulseaudio? (
 		>=media-sound/pulseaudio-0.9.15
 		gtk3? ( media-libs/libcanberra[gtk3] )
-		!gtk3? (media-libs/libcanberra[gtk] ) )
+		!gtk3? ( media-libs/libcanberra[gtk] ) )
 	!pulseaudio? (
 		>=media-libs/gstreamer-0.10.1.2:0.10
 		>=media-libs/gst-plugins-base-0.10.1.2:0.10 )
