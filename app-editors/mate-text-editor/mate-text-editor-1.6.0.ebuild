@@ -7,7 +7,7 @@ GCONF_DEBUG="yes"
 MATE_LA_PUNT="yes"
 PYTHON_DEPEND="python? 2:2.5"
 
-inherit mate multilib python
+inherit mate multilib python virtualx
 
 DESCRIPTION="Pluma text editor for the MATE desktop"
 HOMEPAGE="http://mate-desktop.org"
@@ -63,6 +63,14 @@ src_prepare() {
 	epatch "${FILESDIR}/${PN}-1.6.0-fix-POTFILES.patch"
 	mate_src_prepare
 	use python && python_clean_py-compile_files
+}
+
+src_test() {
+	# FIXME: this should be handled at eclass level
+	"${EROOT}${GLIB_COMPILE_SCHEMAS}" --allow-any-name "${S}/data" || die
+
+	unset DBUS_SESSION_BUS_ADDRESS
+	GSETTINGS_SCHEMA_DIR="${S}/data" Xemake check
 }
 
 pkg_postinst() {
