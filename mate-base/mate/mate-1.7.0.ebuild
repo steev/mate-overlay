@@ -35,7 +35,7 @@ RDEPEND=">=mate-base/libmatekbd-1.7.0[gtk3?]
 	virtual/notification-daemon
 	extras? (
 		>=mate-extra/mate-power-manager-1.6.0
-		>=app-editors/mate-text-editor-1.6.0
+		>=app-editors/pluma-1.7.0
 		>=app-arch/mate-file-archiver-1.6.0
 		>=media-gfx/mate-image-viewer-1.6.0
 		>=app-text/mate-document-viewer-1.6.0
