@@ -4,9 +4,9 @@
 
 EAPI="5"
 GCONF_DEBUG="no"
-PYTHON_DEPEND="2"
+PYTHON_COMPAT=( python2_{6,7} )
 
-inherit mate python
+inherit mate python-single-r1
 
 DESCRIPTION="Applets for the MATE Desktop and Panel"
 HOMEPAGE="http://mate-desktop.org"
@@ -14,7 +14,7 @@ HOMEPAGE="http://mate-desktop.org"
 LICENSE="GPL-2 FDL-1.1 LGPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~arm ~x86"
-IUSE="ipv6 networkmanager policykit"
+IUSE="+cpufreq ipv6 networkmanager policykit"
 
 RDEPEND=">=x11-libs/gtk+-2.20:2
 	>=dev-libs/glib-2.22:2
@@ -32,36 +32,25 @@ RDEPEND=">=x11-libs/gtk+-2.20:2
 	x11-libs/libX11
 	>=mate-base/mate-settings-daemon-1.2.0
 	gnome-base/libgtop:2
-	sys-power/cpufrequtils
+	cpufreq? ( sys-power/cpufrequtils )
 	mate-extra/mate-character-map
 	networkmanager? ( >=net-misc/networkmanager-0.7.0 )
-	policykit? ( >=sys-auth/polkit-0.92 )"
+	policykit? ( >=sys-auth/polkit-0.92 )
+	${PYTHON_DEPS}"
+
 
 DEPEND="${RDEPEND}
+	~app-text/docbook-xml-dtd-4.3
 	>=app-text/scrollkeeper-0.1.4
 	>=app-text/mate-doc-utils-1.2.1
-	virtual/pkgconfig
-	>=dev-util/intltool-0.35
 	dev-libs/libxslt
-	~app-text/docbook-xml-dtd-4.3
-	>=mate-base/mate-common-1.2.2"
+	>=dev-util/intltool-0.35
+	>=mate-base/mate-common-1.2.2
+	virtual/pkgconfig"
 
-pkg_setup() {
-	python_set_active_version 2
-	python_pkg_setup
-
-	G2CONF="${G2CONF}
-		--libexecdir=/usr/libexec/mate-applets
-		--without-hal
-		$(use_enable ipv6)
-		$(use_enable networkmanager)
-		$(use_enable policykit polkit)"
-	DOCS="AUTHORS ChangeLog NEWS README"
-}
+REQUIRED_USE=${PYTHON_REQUIRED_USE}
 
 src_prepare() {
-	python_convert_shebangs -r 2 .
-
 	#Correct icon name, upstrean PR at:
 	#https://github.com/mate-desktop/mate-applets/pull/54
 	sed -i -e 's:Icon=invest-applet:Icon=mate-invest-applet:' \
@@ -73,12 +62,23 @@ src_prepare() {
 	mate_src_prepare
 }
 
+src_configure() {
+	mate_src_configure \
+		--libexecdir=/usr/libexec/mate-applets \
+		--without-hal \
+		$(use_enable ipv6) \
+		$(use_enable networkmanager) \
+		$(use_enable policykit polkit) \
+		$(usex cpufreq "" --disable-cpufreq)
+}
+
 src_test() {
 	unset DBUS_SESSION_BUS_ADDRESS
 	emake check
 }
 
 src_install() {
+	python_fix_shebang invest-applet
 	mate_src_install
 
 	local APPLETS="accessx-status battstat charpick cpufreq drivemount geyes
