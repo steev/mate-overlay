@@ -1,4 +1,4 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: Exp $
 
@@ -15,10 +15,10 @@ SRC_URI="mirror://gentoo/${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~arm ~amd64 ~x86"
+KEYWORDS="~amd64 ~x86"
 IUSE="+gtk mate qt4"
 
-REQUIRED_USE="|| ( gtk qt4 )"
+REQUIRED_USE="|| ( gtk mate qt4 )"
 
 RDEPEND="
 	>=dev-python/compizconfig-python-${MINIMUM_COMPIZ_RELEASE}
