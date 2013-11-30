@@ -1,4 +1,4 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -20,7 +20,6 @@ IUSE="python spell"
 # Tests require gvfs sftp fs mounted and schema's installed. Disable tests.
 # https://github.com/mate-desktop/mate-text-editor/issues/33
 RESTRICT="test"
-
 
 RDEPEND=">=x11-libs/libSM-1.0
 	>=dev-libs/libxml2-2.5.0:2
