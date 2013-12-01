@@ -5,9 +5,9 @@
 EAPI="5"
 GCONF_DEBUG="yes"
 MATE_LA_PUNT="yes"
-PYTHON_DEPEND="2"
+PYTHON_COMPAT=( python2_{6,7} )
 
-inherit mate python
+inherit mate python-r1
 
 DESCRIPTION="Libraries for the MATE desktop that are not part of the UI"
 HOMEPAGE="http://mate-desktop.org"
@@ -16,6 +16,7 @@ LICENSE="GPL-2 FDL-1.1 LGPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~arm ~x86"
 IUSE="gtk3"
+REQUIRED_USE=${PYTHON_REQUIRED_USE}
 
 # Upstream says to use glib 2.34 so as to not have to rebuild once someone
 # moves to 2.34 - see mailing list for more info:
@@ -35,19 +36,18 @@ DEPEND="${RDEPEND}
 	x11-proto/xproto
 	>=x11-proto/randrproto-1.2"
 
-PDEPEND=">=dev-python/pygtk-2.8:2
-	>=dev-python/pygobject-2.14:2"
+PDEPEND="
+	${PYTHON_DEPS}
+	>=dev-python/pygtk-2.8:2[${PYTHON_USEDEP}]
+	>=dev-python/pygobject-2.14:2[${PYTHON_USEDEP}]"
 
 # Includes X11/Xatom.h in libgnome-desktop/gnome-bg.c which comes from xproto
 # Includes X11/extensions/Xrandr.h that includes randr.h from randrproto (and
 # eventually libXrandr shouldn't RDEPEND on randrproto)
 
 pkg_setup() {
-	python_set_active_version 2
-	python_pkg_setup
 	G2CONF="${G2CONF}
-		--enable-mate-conf-import
-		PYTHON=$(PYTHON -a)"
+		--enable-mate-conf-import"
 	DOCS="AUTHORS ChangeLog HACKING NEWS README"
 }
 
