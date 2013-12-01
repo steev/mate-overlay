@@ -5,9 +5,9 @@
 EAPI="5"
 GCONF_DEBUG="no"
 MATE_LA_PUNT="yes"
-PYTHON_DEPEND="2:2.5"
+PYTHON_COMPAT=( python2_{6,7} )
 
-inherit mate python
+inherit mate python-r1
 
 DESCRIPTION="The MATE panel"
 HOMEPAGE="http://mate-desktop.org"
@@ -16,6 +16,7 @@ LICENSE="GPL-2 FDL-1.1 LGPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~arm ~x86"
 IUSE="+introspection networkmanager"
+REQUIRED_USE=${PYTHON_REQUIRED_USE}
 
 RDEPEND=">=mate-base/mate-desktop-1.5.0
 	>=x11-libs/pango-1.15.4[introspection?]
@@ -34,7 +35,8 @@ RDEPEND=">=mate-base/mate-desktop-1.5.0
 	>=x11-libs/libmatewnck-1.5.1
 	>=gnome-base/dconf-0.10.0
 	introspection? ( >=dev-libs/gobject-introspection-0.6.7 )
-	networkmanager? ( >=net-misc/networkmanager-0.6.7 )"
+	networkmanager? ( >=net-misc/networkmanager-0.6.7 )
+	${PYTHON_DEPS}"
 DEPEND="${RDEPEND}
 	>=dev-lang/perl-5
 	>=app-text/mate-doc-utils-1.2.1
@@ -50,7 +52,6 @@ pkg_setup() {
 		$(use_enable networkmanager network-manager)
 		$(use_enable introspection)"
 	DOCS="AUTHORS ChangeLog HACKING NEWS README"
-	python_set_active_version 2
 }
 
 src_prepare() {
