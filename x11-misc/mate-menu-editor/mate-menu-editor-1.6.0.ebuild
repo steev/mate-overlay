@@ -4,12 +4,10 @@
 
 EAPI="5"
 GCONF_DEBUG="no"
-PYTHON_DEPEND="2:2.5"
-PYTHON_USE_WITH="xml"
-SUPPORT_PYTHON_ABIS="1"
-RESTRICT_PYTHON_ABIS="3.*"
+PYTHON_COMPAT=( python{2_6,2_7} )
+PYTHON_REQ_USE="xml"
 
-inherit mate python
+inherit mate python-r1
 
 DESCRIPTION="Mozo menu editor for MATE"
 HOMEPAGE="http://mate-desktop.org"
@@ -19,7 +17,9 @@ SLOT="0"
 KEYWORDS="~amd64 ~arm ~x86"
 IUSE=""
 
-COMMON_DEPEND="dev-python/pygobject:2
+COMMON_DEPEND="
+	${PYTHON_DEPS}
+	dev-python/pygobject:2[${PYTHON_USEDEP}]
 	>=mate-base/mate-menus-1.2.0[introspection,python]"
 
 	# mate-panel needed for mate-desktop-item-edit
@@ -33,48 +33,31 @@ DEPEND="${COMMON_DEPEND}
 	sys-devel/gettext
 	virtual/pkgconfig"
 
-pkg_setup() {
-	DOCS="AUTHORS NEWS README"
-	python_pkg_setup
-}
+REQUIRED_USE=${PYTHON_REQUIRED_USE}
 
 src_prepare() {
 	mate_src_prepare
-
-	# Disable pyc compiling
-	python_clean_py-compile_files
-
 	python_copy_sources
 }
 
 src_configure() {
-	configure() {
-		G2CONF="${G2CONF} PYTHON=$(PYTHON -a)"
-		mate_src_configure
-	}
-	python_execute_function -s configure
+	python_foreach_impl run_in_build_dir mate_src_configure
 }
 
 src_compile() {
-	python_execute_function -s mate_src_compile
+	python_foreach_impl run_in_build_dir mate_src_compile
 }
 
 src_test() {
-	python_execute_function -s -d
+	python_foreach_impl run_in_build_dir default
 }
 
 src_install() {
-	python_execute_function -s mate_src_install
-	python_clean_installation_image
-	python_convert_shebangs -r 2 "${ED}"
-}
-
-pkg_postinst() {
-	mate_pkg_postinst
-	python_mod_optimize Mozo
-}
-
-pkg_postrm() {
-	mate_pkg_postrm
-	python_mod_cleanup Mozo
+	installing() {
+		mate_src_install
+		sed -e 's:#! '"${PYTHON}:#!/usr/bin/python:" \
+			-i mozo || die
+		python_doscript mozo
+	}
+	python_foreach_impl run_in_build_dir installing
 }
