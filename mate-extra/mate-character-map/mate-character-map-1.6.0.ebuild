@@ -5,9 +5,9 @@
 EAPI="5"
 MATE_LA_PUNT="yes"
 GCONF_DEBUG="yes"
-PYTHON_DEPEND="python? 2:2.5"
+PYTHON_COMPAT=( python{2_6,2_7} )
 
-inherit mate python
+inherit mate python-r1
 
 DESCRIPTION="Unicode character map viewer"
 HOMEPAGE="http://mate-desktop.org"
@@ -22,7 +22,8 @@ RDEPEND=">=dev-libs/glib-2.16.3
 	gtk3? ( x11-libs/gtk+:3 )
 	!gtk3? ( x11-libs/gtk+:2 )
 	introspection? ( >=dev-libs/gobject-introspection-0.6 )
-	python? ( >=dev-python/pygtk-2.7.1 )"
+	python? ( >=dev-python/pygtk-2.7.1[${PYTHON_USEDEP}]
+				${PYTHON_DEPS} )"
 DEPEND="${RDEPEND}
 	app-text/scrollkeeper
 	virtual/pkgconfig
@@ -30,13 +31,14 @@ DEPEND="${RDEPEND}
 	>=app-text/mate-doc-utils-1.2.1
 	test? ( ~app-text/docbook-xml-dtd-4.1.2 )"
 
+REQUIRED_USE="python? ( ${PYTHON_REQUIRED_USE} )"
+
 pkg_setup() {
 	G2CONF="${G2CONF}
 		$(use_enable introspection)
 		$(use_enable cjk unihan)
 		$(use_enable python python-bindings)"
 	DOCS="ChangeLog NEWS README TODO"
-	python_set_active_version 2
 }
 
 src_prepare() {
